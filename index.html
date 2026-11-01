@@ -10,11 +10,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script>
       /* fallback: if Google's CDN is blocked, load the all-in-one bundle from cdnjs */
-      if (
-        typeof firebase === "undefined" ||
-        !firebase.auth ||
-        !firebase.database
-      )
+      if (typeof firebase === "undefined" || !firebase.auth || !firebase.database)
         document.write(
           '<script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/9.15.0/firebase-compat.min.js"><\/script>'
         );
@@ -1847,639 +1843,111 @@
           #3a3a3a 12px
         );
       }
-
-      .mpc {
-        container-type: inline-size;
-        max-width: 700px;
-        margin: 0 auto;
-      }
-      .mpc .pkc {
-        margin-right: 6px;
-      }
-      .mpseat {
-        display: flex;
-        justify-content: space-between;
-        gap: 8px;
-        padding: 6px 8px;
-        border-radius: 8px;
-        margin-bottom: 4px;
-        background: rgba(255, 255, 255, 0.05);
-      }
-      .mpseat.turn {
-        outline: 2px solid var(--gold);
-      }
-      .mpseat.fold {
-        opacity: 0.45;
-      }
-      .mptabs {
-        display: flex;
-        gap: 8px;
-        justify-content: center;
-        margin: 0 0 14px;
-      }
-      .mptabs button.on {
-        outline: 2px solid var(--gold);
-      }
-      .mpbet {
-        position: absolute;
-        transform: translate(-50%, -50%);
-        background: rgba(0, 0, 0, 0.5);
-        color: #ffd45a;
-        font-weight: 800;
-        font-size: max(10px, 2.2cqw);
-        padding: 0.3cqw 1.8cqw;
-        border-radius: 3cqw;
-        z-index: 4;
-        white-space: nowrap;
-      }
+    
+      .mpc { container-type: inline-size; max-width: 700px; margin: 0 auto; }
+      .mpc .pkc { margin-right: 6px; }
+      .mpseat { display: flex; justify-content: space-between; gap: 8px; padding: 6px 8px; border-radius: 8px; margin-bottom: 4px; background: rgba(255,255,255,.05); }
+      .mpseat.turn { outline: 2px solid var(--gold); }
+      .mpseat.fold { opacity: .45; }
+      .mptabs { display: flex; gap: 8px; justify-content: center; margin: 0 0 14px; }
+      .mptabs button.on { outline: 2px solid var(--gold); }
+      .mpbet { position: absolute; transform: translate(-50%, -50%); background: rgba(0,0,0,.5); color: #ffd45a; font-weight: 800; font-size: max(10px, 2.2cqw); padding: 0.3cqw 1.8cqw; border-radius: 3cqw; z-index: 4; white-space: nowrap; }
 
       /* ---------- casino look for poker tables ---------- */
-      .pktable {
-        background: radial-gradient(
-          ellipse at 50% 20%,
-          #4a2216 0%,
-          #210f0a 55%,
-          #0b0504 100%
-        );
-        border: 1px solid #6b4a1f;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6),
-          inset 0 0 8cqw rgba(0, 0, 0, 0.7);
-      }
-      .pkoval {
-        background: radial-gradient(
-          ellipse at 50% 35%,
-          #2fae6e,
-          #17804d 55%,
-          #0d5a37
-        );
-        border: 3.4cqw solid #3b1c0c;
-        box-shadow: 0 0 0 0.45cqw #d9ae4b, 0 0 0 0.9cqw #3b1c0c,
-          inset 0 0 6cqw rgba(0, 0, 0, 0.45), 0 1.5cqw 5cqw rgba(0, 0, 0, 0.7);
-      }
-      .pkoval::before {
-        content: "";
-        position: absolute;
-        inset: 4%;
-        border: 0.3cqw solid rgba(217, 174, 75, 0.35);
-        border-radius: 38% / 50%;
-        pointer-events: none;
-      }
-      .pkoval::after {
-        content: "♠  LUCKY PLAY  ♠";
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 64%;
-        text-align: center;
-        font-weight: 800;
-        letter-spacing: 0.6cqw;
-        font-size: max(10px, 3cqw);
-        color: rgba(255, 230, 160, 0.16);
-        pointer-events: none;
-      }
-      .pkav {
-        background: radial-gradient(circle at 35% 30%, #8a6a35, #2b1b0a);
-        border: 0.55cqw solid #d9ae4b;
-        box-shadow: 0 0.6cqw 1.6cqw rgba(0, 0, 0, 0.6);
-      }
-      .pkstack {
-        background: linear-gradient(#171717, #000);
-        border: 0.35cqw solid #d9ae4b;
-        color: #ffe9a8;
-      }
-      .pkseat.me .pkstack {
-        border-color: #ffd45a;
-        color: #fff;
-        box-shadow: 0 0 2.5cqw rgba(255, 212, 90, 0.55);
-      }
-      .pkname {
-        color: #ffe9b0;
-        text-shadow: 0 0.2cqw 0.6cqw #000;
-      }
-      .pkpot {
-        background: linear-gradient(#f8dc85, #c8952a);
-        color: #3a2400;
-        border: 0.3cqw solid #fff3c4;
-        box-shadow: 0 0.5cqw 1.5cqw rgba(0, 0, 0, 0.5);
-      }
-      .pkhn {
-        color: #fff3c4;
-      }
-      .mpbet {
-        background: radial-gradient(circle at 35% 30%, #ee5a5a, #a01e1e);
-        color: #fff;
-        border: 0.45cqw dashed rgba(255, 255, 255, 0.85);
-        box-shadow: 0 0.4cqw 1cqw rgba(0, 0, 0, 0.6);
-      }
-      #mpPot {
-        top: 25%;
-      }
-      #mpF,
-      #mpC,
-      #mpR,
-      #mpA {
-        border: none;
-        border-radius: 10px;
-        color: #fff;
-        font-weight: 800;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-        box-shadow: 0 4px 0 rgba(0, 0, 0, 0.4),
-          inset 0 1px 0 rgba(255, 255, 255, 0.35);
-      }
-      #mpF {
-        background: linear-gradient(#e0405a, #a81d33);
-      }
-      #mpC {
-        background: linear-gradient(#f6b556, #d98a1c);
-      }
-      #mpR {
-        background: linear-gradient(#4cc46c, #2a8a45);
-      }
-      #mpA {
-        background: linear-gradient(#5db6ec, #2f78b0);
-      }
-      #mpF:disabled,
-      #mpC:disabled,
-      #mpR:disabled,
-      #mpA:disabled {
-        filter: grayscale(0.6) brightness(0.7);
-      }
-      .pkb:active {
-        transform: translateY(2px);
-      }
+      .pktable { background: radial-gradient(ellipse at 50% 20%, #4a2216 0%, #210f0a 55%, #0b0504 100%); border: 1px solid #6b4a1f; box-shadow: 0 10px 40px rgba(0,0,0,.6), inset 0 0 8cqw rgba(0,0,0,.7); }
+      .pkoval { background: radial-gradient(ellipse at 50% 35%, #2fae6e, #17804d 55%, #0d5a37); border: 3.4cqw solid #3b1c0c; box-shadow: 0 0 0 .45cqw #d9ae4b, 0 0 0 .9cqw #3b1c0c, inset 0 0 6cqw rgba(0,0,0,.45), 0 1.5cqw 5cqw rgba(0,0,0,.7); }
+      .pkoval::before { content: ""; position: absolute; inset: 4%; border: .3cqw solid rgba(217,174,75,.35); border-radius: 38% / 50%; pointer-events: none; }
+      .pkoval::after { content: "♠  LUCKY PLAY  ♠"; position: absolute; left: 0; right: 0; top: 64%; text-align: center; font-weight: 800; letter-spacing: .6cqw; font-size: max(10px, 3cqw); color: rgba(255,230,160,.16); pointer-events: none; }
+      .pkav { background: radial-gradient(circle at 35% 30%, #8a6a35, #2b1b0a); border: .55cqw solid #d9ae4b; box-shadow: 0 .6cqw 1.6cqw rgba(0,0,0,.6); }
+      .pkstack { background: linear-gradient(#171717, #000); border: .35cqw solid #d9ae4b; color: #ffe9a8; }
+      .pkseat.me .pkstack { border-color: #ffd45a; color: #fff; box-shadow: 0 0 2.5cqw rgba(255,212,90,.55); }
+      .pkname { color: #ffe9b0; text-shadow: 0 .2cqw .6cqw #000; }
+      .pkpot { background: linear-gradient(#f8dc85, #c8952a); color: #3a2400; border: .3cqw solid #fff3c4; box-shadow: 0 .5cqw 1.5cqw rgba(0,0,0,.5); }
+      .pkhn { color: #fff3c4; }
+      .mpbet { background: radial-gradient(circle at 35% 30%, #ee5a5a, #a01e1e); color: #fff; border: .45cqw dashed rgba(255,255,255,.85); box-shadow: 0 .4cqw 1cqw rgba(0,0,0,.6); }
+      #mpPot { top: 25%; }
+      #mpF, #mpC, #mpR, #mpA { border: none; border-radius: 10px; color: #fff; font-weight: 800; text-shadow: 0 1px 2px rgba(0,0,0,.5); box-shadow: 0 4px 0 rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.35); }
+      #mpF { background: linear-gradient(#e0405a, #a81d33); }
+      #mpC { background: linear-gradient(#f6b556, #d98a1c); }
+      #mpR { background: linear-gradient(#4cc46c, #2a8a45); }
+      #mpA { background: linear-gradient(#5db6ec, #2f78b0); }
+      #mpF:disabled, #mpC:disabled, #mpR:disabled, #mpA:disabled { filter: grayscale(.6) brightness(.7); }
+      .pkb:active { transform: translateY(2px); }
 
       /* ---------- celebrations ---------- */
-      .cf {
-        position: fixed;
-        top: -14px;
-        width: 10px;
-        height: 14px;
-        z-index: 9999;
-        pointer-events: none;
-        animation: cfall 2.6s ease-in forwards;
-      }
-      @keyframes cfall {
-        to {
-          transform: translate(var(--dx), 108vh) rotate(var(--r));
-          opacity: 0.85;
-        }
-      }
-      .xppop {
-        position: fixed;
-        left: 50%;
-        bottom: 24%;
-        z-index: 9998;
-        font-weight: 800;
-        font-size: 1.3rem;
-        color: #8fe3ff;
-        text-shadow: 0 2px 8px #000;
-        pointer-events: none;
-        animation: xpup 1.3s ease-out forwards;
-      }
-      @keyframes xpup {
-        0% {
-          opacity: 0;
-          transform: translate(-50%, 10px);
-        }
-        15% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0;
-          transform: translate(-50%, -70px);
-        }
-      }
-      .fanfare {
-        position: fixed;
-        left: 50%;
-        top: 32%;
-        z-index: 9999;
-        text-align: center;
-        padding: 18px 34px;
-        border-radius: 18px;
-        background: linear-gradient(#2a1a05, #0d0803);
-        border: 3px solid #d9ae4b;
-        color: #ffe9a8;
-        box-shadow: 0 0 50px rgba(255, 200, 80, 0.6);
-        pointer-events: none;
-        animation: fpop 2.8s ease forwards;
-      }
-      .fanfare b {
-        display: block;
-        font-size: 1.9rem;
-        letter-spacing: 1px;
-      }
-      .fanfare span {
-        font-size: 1.05rem;
-        color: #fff;
-      }
-      @keyframes fpop {
-        0% {
-          opacity: 0;
-          transform: translate(-50%, -50%) scale(0.5);
-        }
-        12% {
-          opacity: 1;
-          transform: translate(-50%, -50%) scale(1.1);
-        }
-        20% {
-          transform: translate(-50%, -50%) scale(1);
-        }
-        85% {
-          opacity: 1;
-          transform: translate(-50%, -50%) scale(1);
-        }
-        100% {
-          opacity: 0;
-          transform: translate(-50%, -62%) scale(1);
-        }
-      }
+      .cf { position: fixed; top: -14px; width: 10px; height: 14px; z-index: 9999; pointer-events: none; animation: cfall 2.6s ease-in forwards; }
+      @keyframes cfall { to { transform: translate(var(--dx), 108vh) rotate(var(--r)); opacity: .85; } }
+      .xppop { position: fixed; left: 50%; bottom: 24%; z-index: 9998; font-weight: 800; font-size: 1.3rem; color: #8fe3ff; text-shadow: 0 2px 8px #000; pointer-events: none; animation: xpup 1.3s ease-out forwards; }
+      @keyframes xpup { 0% { opacity: 0; transform: translate(-50%, 10px); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -70px); } }
+      .fanfare { position: fixed; left: 50%; top: 32%; z-index: 9999; text-align: center; padding: 18px 34px; border-radius: 18px; background: linear-gradient(#2a1a05, #0d0803); border: 3px solid #d9ae4b; color: #ffe9a8; box-shadow: 0 0 50px rgba(255,200,80,.6); pointer-events: none; animation: fpop 2.8s ease forwards; }
+      .fanfare b { display: block; font-size: 1.9rem; letter-spacing: 1px; }
+      .fanfare span { font-size: 1.05rem; color: #fff; }
+      @keyframes fpop { 0% { opacity: 0; transform: translate(-50%, -50%) scale(.5); } 12% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); } 20% { transform: translate(-50%, -50%) scale(1); } 85% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -62%) scale(1); } }
 
-      .crb {
-        background: #2a3240;
-        color: var(--text);
-        border: 2px solid #3a4558;
-        border-radius: 10px;
-        padding: 10px 14px;
-        font-weight: 700;
-        min-width: 96px;
-      }
-      .crb b {
-        display: block;
-        color: var(--gold);
-      }
+      .crb { background: #2a3240; color: var(--text); border: 2px solid #3a4558; border-radius: 10px; padding: 10px 14px; font-weight: 700; min-width: 96px; }
+      .crb b { display: block; color: var(--gold); }
 
-      .crfelt {
-        min-height: 410px;
-        overflow: hidden;
-      }
-      .crdice {
-        display: flex;
-        gap: 34px;
-        justify-content: center;
-        margin: 26px 0 12px;
-        perspective: 600px;
-      }
-      .die {
-        width: 84px;
-        height: 84px;
-        border-radius: 16px;
-        background: var(--dieb, linear-gradient(145deg, #fff, #d6d6d6));
-        box-shadow: inset -4px -5px 8px rgba(0, 0, 0, 0.18),
-          inset 3px 3px 6px rgba(255, 255, 255, 0.7),
-          0 12px 14px rgba(0, 0, 0, 0.45);
-        display: grid;
-        grid-template: repeat(3, 1fr) / repeat(3, 1fr);
-        padding: 12px;
-      }
-      .die i {
-        border-radius: 50%;
-        margin: auto;
-        width: 80%;
-        height: 80%;
-        background: var(--diep, radial-gradient(circle at 35% 30%, #555, #000));
-        visibility: hidden;
-      }
-      .die i.on {
-        visibility: visible;
-      }
-      .crdice.roll .die {
-        animation: crtumble 0.5s linear infinite;
-      }
-      .crdice.roll .die + .die {
-        animation-direction: reverse;
-        animation-duration: 0.42s;
-      }
-      .crdice.land .die {
-        animation: crland 0.55s cubic-bezier(0.2, 1.6, 0.4, 1);
-      }
-      @keyframes crtumble {
-        0% {
-          transform: translateY(0) rotate(0);
-        }
-        25% {
-          transform: translateY(-36px) rotate(110deg) scale(1.1);
-        }
-        50% {
-          transform: translateY(0) rotate(200deg);
-        }
-        75% {
-          transform: translateY(-22px) rotate(290deg) scale(1.05);
-        }
-        100% {
-          transform: translateY(0) rotate(360deg);
-        }
-      }
-      @keyframes crland {
-        0% {
-          transform: translateY(-44px) rotate(-28deg) scale(1.15);
-        }
-        60% {
-          transform: translateY(0) rotate(4deg) scale(0.95);
-        }
-        100% {
-          transform: none;
-        }
-      }
-      #crBanner {
-        top: auto;
-        bottom: 16px;
-        left: 50%;
-        transform: translateX(-50%);
-        max-width: 92%;
-        font-size: 1.2rem;
-        padding: 8px 20px;
-      }
-      #crBanner.on {
-        animation: crbn 0.5s cubic-bezier(0.2, 1.5, 0.4, 1);
-      }
-      @keyframes crbn {
-        from {
-          transform: translateX(-50%) scale(0.5);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(-50%) scale(1);
-          opacity: 1;
-        }
-      }
-      .crpuck {
-        position: absolute;
-        right: 16px;
-        top: 14px;
-        width: 58px;
-        height: 58px;
-        border-radius: 50%;
-        display: grid;
-        place-items: center;
-        font-weight: 900;
-        font-size: 0.78rem;
-        background: #1b1b1b;
-        color: #aaa;
-        border: 3px solid #666;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-        transition: all 0.5s;
-      }
-      .crpuck.on {
-        background: #fff;
-        color: #111;
-        border-color: #111;
-        transform: rotateY(360deg) scale(1.08);
-      }
-      .felt.crwin {
-        animation: crglow 1s;
-      }
-      .felt.crlose {
-        animation: crsh 0.45s;
-      }
-      @keyframes crglow {
-        0%,
-        100% {
-          box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.5);
-        }
-        40% {
-          box-shadow: inset 0 0 70px rgba(94, 226, 138, 0.7),
-            0 0 30px rgba(94, 226, 138, 0.5);
-        }
-      }
-      @keyframes crsh {
-        20% {
-          transform: translateX(-7px);
-        }
-        40% {
-          transform: translateX(6px);
-        }
-        60% {
-          transform: translateX(-4px);
-        }
-        80% {
-          transform: translateX(3px);
-        }
-      }
-      body[data-dice="ruby"] .die {
-        --dieb: linear-gradient(145deg, #e8465c, #8a1022);
-        --diep: radial-gradient(circle at 35% 30%, #fff, #ddd);
-      }
-      body[data-dice="onyx"] .die {
-        --dieb: linear-gradient(145deg, #3a3a3a, #050505);
-        --diep: radial-gradient(circle at 35% 30%, #ffe08a, #c8952a);
-      }
-      body[data-dice="gold"] .die {
-        --dieb: linear-gradient(145deg, #f8dc85, #b9861c);
-        --diep: radial-gradient(circle at 35% 30%, #6b4a0f, #2b1b00);
-      }
-      body[data-dice="glass"] .die {
-        --dieb: linear-gradient(
-          145deg,
-          rgba(190, 230, 255, 0.75),
-          rgba(90, 150, 210, 0.55)
-        );
-        --diep: radial-gradient(circle at 35% 30%, #fff, #bfe3ff);
-      }
-      body[data-dice="neon"] .die {
-        --dieb: #08101c;
-        --diep: #39ff9c;
-        border: 2px solid #39ff9c;
-        box-shadow: 0 0 18px #39ff9c88, 0 12px 14px rgba(0, 0, 0, 0.5);
-      }
-      body[data-dice="neon"] .die i.on {
-        box-shadow: 0 0 8px #39ff9c;
-      }
-      @keyframes crbow {
-        to {
-          background-position: 300% 0;
-        }
-      }
-      body[data-back="rainbow"] .pcard.back,
-      body[data-back="rainbow"] .pkc.back {
-        background: linear-gradient(
-          135deg,
-          #f33,
-          #fa0,
-          #ee3,
-          #3c5,
-          #29f,
-          #93f,
-          #f33
-        );
-        background-size: 300% 100%;
-        animation: crbow 5s linear infinite;
-      }
-      body[data-felt="teal"] .felt {
-        background: radial-gradient(ellipse at top, #1fa59a, #0b4f4a 70%);
-      }
-      body[data-felt="teal"] .pkoval {
-        background: radial-gradient(ellipse at 50% 35%, #1fa59a, #0b4f4a 70%);
-      }
-      body[data-felt="purple"] .felt {
-        background: radial-gradient(ellipse at top, #7a3fc0, #2e1458 70%);
-      }
-      body[data-felt="purple"] .pkoval {
-        background: radial-gradient(ellipse at 50% 35%, #7a3fc0, #2e1458 70%);
-      }
-      body[data-felt="sunset"] .felt {
-        background: radial-gradient(ellipse at top, #e9743a, #7a2a14 70%);
-      }
-      body[data-felt="sunset"] .pkoval {
-        background: radial-gradient(ellipse at 50% 35%, #e9743a, #7a2a14 70%);
-      }
-      body[data-felt="ice"] .felt {
-        background: radial-gradient(ellipse at top, #8fd0ee, #2a6a94 70%);
-      }
-      body[data-felt="ice"] .pkoval {
-        background: radial-gradient(ellipse at 50% 35%, #8fd0ee, #2a6a94 70%);
-      }
-      body[data-felt="gold"] .felt {
-        background: radial-gradient(ellipse at top, #d9b34a, #6b4a0f 70%);
-      }
-      body[data-felt="gold"] .pkoval {
-        background: radial-gradient(ellipse at 50% 35%, #d9b34a, #6b4a0f 70%);
-      }
-      body[data-felt="neon"] .felt,
-      body[data-felt="neon"] .pkoval {
-        background: linear-gradient(
-              rgba(0, 255, 200, 0.13) 1px,
-              transparent 1px
-            )
-            0 0/28px 28px,
-          linear-gradient(90deg, rgba(0, 255, 200, 0.13) 1px, transparent 1px) 0
-            0/28px 28px,
-          radial-gradient(ellipse at top, #10304a, #050b14 75%);
-      }
-      body[data-back="emerald"] .pcard.back,
-      body[data-back="emerald"] .pkc.back {
-        background: repeating-linear-gradient(
-          45deg,
-          #0b6b3a,
-          #0b6b3a 6px,
-          #27ae60 6px,
-          #27ae60 12px
-        );
-      }
-      body[data-back="violet"] .pcard.back,
-      body[data-back="violet"] .pkc.back {
-        background: repeating-linear-gradient(
-          45deg,
-          #4a1a8a,
-          #4a1a8a 6px,
-          #9b59d6 6px,
-          #9b59d6 12px
-        );
-      }
-      body[data-back="carbon"] .pcard.back,
-      body[data-back="carbon"] .pkc.back {
-        background: repeating-linear-gradient(
-          45deg,
-          #0d0d0d,
-          #0d0d0d 6px,
-          #2b2b2b 6px,
-          #2b2b2b 12px
-        );
-      }
-      body[data-back="checker"] .pcard.back,
-      body[data-back="checker"] .pkc.back {
-        background: repeating-conic-gradient(#c0392b 0 25%, #f1f1f1 0 50%) 0 0/16px
-          16px;
-      }
-      body[data-felt="rose"] .felt {
-        background: radial-gradient(ellipse at top, #c46a7c, #5a1f30 70%);
-      }
-      body[data-felt="rose"] .pkoval {
-        background: radial-gradient(ellipse at 50% 35%, #c46a7c, #5a1f30 70%);
-      }
-      body[data-felt="midnight"] .felt {
-        background: radial-gradient(ellipse at top, #2b3a67, #0a1022 70%);
-      }
-      body[data-felt="midnight"] .pkoval {
-        background: radial-gradient(ellipse at 50% 35%, #2b3a67, #0a1022 70%);
-      }
-      body[data-felt="lime"] .felt {
-        background: radial-gradient(ellipse at top, #7bd34a, #2c6b12 70%);
-      }
-      body[data-felt="lime"] .pkoval {
-        background: radial-gradient(ellipse at 50% 35%, #7bd34a, #2c6b12 70%);
-      }
-      body[data-felt="copper"] .felt {
-        background: radial-gradient(ellipse at top, #c77a4a, #5a2b12 70%);
-      }
-      body[data-felt="copper"] .pkoval {
-        background: radial-gradient(ellipse at 50% 35%, #c77a4a, #5a2b12 70%);
-      }
-      body[data-back="sakura"] .pcard.back,
-      body[data-back="sakura"] .pkc.back {
-        background: repeating-linear-gradient(
-          45deg,
-          #c2577a,
-          #c2577a 6px,
-          #f7c6d6 6px,
-          #f7c6d6 12px
-        );
-      }
-      body[data-back="ocean"] .pcard.back,
-      body[data-back="ocean"] .pkc.back {
-        background: repeating-linear-gradient(
-          45deg,
-          #0b3d6b,
-          #0b3d6b 6px,
-          #2f9bd6 6px,
-          #2f9bd6 12px
-        );
-      }
-      body[data-back="lava"] .pcard.back,
-      body[data-back="lava"] .pkc.back {
-        background: repeating-linear-gradient(
-          45deg,
-          #3a0a05,
-          #3a0a05 6px,
-          #ff5a1f 6px,
-          #ff5a1f 12px
-        );
-      }
-      body[data-dice="emerald"] .die {
-        --dieb: linear-gradient(145deg, #3ddc84, #0a6b3a);
-        --diep: radial-gradient(circle at 35% 30%, #fff, #d8f5e2);
-      }
-      body[data-dice="amethyst"] .die {
-        --dieb: linear-gradient(145deg, #b07cf0, #4a1a8a);
-        --diep: radial-gradient(circle at 35% 30%, #fff, #eadcff);
-      }
-      body[data-dice="bone"] .die {
-        --dieb: linear-gradient(145deg, #f1e6c8, #cdbd92);
-        --diep: radial-gradient(circle at 35% 30%, #5a4a2a, #1a1204);
-      }
-      .notice {
-        max-width: 640px;
-        margin: 6px auto 14px;
-        padding: 8px 12px;
-        border: 1px dashed #ffd45a;
-        border-radius: 10px;
-        color: #ffe9a8;
-        font-size: 0.78rem;
-        text-align: center;
-        background: rgba(122, 31, 31, 0.25);
-      }
-      .ack {
-        position: fixed;
-        inset: 0;
-        z-index: 99999;
-        background: rgba(0, 0, 0, 0.88);
-        display: grid;
-        place-items: center;
-        padding: 20px;
-      }
-      .ack div {
-        max-width: 460px;
-        background: #171c24;
-        border: 2px solid #ffd45a;
-        border-radius: 16px;
-        padding: 24px;
-        text-align: center;
-      }
-      .ack h2 {
-        color: #ffd45a;
-        margin: 0 0 10px;
-      }
-    </style>
+      .crfelt{min-height:410px;overflow:hidden}
+      .crdice{display:flex;gap:34px;justify-content:center;margin:26px 0 12px;perspective:600px}
+      .die{width:84px;height:84px;border-radius:16px;background:var(--dieb,linear-gradient(145deg,#fff,#d6d6d6));box-shadow:inset -4px -5px 8px rgba(0,0,0,.18),inset 3px 3px 6px rgba(255,255,255,.7),0 12px 14px rgba(0,0,0,.45);display:grid;grid-template:repeat(3,1fr)/repeat(3,1fr);padding:12px}
+      .die i{border-radius:50%;margin:auto;width:80%;height:80%;background:var(--diep,radial-gradient(circle at 35% 30%,#555,#000));visibility:hidden}
+      .die i.on{visibility:visible}
+      .crdice.roll .die{animation:crtumble .5s linear infinite}
+      .crdice.roll .die+.die{animation-direction:reverse;animation-duration:.42s}
+      .crdice.land .die{animation:crland .55s cubic-bezier(.2,1.6,.4,1)}
+      @keyframes crtumble{0%{transform:translateY(0) rotate(0)}25%{transform:translateY(-36px) rotate(110deg) scale(1.1)}50%{transform:translateY(0) rotate(200deg)}75%{transform:translateY(-22px) rotate(290deg) scale(1.05)}100%{transform:translateY(0) rotate(360deg)}}
+      @keyframes crland{0%{transform:translateY(-44px) rotate(-28deg) scale(1.15)}60%{transform:translateY(0) rotate(4deg) scale(.95)}100%{transform:none}}
+      #crBanner{top:auto;bottom:16px;left:50%;transform:translateX(-50%);max-width:92%;font-size:1.2rem;padding:8px 20px}
+      #crBanner.on{animation:crbn .5s cubic-bezier(.2,1.5,.4,1)}
+      @keyframes crbn{from{transform:translateX(-50%) scale(.5);opacity:0}to{transform:translateX(-50%) scale(1);opacity:1}}
+      .crpuck{position:absolute;right:16px;top:14px;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:.78rem;background:#1b1b1b;color:#aaa;border:3px solid #666;box-shadow:0 4px 10px rgba(0,0,0,.5);transition:all .5s}
+      .crpuck.on{background:#fff;color:#111;border-color:#111;transform:rotateY(360deg) scale(1.08)}
+      .felt.crwin{animation:crglow 1s}
+      .felt.crlose{animation:crsh .45s}
+      @keyframes crglow{0%,100%{box-shadow:inset 0 0 40px rgba(0,0,0,.5)}40%{box-shadow:inset 0 0 70px rgba(94,226,138,.7),0 0 30px rgba(94,226,138,.5)}}
+      @keyframes crsh{20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+      body[data-dice="ruby"] .die{--dieb:linear-gradient(145deg,#e8465c,#8a1022);--diep:radial-gradient(circle at 35% 30%,#fff,#ddd)}
+      body[data-dice="onyx"] .die{--dieb:linear-gradient(145deg,#3a3a3a,#050505);--diep:radial-gradient(circle at 35% 30%,#ffe08a,#c8952a)}
+      body[data-dice="gold"] .die{--dieb:linear-gradient(145deg,#f8dc85,#b9861c);--diep:radial-gradient(circle at 35% 30%,#6b4a0f,#2b1b00)}
+      body[data-dice="glass"] .die{--dieb:linear-gradient(145deg,rgba(190,230,255,.75),rgba(90,150,210,.55));--diep:radial-gradient(circle at 35% 30%,#fff,#bfe3ff)}
+      body[data-dice="neon"] .die{--dieb:#08101c;--diep:#39ff9c;border:2px solid #39ff9c;box-shadow:0 0 18px #39ff9c88,0 12px 14px rgba(0,0,0,.5)}
+      body[data-dice="neon"] .die i.on{box-shadow:0 0 8px #39ff9c}
+      @keyframes crbow{to{background-position:300% 0}}
+      body[data-back="rainbow"] .pcard.back,body[data-back="rainbow"] .pkc.back{background:linear-gradient(135deg,#f33,#fa0,#ee3,#3c5,#29f,#93f,#f33);background-size:300% 100%;animation:crbow 5s linear infinite}
+      body[data-felt="teal"] .felt{background:radial-gradient(ellipse at top,#1fa59a,#0b4f4a 70%)}
+      body[data-felt="teal"] .pkoval{background:radial-gradient(ellipse at 50% 35%,#1fa59a,#0b4f4a 70%)}
+      body[data-felt="purple"] .felt{background:radial-gradient(ellipse at top,#7a3fc0,#2e1458 70%)}
+      body[data-felt="purple"] .pkoval{background:radial-gradient(ellipse at 50% 35%,#7a3fc0,#2e1458 70%)}
+      body[data-felt="sunset"] .felt{background:radial-gradient(ellipse at top,#e9743a,#7a2a14 70%)}
+      body[data-felt="sunset"] .pkoval{background:radial-gradient(ellipse at 50% 35%,#e9743a,#7a2a14 70%)}
+      body[data-felt="ice"] .felt{background:radial-gradient(ellipse at top,#8fd0ee,#2a6a94 70%)}
+      body[data-felt="ice"] .pkoval{background:radial-gradient(ellipse at 50% 35%,#8fd0ee,#2a6a94 70%)}
+      body[data-felt="gold"] .felt{background:radial-gradient(ellipse at top,#d9b34a,#6b4a0f 70%)}
+      body[data-felt="gold"] .pkoval{background:radial-gradient(ellipse at 50% 35%,#d9b34a,#6b4a0f 70%)}
+      body[data-felt="neon"] .felt,body[data-felt="neon"] .pkoval{background:linear-gradient(rgba(0,255,200,.13) 1px,transparent 1px) 0 0/28px 28px,linear-gradient(90deg,rgba(0,255,200,.13) 1px,transparent 1px) 0 0/28px 28px,radial-gradient(ellipse at top,#10304a,#050b14 75%)}
+      body[data-back="emerald"] .pcard.back,body[data-back="emerald"] .pkc.back{background:repeating-linear-gradient(45deg,#0b6b3a,#0b6b3a 6px,#27ae60 6px,#27ae60 12px)}
+      body[data-back="violet"] .pcard.back,body[data-back="violet"] .pkc.back{background:repeating-linear-gradient(45deg,#4a1a8a,#4a1a8a 6px,#9b59d6 6px,#9b59d6 12px)}
+      body[data-back="carbon"] .pcard.back,body[data-back="carbon"] .pkc.back{background:repeating-linear-gradient(45deg,#0d0d0d,#0d0d0d 6px,#2b2b2b 6px,#2b2b2b 12px)}
+      body[data-back="checker"] .pcard.back,body[data-back="checker"] .pkc.back{background:repeating-conic-gradient(#c0392b 0 25%,#f1f1f1 0 50%) 0 0/16px 16px}
+          body[data-felt="rose"] .felt{background:radial-gradient(ellipse at top,#c46a7c,#5a1f30 70%)}
+      body[data-felt="rose"] .pkoval{background:radial-gradient(ellipse at 50% 35%,#c46a7c,#5a1f30 70%)}
+      body[data-felt="midnight"] .felt{background:radial-gradient(ellipse at top,#2b3a67,#0a1022 70%)}
+      body[data-felt="midnight"] .pkoval{background:radial-gradient(ellipse at 50% 35%,#2b3a67,#0a1022 70%)}
+      body[data-felt="lime"] .felt{background:radial-gradient(ellipse at top,#7bd34a,#2c6b12 70%)}
+      body[data-felt="lime"] .pkoval{background:radial-gradient(ellipse at 50% 35%,#7bd34a,#2c6b12 70%)}
+      body[data-felt="copper"] .felt{background:radial-gradient(ellipse at top,#c77a4a,#5a2b12 70%)}
+      body[data-felt="copper"] .pkoval{background:radial-gradient(ellipse at 50% 35%,#c77a4a,#5a2b12 70%)}
+      body[data-back="sakura"] .pcard.back,body[data-back="sakura"] .pkc.back{background:repeating-linear-gradient(45deg,#c2577a,#c2577a 6px,#f7c6d6 6px,#f7c6d6 12px)}
+      body[data-back="ocean"] .pcard.back,body[data-back="ocean"] .pkc.back{background:repeating-linear-gradient(45deg,#0b3d6b,#0b3d6b 6px,#2f9bd6 6px,#2f9bd6 12px)}
+      body[data-back="lava"] .pcard.back,body[data-back="lava"] .pkc.back{background:repeating-linear-gradient(45deg,#3a0a05,#3a0a05 6px,#ff5a1f 6px,#ff5a1f 12px)}
+      body[data-dice="emerald"] .die{--dieb:linear-gradient(145deg,#3ddc84,#0a6b3a);--diep:radial-gradient(circle at 35% 30%,#fff,#d8f5e2)}
+      body[data-dice="amethyst"] .die{--dieb:linear-gradient(145deg,#b07cf0,#4a1a8a);--diep:radial-gradient(circle at 35% 30%,#fff,#eadcff)}
+      body[data-dice="bone"] .die{--dieb:linear-gradient(145deg,#f1e6c8,#cdbd92);--diep:radial-gradient(circle at 35% 30%,#5a4a2a,#1a1204)}
+      .notice{max-width:640px;margin:6px auto 14px;padding:8px 12px;border:1px dashed #ffd45a;border-radius:10px;color:#ffe9a8;font-size:.78rem;text-align:center;background:rgba(122,31,31,.25)}
+      .ack{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.88);display:grid;place-items:center;padding:20px}
+      .ack div{max-width:460px;background:#171c24;border:2px solid #ffd45a;border-radius:16px;padding:24px;text-align:center}
+      .ack h2{color:#ffd45a;margin:0 0 10px}
+</style>
   </head>
   <body>
     <div id="errorBanner"></div>
@@ -2556,8 +2024,8 @@
             <span class="emoji">🎲</span>
             <h3>Craps</h3>
             <p>
-              Roll the dice. Pass line, don't pass, odds, field and prop bets.
-              Hit your point!
+              Roll the dice. Pass line, don't pass, odds, field and prop
+              bets. Hit your point!
             </p>
             <span class="play">Play now →</span>
           </button>
@@ -2778,51 +2246,28 @@
         <button class="back" data-go="home">← Back</button>
         <h2 class="title">Craps</h2>
         <div class="felt crfelt">
-          <div id="crBanner" class="bjbanner"></div>
-          <div id="crPuck" class="crpuck">OFF</div>
+          <div id="crBanner" class="bjbanner"></div><div id="crPuck" class="crpuck">OFF</div>
           <div class="bjlabel">Shooter <span id="crPoint"></span></div>
-          <div class="crdice" id="crDice">
-            <div class="die" id="crD1"></div>
-            <div class="die" id="crD2"></div>
-          </div>
-          <div class="bjmid">
-            PASS 1:1 · DON'T PASS 1:1 (12 pushes) · ODDS pay true odds
-          </div>
+          <div class="crdice" id="crDice"><div class="die" id="crD1"></div><div class="die" id="crD2"></div></div>
+          <div class="bjmid">PASS 1:1 · DON'T PASS 1:1 (12 pushes) · ODDS pay true odds</div>
         </div>
         <div id="crHist" class="history"></div>
-        <p id="crMsg" class="msg">
-          Set a chip value, bet on the Pass Line, then ROLL.
-        </p>
+        <p id="crMsg" class="msg">Set a chip value, bet on the Pass Line, then ROLL.</p>
         <div class="bjpanel">
           <div class="bet-row">
             <label for="crChip">Chip value</label>
-            <input
-              id="crChip"
-              class="bet-input"
-              type="number"
-              min="1"
-              step="1"
-              value="10"
-              inputmode="numeric"
-            />
+            <input id="crChip" class="bet-input" type="number" min="1" step="1" value="10" inputmode="numeric" />
           </div>
           <div class="quick" style="flex-wrap: wrap">
             <button class="crb" data-k="PL">Pass Line 1:1<b>0</b></button>
             <button class="crb" data-k="DP">Don't Pass 1:1<b>0</b></button>
             <button class="crb" data-k="PO">Pass Odds<b>0</b></button>
             <button class="crb" data-k="DO">Don't Pass Odds<b>0</b></button>
-            <button class="crb" data-k="FD">
-              Field 1:1 (2 pays 2:1, 12 pays 3:1)<b>0</b>
-            </button>
+            <button class="crb" data-k="FD">Field 1:1 (2 pays 2:1, 12 pays 3:1)<b>0</b></button>
             <button class="crb" data-k="A7">Any 7 4:1<b>0</b></button>
             <button class="crb" data-k="AC">Any Craps 7:1<b>0</b></button>
             <button class="crb" data-k="E11">Eleven 15:1<b>0</b></button>
-            <button class="crb" data-k="P4">Place 4 (9:5)<b>0</b></button
-            ><button class="crb" data-k="P5">Place 5 (7:5)<b>0</b></button
-            ><button class="crb" data-k="P6">Place 6 (7:6)<b>0</b></button
-            ><button class="crb" data-k="P8">Place 8 (7:6)<b>0</b></button
-            ><button class="crb" data-k="P9">Place 9 (7:5)<b>0</b></button
-            ><button class="crb" data-k="P10">Place 10 (9:5)<b>0</b></button>
+            <button class="crb" data-k="P4">Place 4 (9:5)<b>0</b></button><button class="crb" data-k="P5">Place 5 (7:5)<b>0</b></button><button class="crb" data-k="P6">Place 6 (7:6)<b>0</b></button><button class="crb" data-k="P8">Place 8 (7:6)<b>0</b></button><button class="crb" data-k="P9">Place 9 (7:5)<b>0</b></button><button class="crb" data-k="P10">Place 10 (9:5)<b>0</b></button>
           </div>
           <div class="controls">
             <button id="crClear" class="secondary">Clear bets</button>
@@ -2833,14 +2278,11 @@
           <h3>How it works</h3>
           <p class="rtp-note">
             Come-out roll: 7 or 11 wins the Pass Line, 2, 3 or 12 loses it
-            (Don't Pass wins on 2 and 3, pushes on 12). Any other number becomes
-            the point. Then roll the point again before a 7 to win Pass. Odds
-            can be added once a point is set (3-4-5× rule: up to 3× on 4/10, 4×
-            on 5/9, 5× on 6/8): Pass odds pay 2:1 on 4/10, 3:2 on 5/9, 6:5 on
-            6/8. One-roll bets (Field, Any 7, Any Craps, Eleven) resolve every
-            roll. Your line bet stays on the table until the point is decided.
-            Place bets (once a point is set) stay up, win when their number
-            rolls and lose on a 7: 4/10 pay 9:5, 5/9 pay 7:5, 6/8 pay 7:6.
+            (Don't Pass wins on 2 and 3, pushes on 12). Any other number
+            becomes the point. Then roll the point again before a 7 to win
+            Pass. Odds can be added once a point is set (3-4-5× rule: up to 3× on 4/10, 4× on 5/9, 5× on 6/8): Pass odds pay 2:1 on 4/10, 3:2 on 5/9, 6:5 on 6/8. One-roll
+            bets (Field, Any 7, Any Craps, Eleven) resolve every roll. Your
+            line bet stays on the table until the point is decided. Place bets (once a point is set) stay up, win when their number rolls and lose on a 7: 4/10 pay 9:5, 5/9 pay 7:5, 6/8 pay 7:6.
           </p>
         </div>
       </section>
@@ -2853,74 +2295,72 @@
           <button id="pkTabMp" class="secondary">👥 Play vs Players</button>
         </div>
         <div id="pkCpuWrap">
-          <div id="pkBuy" class="bjpanel">
-            <p class="rtp-note" style="text-align: center; margin: 0 0 10px">
-              No-Limit Texas Hold'em against 6 CPU opponents. Blinds 10 / 20.
-            </p>
-            <div class="bet-row">
-              <label for="pkBuyIn">Buy-in</label
-              ><input
-                id="pkBuyIn"
-                class="bet-input"
-                type="number"
-                min="200"
-                step="10"
-                value="1000"
-                inputmode="numeric"
-              />
-            </div>
-            <div class="controls">
-              <button id="pkSit" class="primary">SIT DOWN</button>
-            </div>
-            <p id="pkBuyMsg" class="msg">Minimum buy-in is 200 coins.</p>
+        <div id="pkBuy" class="bjpanel">
+          <p class="rtp-note" style="text-align: center; margin: 0 0 10px">
+            No-Limit Texas Hold'em against 6 CPU opponents. Blinds 10 / 20.
+          </p>
+          <div class="bet-row">
+            <label for="pkBuyIn">Buy-in</label
+            ><input
+              id="pkBuyIn"
+              class="bet-input"
+              type="number"
+              min="200"
+              step="10"
+              value="1000"
+              inputmode="numeric"
+            />
           </div>
-          <div id="pkGame" style="display: none">
-            <div class="pktable" id="pkTable">
-              <div class="pkoval"></div>
-              <div class="pkpot" id="pkPot"></div>
-              <div class="pkboard" id="pkBoard"></div>
-              <div class="pkhn" id="pkHN"></div>
-              <div class="pkhero" id="pkHero"></div>
-              <div class="pkdeck"><i></i><i></i><i></i></div>
-              <div id="pkBanner" class="bjbanner"></div>
-            </div>
-            <p id="pkMsg" class="msg">Waiting for the next hand...</p>
-            <div class="pkbar">
-              <button id="pkFold" class="pkb" disabled>Fold</button>
-              <button id="pkCall" class="pkb" disabled>Check</button>
-              <button id="pkMinus" class="pkb pm" disabled>−</button>
-              <button id="pkRaise" class="pkb" disabled>Raise</button>
-              <button id="pkPlus" class="pkb pm" disabled>+</button>
-              <button id="pkAll" class="pkb" disabled>All In</button>
-            </div>
-            <div class="pkbar sm">
-              <button class="pkq" data-f="min">Min</button
-              ><button class="pkq" data-f=".5">½ pot</button
-              ><button class="pkq" data-f=".75">¾ pot</button
-              ><button class="pkq" data-f="1">Pot</button>
-              <input
-                type="range"
-                id="pkSlide"
-                min="0"
-                max="100"
-                value="0"
-                disabled
-              />
-            </div>
-            <div class="controls">
-              <button id="pkNext" class="primary" disabled>NEXT HAND</button>
-              <button id="pkRebuy" class="secondary" style="display: none">
-                Rebuy
-              </button>
-              <button id="pkLeave" class="secondary">
-                Cash out &amp; leave
-              </button>
-            </div>
-            <div class="paytable">
-              <h3>Hand log</h3>
-              <div id="pkLog" class="pklog"></div>
-            </div>
+          <div class="controls">
+            <button id="pkSit" class="primary">SIT DOWN</button>
           </div>
+          <p id="pkBuyMsg" class="msg">Minimum buy-in is 200 coins.</p>
+        </div>
+        <div id="pkGame" style="display: none">
+          <div class="pktable" id="pkTable">
+            <div class="pkoval"></div>
+            <div class="pkpot" id="pkPot"></div>
+            <div class="pkboard" id="pkBoard"></div>
+            <div class="pkhn" id="pkHN"></div>
+            <div class="pkhero" id="pkHero"></div>
+            <div class="pkdeck"><i></i><i></i><i></i></div>
+            <div id="pkBanner" class="bjbanner"></div>
+          </div>
+          <p id="pkMsg" class="msg">Waiting for the next hand...</p>
+          <div class="pkbar">
+            <button id="pkFold" class="pkb" disabled>Fold</button>
+            <button id="pkCall" class="pkb" disabled>Check</button>
+            <button id="pkMinus" class="pkb pm" disabled>−</button>
+            <button id="pkRaise" class="pkb" disabled>Raise</button>
+            <button id="pkPlus" class="pkb pm" disabled>+</button>
+            <button id="pkAll" class="pkb" disabled>All In</button>
+          </div>
+          <div class="pkbar sm">
+            <button class="pkq" data-f="min">Min</button
+            ><button class="pkq" data-f=".5">½ pot</button
+            ><button class="pkq" data-f=".75">¾ pot</button
+            ><button class="pkq" data-f="1">Pot</button>
+            <input
+              type="range"
+              id="pkSlide"
+              min="0"
+              max="100"
+              value="0"
+              disabled
+            />
+          </div>
+          <div class="controls">
+            <button id="pkNext" class="primary" disabled>NEXT HAND</button>
+            <button id="pkRebuy" class="secondary" style="display: none">
+              Rebuy
+            </button>
+            <button id="pkLeave" class="secondary">Cash out &amp; leave</button>
+          </div>
+          <div class="paytable">
+            <h3>Hand log</h3>
+            <div id="pkLog" class="pklog"></div>
+          </div>
+        </div>
         </div>
         <div id="mpWrap" style="display: none">
           <div id="mpLobby" class="bjpanel">
@@ -2929,38 +2369,15 @@
             </p>
             <div class="bet-row">
               <label for="mpBuy">Buy-in</label
-              ><input
-                id="mpBuy"
-                class="bet-input"
-                type="number"
-                min="200"
-                max="1000"
-                step="10"
-                value="500"
-                inputmode="numeric"
-              />
+              ><input id="mpBuy" class="bet-input" type="number" min="200" max="1000" step="10" value="500" inputmode="numeric" />
             </div>
             <div class="controls">
               <button id="mpQuick" class="primary">QUICK MATCH</button>
             </div>
             <h3 style="color: var(--gold)">Create a table</h3>
-            <input
-              id="mpName"
-              class="bet-input"
-              placeholder="Table name"
-              maxlength="24"
-              style="width: 100%; margin-bottom: 8px"
-            />
-            <label style="display: block; margin-bottom: 8px"
-              ><input id="mpPriv" type="checkbox" /> Private (invite
-              only)</label
-            >
-            <input
-              id="mpInv"
-              class="bet-input"
-              placeholder="Invite usernames, comma separated"
-              style="width: 100%; margin-bottom: 8px; display: none"
-            />
+            <input id="mpName" class="bet-input" placeholder="Table name" maxlength="24" style="width: 100%; margin-bottom: 8px" />
+            <label style="display: block; margin-bottom: 8px"><input id="mpPriv" type="checkbox" /> Private (invite only)</label>
+            <input id="mpInv" class="bet-input" placeholder="Invite usernames, comma separated" style="width: 100%; margin-bottom: 8px; display: none" />
             <div class="controls">
               <button id="mpCreate" class="secondary">Create table</button>
             </div>
@@ -2969,10 +2386,7 @@
             <p id="mpMsg" class="msg"></p>
           </div>
           <div id="mpTable" style="display: none">
-            <h3
-              id="mpTitle"
-              style="text-align: center; color: var(--gold)"
-            ></h3>
+            <h3 id="mpTitle" style="text-align: center; color: var(--gold)"></h3>
             <div class="pktable" id="mpFelt">
               <div class="pkoval"></div>
               <div class="pkpot" id="mpPot"></div>
@@ -2986,12 +2400,7 @@
             <div id="mpBar" class="pkbar" style="display: none">
               <button id="mpF" class="pkb">Fold</button>
               <button id="mpC" class="pkb">Check</button>
-              <input
-                id="mpAmt"
-                class="bet-input"
-                type="number"
-                style="width: 90px"
-              />
+              <input id="mpAmt" class="bet-input" type="number" style="width: 90px" />
               <button id="mpR" class="pkb">Raise</button>
               <button id="mpA" class="pkb">All In</button>
             </div>
@@ -3135,8 +2544,8 @@
           value.</label
         >
         <p class="rtp-note" style="margin: 0 0 8px; font-size: 0.8rem">
-          Free-to-play social game. Play coins have no cash value and cannot be
-          exchanged for money or prizes.
+          Free-to-play social game. Play coins have no cash value and cannot
+          be exchanged for money or prizes.
         </p>
         <p id="authMsg" class="msg"></p>
         <button id="authGo" class="primary"></button>
@@ -3170,6 +2579,12 @@
         "
       >
         <h2 style="color: var(--gold); text-align: center">🛡 Admin panel</h2>
+        <div class="controls" style="flex-wrap: wrap; margin-bottom: 8px">
+          <input id="admAmt" class="bet-input" type="number" min="1" step="1" placeholder="Coins to give" style="flex: 1 1 130px" />
+          <input id="admUser" class="bet-input" type="text" maxlength="16" placeholder="Username (or press Give on a row)" style="flex: 2 1 190px" />
+          <button id="admGive" class="primary">🎁 Give coins</button>
+        </div>
+        <p id="admMsg" class="msg"></p>
         <div id="admList" class="rtp-note"></div>
         <div class="controls">
           <button id="admClose" class="primary">Close</button>
@@ -3210,12 +2625,8 @@
         <div class="controls" style="flex-wrap: wrap">
           <button id="pfChange" class="secondary">Change password</button>
           <button id="pfExport" class="secondary">Export backup</button>
-          <button id="pfAdmin" class="secondary" style="display: none">
-            🛡 Admin
-          </button>
-          <button id="pfImport" class="secondary" style="display: none">
-            Import backup
-          </button>
+          <button id="pfAdmin" class="secondary" style="display: none">🛡 Admin</button>
+          <button id="pfImport" class="secondary" style="display: none">Import backup</button>
           <input id="pfFile" type="file" accept=".json" style="display: none" />
           <button id="pfDelete" class="secondary" style="color: var(--lose)">
             Delete account
@@ -3857,36 +3268,18 @@
           t.classList.add("show");
         }
         function confetti(n) {
-          var cols = [
-            "#ffd45a",
-            "#ff5a7a",
-            "#5ee28a",
-            "#5db6ec",
-            "#fff",
-            "#f0a040",
-          ];
+          var cols = ["#ffd45a", "#ff5a7a", "#5ee28a", "#5db6ec", "#fff", "#f0a040"];
           for (var k = 0; k < n; k++) {
             var c = document.createElement("i");
             c.className = "cf";
             c.style.left = Math.random() * 100 + "vw";
             c.style.background = cols[k % cols.length];
-            c.style.setProperty(
-              "--dx",
-              Math.round(Math.random() * 200 - 100) + "px"
-            );
-            c.style.setProperty(
-              "--r",
-              Math.round(Math.random() * 900 - 450) + "deg"
-            );
+            c.style.setProperty("--dx", Math.round(Math.random() * 200 - 100) + "px");
+            c.style.setProperty("--r", Math.round(Math.random() * 900 - 450) + "deg");
             c.style.animationDelay = Math.random() * 0.5 + "s";
             c.style.animationDuration = 2 + Math.random() * 1.2 + "s";
             document.body.appendChild(c);
-            setTimeout(
-              function (e) {
-                if (e.parentNode) e.parentNode.removeChild(e);
-              }.bind(null, c),
-              4200
-            );
+            setTimeout(function (e) { if (e.parentNode) e.parentNode.removeChild(e); }.bind(null, c), 4200);
           }
         }
         function fanfare(title, sub, lv, big) {
@@ -3896,38 +3289,22 @@
           d.firstChild.textContent = title;
           d.lastChild.textContent = sub;
           document.body.appendChild(d);
-          setTimeout(function () {
-            if (d.parentNode) d.parentNode.removeChild(d);
-          }, 3000);
+          setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 3000);
           confetti(big ? 110 : 60);
-          try {
-            SFX.win(lv || 2);
-          } catch (e) {}
+          try { SFX.win(lv || 2); } catch (e) {}
         }
         function xpPop(n) {
           var d = document.createElement("div");
           d.className = "xppop";
           d.textContent = "+" + n + " XP";
           document.body.appendChild(d);
-          setTimeout(function () {
-            if (d.parentNode) d.parentNode.removeChild(d);
-          }, 1400);
+          setTimeout(function () { if (d.parentNode) d.parentNode.removeChild(d); }, 1400);
         }
-        var STREAK_BONUS = {
-          3: 50,
-          5: 100,
-          7: 200,
-          10: 400,
-          15: 750,
-          20: 1500,
-        };
+        var STREAK_BONUS = { 3: 50, 5: 100, 7: 200, 10: 400, 15: 750, 20: 1500 };
         function recordRound(wager, payout) {
           var st = state.stats,
             net = payout - wager,
-            xpGain =
-              10 +
-              Math.min(30, Math.floor(wager / 10)) +
-              (payout > wager ? 10 : 0);
+            xpGain = 10 + Math.min(30, Math.floor(wager / 10)) + (payout > wager ? 10 : 0);
           st.spins++;
           st.wagered += wager;
           st.returned += payout;
@@ -3942,25 +3319,13 @@
           showToast(net);
           if (wager > 0 || payout > 0) xpPop(xpGain);
           if (net > 0 && wager > 0) {
-            if (net >= wager * 20 && net >= 1000)
-              fanfare("💰 HUGE WIN!", "+" + fmt(net) + " 🪙", 3, true);
-            else if (net >= wager * 5 && net >= 200)
-              fanfare("🎉 BIG WIN!", "+" + fmt(net) + " 🪙", 2, false);
+            if (net >= wager * 20 && net >= 1000) fanfare("💰 HUGE WIN!", "+" + fmt(net) + " 🪙", 3, true);
+            else if (net >= wager * 5 && net >= 200) fanfare("🎉 BIG WIN!", "+" + fmt(net) + " 🪙", 2, false);
           }
           var sb = payout > wager ? STREAK_BONUS[pr.wstreak] : 0;
           if (sb) {
             gift(sb);
-            setTimeout(
-              function () {
-                fanfare(
-                  "🔥 " + pr.wstreak + "-WIN STREAK!",
-                  "+" + fmt(sb) + " 🪙 bonus",
-                  2,
-                  false
-                );
-              },
-              net > 0 && net >= wager * 5 ? 3200 : 600
-            );
+            setTimeout(function () { fanfare("🔥 " + pr.wstreak + "-WIN STREAK!", "+" + fmt(sb) + " 🪙 bonus", 2, false); }, net > 0 && net >= wager * 5 ? 3200 : 600);
           }
         }
         function checkGameOver() {
@@ -4037,8 +3402,7 @@
         }
         $$("[data-go]").forEach(function (b) {
           b.addEventListener("click", function () {
-            if (!busy && !crBlock(b.getAttribute("data-go")))
-              show(b.getAttribute("data-go"));
+            if (!busy && !crBlock(b.getAttribute("data-go"))) show(b.getAttribute("data-go"));
           });
         });
 
@@ -6609,9 +5973,7 @@
           names.forEach(function (n) {
             total += won[n];
           });
-          var hp = PK.players.filter(function (q) {
-            return q.human;
-          })[0];
+          var hp = PK.players.filter(function (q) { return q.human; })[0];
           heroWon = !!hp && (won[hp.name] || 0) > hp.total;
           PK.players.forEach(function (p) {
             p.total = 0;
@@ -7538,12 +6900,7 @@
         function freshProg() {
           return {
             xp: 0,
-            own: {
-              felt: ["green"],
-              back: ["blue"],
-              dice: ["ivory"],
-              avatar: ["🙂"],
-            },
+            own: { felt: ["green"], back: ["blue"], dice: ["ivory"], avatar: ["🙂"] },
             sel: { felt: "green", back: "blue", dice: "ivory", avatar: "🙂" },
             daily: { d: "", c: {}, g: [] },
             streak: 0,
@@ -7559,10 +6916,7 @@
         }
         function P() {
           var pr = state.prog || (state.prog = freshProg());
-          if (!pr.own.dice) {
-            pr.own.dice = ["ivory"];
-            pr.sel.dice = "ivory";
-          }
+          if (!pr.own.dice) { pr.own.dice = ["ivory"]; pr.sel.dice = "ivory"; }
           return pr;
         }
         function gift(n) {
@@ -7580,454 +6934,56 @@
             n.classList.add("show");
           }, delay || 0);
         }
-        function C(k) {
-          return (P().cnt || {})[k] || 0;
-        }
-        function cnt(k, n) {
-          var pr = P();
-          pr.cnt = pr.cnt || {};
-          pr.cnt[k] = (pr.cnt[k] || 0) + n;
-          chk();
-        }
-        function ownN() {
-          var o = P().own,
-            t = 0;
-          Object.keys(o).forEach(function (k) {
-            t += o[k].length;
-          });
-          return t;
-        }
-        function allN() {
-          var t = 0;
-          Object.keys(SHOP).forEach(function (k) {
-            t += SHOP[k].length;
-          });
-          return t;
-        }
-        function lvl() {
-          return lvOf(P().xp);
-        }
+        function C(k) { return (P().cnt || {})[k] || 0; }
+        function cnt(k, n) { var pr = P(); pr.cnt = pr.cnt || {}; pr.cnt[k] = (pr.cnt[k] || 0) + n; chk(); }
+        function ownN() { var o = P().own, t = 0; Object.keys(o).forEach(function (k) { t += o[k].length; }); return t; }
+        function allN() { var t = 0; Object.keys(SHOP).forEach(function (k) { t += SHOP[k].length; }); return t; }
+        function lvl() { return lvOf(P().xp); }
         var BADGES = {
-          royal: {
-            e: "👑",
-            n: "Royal Flush",
-            d: "Make a royal flush at poker",
-            r: 5000,
-          },
-          fh: {
-            e: "🏠",
-            n: "Full House",
-            d: "Make a full house or better at a poker showdown",
-            r: 500,
-          },
-          jackpot: {
-            e: "🎰",
-            n: "Slots Jackpot",
-            d: "Hit a x1000+ slot win",
-            r: 3000,
-          },
-          survivor: {
-            e: "🛡️",
-            n: "Survivor",
-            d: "Play 1,500 rounds without going broke",
-            r: 1500,
-            g: function () {
-              return P().alive || 0;
-            },
-            t: 1500,
-          },
-          high: {
-            e: "💎",
-            n: "High Roller",
-            d: "Reach a peak balance of 25,000",
-            r: 1500,
-            g: function () {
-              return state.stats.peak;
-            },
-            t: 25000,
-          },
-          streak7: {
-            e: "🔥",
-            n: "On Fire",
-            d: "Log in 7 days in a row",
-            r: 700,
-            g: function () {
-              return P().streak;
-            },
-            t: 7,
-          },
-          streak30: {
-            e: "📅",
-            n: "Dedicated",
-            d: "Log in 30 days in a row",
-            r: 5000,
-            g: function () {
-              return P().streak;
-            },
-            t: 30,
-          },
-          r500: {
-            e: "🎲",
-            n: "Regular",
-            d: "Play 500 rounds",
-            r: 500,
-            g: function () {
-              return state.stats.spins;
-            },
-            t: 500,
-          },
-          r2500: {
-            e: "⚙️",
-            n: "Grinder",
-            d: "Play 2,500 rounds",
-            r: 2000,
-            g: function () {
-              return state.stats.spins;
-            },
-            t: 2500,
-          },
-          r10k: {
-            e: "🏛️",
-            n: "Lifer",
-            d: "Play 10,000 rounds",
-            r: 8000,
-            g: function () {
-              return state.stats.spins;
-            },
-            t: 10000,
-          },
-          wag100: {
-            e: "💸",
-            n: "Big Spender",
-            d: "Wager 100,000 coins in total",
-            r: 1500,
-            g: function () {
-              return state.stats.wagered;
-            },
-            t: 100000,
-          },
-          wag1m: {
-            e: "🐋",
-            n: "Whale",
-            d: "Wager 1,000,000 coins in total",
-            r: 10000,
-            g: function () {
-              return state.stats.wagered;
-            },
-            t: 1000000,
-          },
-          big10: {
-            e: "🍀",
-            n: "Lucky Strike",
-            d: "Win 10,000 coins in a single round",
-            r: 2000,
-            g: function () {
-              return state.stats.biggest;
-            },
-            t: 10000,
-          },
-          big100: {
-            e: "⚡",
-            n: "Jackpot Royalty",
-            d: "Win 100,000 coins in a single round",
-            r: 15000,
-            g: function () {
-              return state.stats.biggest;
-            },
-            t: 100000,
-          },
-          peak100: {
-            e: "🏦",
-            n: "Six Figures",
-            d: "Reach a peak balance of 100,000",
-            r: 5000,
-            g: function () {
-              return state.stats.peak;
-            },
-            t: 100000,
-          },
-          peak1m: {
-            e: "🤴",
-            n: "Millionaire",
-            d: "Reach a peak balance of 1,000,000",
-            r: 25000,
-            g: function () {
-              return state.stats.peak;
-            },
-            t: 1000000,
-          },
-          ws8: {
-            e: "🖐️",
-            n: "Hot Hand",
-            d: "Win 8 rounds in a row",
-            r: 1500,
-            g: function () {
-              return P().wstreak || 0;
-            },
-            t: 8,
-          },
-          ws15: {
-            e: "☄️",
-            n: "Untouchable",
-            d: "Win 15 rounds in a row",
-            r: 10000,
-            g: function () {
-              return P().wstreak || 0;
-            },
-            t: 15,
-          },
-          lv10: {
-            e: "⭐",
-            n: "Seasoned",
-            d: "Reach level 10",
-            r: 1000,
-            g: lvl,
-            t: 10,
-          },
-          lv25: {
-            e: "🌟",
-            n: "Veteran",
-            d: "Reach level 25",
-            r: 5000,
-            g: lvl,
-            t: 25,
-          },
-          lv50: {
-            e: "🎖️",
-            n: "Casino Royalty",
-            d: "Reach level 50",
-            r: 20000,
-            g: lvl,
-            t: 50,
-          },
-          w_roulette: {
-            e: "🎡",
-            n: "Wheel Whisperer",
-            d: "Win 100 roulette spins",
-            r: 2000,
-            g: function () {
-              return C("w_roulette");
-            },
-            t: 100,
-          },
-          w_slots: {
-            e: "🍒",
-            n: "Reel Deal",
-            d: "Win 250 slot spins",
-            r: 2000,
-            g: function () {
-              return C("w_slots");
-            },
-            t: 250,
-          },
-          w_blackjack: {
-            e: "🃏",
-            n: "Twenty-One Shark",
-            d: "Win 150 blackjack hands",
-            r: 2500,
-            g: function () {
-              return C("w_blackjack");
-            },
-            t: 150,
-          },
-          w_baccarat: {
-            e: "🎴",
-            n: "Punto Pro",
-            d: "Win 100 baccarat rounds",
-            r: 2500,
-            g: function () {
-              return C("w_baccarat");
-            },
-            t: 100,
-          },
-          w_poker: {
-            e: "♠️",
-            n: "Poker Face",
-            d: "Win 50 poker hands",
-            r: 3000,
-            g: function () {
-              return C("w_poker");
-            },
-            t: 50,
-          },
-          crPt: {
-            e: "🎯",
-            n: "Point Master",
-            d: "Hit your point 50 times in craps",
-            r: 3000,
-            g: function () {
-              return C("crPt");
-            },
-            t: 50,
-          },
-          crNat: {
-            e: "🍀",
-            n: "Naturally Lucky",
-            d: "Win 40 come-out naturals in craps",
-            r: 2500,
-            g: function () {
-              return C("crNat");
-            },
-            t: 40,
-          },
-          fash: {
-            e: "🛍️",
-            n: "Fashionista",
-            d: "Own 20 cosmetics",
-            r: 2000,
-            g: ownN,
-            t: 20,
-          },
-          all: {
-            e: "🏆",
-            n: "Completionist",
-            d: "Own every cosmetic in the shop",
-            r: 25000,
-            g: function () {
-              return ownN() >= allN() ? 1 : 0;
-            },
-            t: 1,
-          },
-          crMax20: {
-            e: "🎢",
-            n: "Long Roller",
-            d: "Roll 20 times in a single hand (one point cycle)",
-            r: 8000,
-            g: function () {
-              return C("crMax");
-            },
-            t: 20,
-          },
-          crMax40: {
-            e: "🌋",
-            n: "Hot Shooter",
-            d: "Roll 40 times in a single hand",
-            r: 40000,
-            g: function () {
-              return C("crMax");
-            },
-            t: 40,
-          },
-          crPlace50: {
-            e: "📍",
-            n: "Place Your Bets",
-            d: "Win 50 craps place bets",
-            r: 2500,
-            g: function () {
-              return C("crPlace");
-            },
-            t: 50,
-          },
-          crPlace250: {
-            e: "🧲",
-            n: "Place Master",
-            d: "Win 250 craps place bets",
-            r: 9000,
-            g: function () {
-              return C("crPlace");
-            },
-            t: 250,
-          },
-          w_craps: {
-            e: "🎲",
-            n: "Dice Dynasty",
-            d: "Win 150 craps rounds",
-            r: 4000,
-            g: function () {
-              return C("w_craps");
-            },
-            t: 150,
-          },
-          peak10m: {
-            e: "🏰",
-            n: "Mogul",
-            d: "Reach a peak balance of 10,000,000",
-            r: 60000,
-            g: function () {
-              return state.stats.peak;
-            },
-            t: 10000000,
-          },
-          wag10m: {
-            e: "🌊",
-            n: "Tidal Wave",
-            d: "Wager 10,000,000 coins in total",
-            r: 40000,
-            g: function () {
-              return state.stats.wagered;
-            },
-            t: 10000000,
-          },
-          r25k: {
-            e: "♾️",
-            n: "Endless",
-            d: "Play 25,000 rounds",
-            r: 25000,
-            g: function () {
-              return state.stats.spins;
-            },
-            t: 25000,
-          },
-          hoard40: {
-            e: "🧳",
-            n: "Hoarder",
-            d: "Own 40 cosmetics",
-            r: 6000,
-            g: function () {
-              return ownN();
-            },
-            t: 40,
-          },
-          w_roulette500: {
-            e: "🎡",
-            n: "Wheel Legend",
-            d: "Win 500 roulette spins",
-            r: 8000,
-            g: function () {
-              return C("w_roulette");
-            },
-            t: 500,
-          },
-          w_slots1000: {
-            e: "🍀",
-            n: "Slot Legend",
-            d: "Win 1,000 slot spins",
-            r: 8000,
-            g: function () {
-              return C("w_slots");
-            },
-            t: 1000,
-          },
-          w_blackjack600: {
-            e: "🂡",
-            n: "Blackjack Legend",
-            d: "Win 600 blackjack hands",
-            r: 9000,
-            g: function () {
-              return C("w_blackjack");
-            },
-            t: 600,
-          },
-          w_poker250: {
-            e: "🂮",
-            n: "Poker Legend",
-            d: "Win 250 poker hands",
-            r: 10000,
-            g: function () {
-              return C("w_poker");
-            },
-            t: 250,
-          },
-          w_baccarat400: {
-            e: "🎴",
-            n: "Baccarat Legend",
-            d: "Win 400 baccarat rounds",
-            r: 9000,
-            g: function () {
-              return C("w_baccarat");
-            },
-            t: 400,
-          },
+          royal: { e: "👑", n: "Royal Flush", d: "Make a royal flush at poker", r: 5000 },
+          fh: { e: "🏠", n: "Full House", d: "Make a full house or better at a poker showdown", r: 500 },
+          jackpot: { e: "🎰", n: "Slots Jackpot", d: "Hit a x1000+ slot win", r: 3000 },
+          survivor: { e: "🛡️", n: "Survivor", d: "Play 1,500 rounds without going broke", r: 1500, g: function () { return P().alive || 0; }, t: 1500 },
+          high: { e: "💎", n: "High Roller", d: "Reach a peak balance of 25,000", r: 1500, g: function () { return state.stats.peak; }, t: 25000 },
+          streak7: { e: "🔥", n: "On Fire", d: "Log in 7 days in a row", r: 700, g: function () { return P().streak; }, t: 7 },
+          streak30: { e: "📅", n: "Dedicated", d: "Log in 30 days in a row", r: 5000, g: function () { return P().streak; }, t: 30 },
+          r500: { e: "🎲", n: "Regular", d: "Play 500 rounds", r: 500, g: function () { return state.stats.spins; }, t: 500 },
+          r2500: { e: "⚙️", n: "Grinder", d: "Play 2,500 rounds", r: 2000, g: function () { return state.stats.spins; }, t: 2500 },
+          r10k: { e: "🏛️", n: "Lifer", d: "Play 10,000 rounds", r: 8000, g: function () { return state.stats.spins; }, t: 10000 },
+          wag100: { e: "💸", n: "Big Spender", d: "Wager 100,000 coins in total", r: 1500, g: function () { return state.stats.wagered; }, t: 100000 },
+          wag1m: { e: "🐋", n: "Whale", d: "Wager 1,000,000 coins in total", r: 10000, g: function () { return state.stats.wagered; }, t: 1000000 },
+          big10: { e: "🍀", n: "Lucky Strike", d: "Win 10,000 coins in a single round", r: 2000, g: function () { return state.stats.biggest; }, t: 10000 },
+          big100: { e: "⚡", n: "Jackpot Royalty", d: "Win 100,000 coins in a single round", r: 15000, g: function () { return state.stats.biggest; }, t: 100000 },
+          peak100: { e: "🏦", n: "Six Figures", d: "Reach a peak balance of 100,000", r: 5000, g: function () { return state.stats.peak; }, t: 100000 },
+          peak1m: { e: "🤴", n: "Millionaire", d: "Reach a peak balance of 1,000,000", r: 25000, g: function () { return state.stats.peak; }, t: 1000000 },
+          ws8: { e: "🖐️", n: "Hot Hand", d: "Win 8 rounds in a row", r: 1500, g: function () { return P().wstreak || 0; }, t: 8 },
+          ws15: { e: "☄️", n: "Untouchable", d: "Win 15 rounds in a row", r: 10000, g: function () { return P().wstreak || 0; }, t: 15 },
+          lv10: { e: "⭐", n: "Seasoned", d: "Reach level 10", r: 1000, g: lvl, t: 10 },
+          lv25: { e: "🌟", n: "Veteran", d: "Reach level 25", r: 5000, g: lvl, t: 25 },
+          lv50: { e: "🎖️", n: "Casino Royalty", d: "Reach level 50", r: 20000, g: lvl, t: 50 },
+          w_roulette: { e: "🎡", n: "Wheel Whisperer", d: "Win 100 roulette spins", r: 2000, g: function () { return C("w_roulette"); }, t: 100 },
+          w_slots: { e: "🍒", n: "Reel Deal", d: "Win 250 slot spins", r: 2000, g: function () { return C("w_slots"); }, t: 250 },
+          w_blackjack: { e: "🃏", n: "Twenty-One Shark", d: "Win 150 blackjack hands", r: 2500, g: function () { return C("w_blackjack"); }, t: 150 },
+          w_baccarat: { e: "🎴", n: "Punto Pro", d: "Win 100 baccarat rounds", r: 2500, g: function () { return C("w_baccarat"); }, t: 100 },
+          w_poker: { e: "♠️", n: "Poker Face", d: "Win 50 poker hands", r: 3000, g: function () { return C("w_poker"); }, t: 50 },
+          crPt: { e: "🎯", n: "Point Master", d: "Hit your point 50 times in craps", r: 3000, g: function () { return C("crPt"); }, t: 50 },
+          crNat: { e: "🍀", n: "Naturally Lucky", d: "Win 40 come-out naturals in craps", r: 2500, g: function () { return C("crNat"); }, t: 40 },
+          fash: { e: "🛍️", n: "Fashionista", d: "Own 20 cosmetics", r: 2000, g: ownN, t: 20 },
+          all: { e: "🏆", n: "Completionist", d: "Own every cosmetic in the shop", r: 25000, g: function () { return ownN() >= allN() ? 1 : 0; }, t: 1 },
+          crMax20: { e: "🎢", n: "Long Roller", d: "Roll 20 times in a single hand (one point cycle)", r: 8000, g: function () { return C("crMax"); }, t: 20 },
+          crMax40: { e: "🌋", n: "Hot Shooter", d: "Roll 40 times in a single hand", r: 40000, g: function () { return C("crMax"); }, t: 40 },
+          crPlace50: { e: "📍", n: "Place Your Bets", d: "Win 50 craps place bets", r: 2500, g: function () { return C("crPlace"); }, t: 50 },
+          crPlace250: { e: "🧲", n: "Place Master", d: "Win 250 craps place bets", r: 9000, g: function () { return C("crPlace"); }, t: 250 },
+          w_craps: { e: "🎲", n: "Dice Dynasty", d: "Win 150 craps rounds", r: 4000, g: function () { return C("w_craps"); }, t: 150 },
+          peak10m: { e: "🏰", n: "Mogul", d: "Reach a peak balance of 10,000,000", r: 60000, g: function () { return state.stats.peak; }, t: 10000000 },
+          wag10m: { e: "🌊", n: "Tidal Wave", d: "Wager 10,000,000 coins in total", r: 40000, g: function () { return state.stats.wagered; }, t: 10000000 },
+          r25k: { e: "♾️", n: "Endless", d: "Play 25,000 rounds", r: 25000, g: function () { return state.stats.spins; }, t: 25000 },
+          hoard40: { e: "🧳", n: "Hoarder", d: "Own 40 cosmetics", r: 6000, g: function () { return ownN(); }, t: 40 },
+          w_roulette500: { e: "🎡", n: "Wheel Legend", d: "Win 500 roulette spins", r: 8000, g: function () { return C("w_roulette"); }, t: 500 },
+          w_slots1000: { e: "🍀", n: "Slot Legend", d: "Win 1,000 slot spins", r: 8000, g: function () { return C("w_slots"); }, t: 1000 },
+          w_blackjack600: { e: "🂡", n: "Blackjack Legend", d: "Win 600 blackjack hands", r: 9000, g: function () { return C("w_blackjack"); }, t: 600 },
+          w_poker250: { e: "🂮", n: "Poker Legend", d: "Win 250 poker hands", r: 10000, g: function () { return C("w_poker"); }, t: 250 },
+          w_baccarat400: { e: "🎴", n: "Baccarat Legend", d: "Win 400 baccarat rounds", r: 9000, g: function () { return C("w_baccarat"); }, t: 400 },
         };
         var bq = 0;
         function badge(id) {
@@ -8036,17 +6992,9 @@
           pr.badges[id] = Date.now();
           var B = BADGES[id];
           SFX.win(2);
-          toastMsg(
-            "🏅 Badge unlocked: " + B.n + " +" + fmt(B.r) + " 🪙",
-            "pos",
-            1800 + bq * 1700
-          );
-          if (bq++ === 0)
-            setTimeout(function () {
-              bq = 0;
-            }, 2500);
-          if (B.r >= 5000)
-            fanfare("🏅 " + B.n, B.d + " · +" + fmt(B.r) + " 🪙", 3, true);
+          toastMsg("🏅 Badge unlocked: " + B.n + " +" + fmt(B.r) + " 🪙", "pos", 1800 + bq * 1700);
+          if (bq++ === 0) setTimeout(function () { bq = 0; }, 2500);
+          if (B.r >= 5000) fanfare("🏅 " + B.n, B.d + " · +" + fmt(B.r) + " 🪙", 3, true);
           gift(B.r);
           save();
         }
@@ -8065,12 +7013,7 @@
           var nl = lvOf(pr.xp);
           if (nl > old) {
             gift(50 * nl);
-            fanfare(
-              "⭐ LEVEL UP!",
-              lvTitle(nl) + " · Lv " + nl + " · +" + 50 * nl + " 🪙",
-              3,
-              true
-            );
+            fanfare("⭐ LEVEL UP!", lvTitle(nl) + " · Lv " + nl + " · +" + 50 * nl + " 🪙", 3, true);
             toastMsg(
               "⭐ LEVEL UP! " +
                 lvTitle(nl) +
@@ -8102,74 +7045,24 @@
         }
         var SHOP = {
           felt: [
-            ["green", "Classic Green", 0],
-            ["blue", "Royal Blue", 500],
-            ["black", "Sleek Black", 800],
-            ["burgundy", "Burgundy", 1200],
-            ["teal", "Lagoon", 700],
-            ["purple", "Amethyst", 1000, 3],
-            ["sunset", "Sunset", 1800, 5],
-            ["ice", "Glacier", 2500, 8],
-            ["neon", "Neon Grid", 4000, 12],
-            ["gold", "Gilded", 8000, 20],
-            ["rose", "Rosewood", 1500, 4],
-            ["midnight", "Midnight Navy", 2200, 7],
-            ["lime", "Lime Felt", 3000, 9],
-            ["copper", "Copper", 6000, 16],
+            ["green", "Classic Green", 0], ["blue", "Royal Blue", 500], ["black", "Sleek Black", 800], ["burgundy", "Burgundy", 1200],
+            ["teal", "Lagoon", 700], ["purple", "Amethyst", 1000, 3], ["sunset", "Sunset", 1800, 5], ["ice", "Glacier", 2500, 8],
+            ["neon", "Neon Grid", 4000, 12], ["gold", "Gilded", 8000, 20], ["rose", "Rosewood", 1500, 4], ["midnight", "Midnight Navy", 2200, 7], ["lime", "Lime Felt", 3000, 9], ["copper", "Copper", 6000, 16],
           ],
           back: [
-            ["blue", "Blue Diamonds", 0],
-            ["red", "Crimson", 300],
-            ["gold", "Gold Foil", 600],
-            ["mono", "Midnight", 900],
-            ["emerald", "Emerald", 500],
-            ["violet", "Violet", 700, 3],
-            ["carbon", "Carbon", 1100, 4],
-            ["checker", "Checkerboard", 1500, 6],
-            ["rainbow", "Prism (animated)", 3000, 10],
-            ["sakura", "Sakura", 1800, 5],
-            ["ocean", "Ocean", 2400, 8],
-            ["lava", "Lava", 4500, 14],
+            ["blue", "Blue Diamonds", 0], ["red", "Crimson", 300], ["gold", "Gold Foil", 600], ["mono", "Midnight", 900],
+            ["emerald", "Emerald", 500], ["violet", "Violet", 700, 3], ["carbon", "Carbon", 1100, 4], ["checker", "Checkerboard", 1500, 6],
+            ["rainbow", "Prism (animated)", 3000, 10], ["sakura", "Sakura", 1800, 5], ["ocean", "Ocean", 2400, 8], ["lava", "Lava", 4500, 14],
           ],
           dice: [
-            ["ivory", "Ivory", 0],
-            ["ruby", "Ruby", 400],
-            ["onyx", "Onyx & Gold", 700, 3],
-            ["gold", "Solid Gold", 1500, 6],
-            ["glass", "Crystal", 2500, 9],
-            ["neon", "Neon Glow", 4000, 12],
-            ["emerald", "Emerald", 1800, 5],
-            ["amethyst", "Amethyst", 3000, 10],
-            ["bone", "Bone", 600, 2],
+            ["ivory", "Ivory", 0], ["ruby", "Ruby", 400], ["onyx", "Onyx & Gold", 700, 3], ["gold", "Solid Gold", 1500, 6],
+            ["glass", "Crystal", 2500, 9], ["neon", "Neon Glow", 4000, 12], ["emerald", "Emerald", 1800, 5], ["amethyst", "Amethyst", 3000, 10], ["bone", "Bone", 600, 2],
           ],
           avatar: [
-            ["🙂", "Smiley", 0],
-            ["😎", "Cool", 200],
-            ["🤠", "Cowboy", 400],
-            ["🦈", "Shark", 800],
-            ["👑", "Crown", 1500],
-            ["🦊", "Fox", 300],
-            ["🐺", "Wolf", 500],
-            ["🤖", "Robot", 600],
-            ["👽", "Alien", 700],
-            ["🦁", "Lion", 900, 4],
-            ["🥷", "Ninja", 1100, 5],
-            ["🧙", "Wizard", 1300, 6],
-            ["💀", "Skull", 1500, 7],
-            ["🤑", "Money Face", 2000, 8],
-            ["🐉", "Dragon", 2500, 10],
-            ["🦄", "Unicorn", 3500, 12],
-            ["🌟", "Star", 5000, 15],
-            ["🔱", "Trident", 10000, 25],
-            ["🪐", "Planet", 15000, 30],
-            ["🐙", "Octopus", 800, 3],
-            ["🦉", "Owl", 1000, 4],
-            ["🦅", "Eagle", 1600, 6],
-            ["🧛", "Vampire", 2200, 8],
-            ["🧞", "Genie", 3000, 11],
-            ["🎩", "Top Hat", 4000, 13],
-            ["🏴‍☠️", "Pirate", 6000, 18],
-            ["🎭", "Masks", 8000, 22],
+            ["🙂", "Smiley", 0], ["😎", "Cool", 200], ["🤠", "Cowboy", 400], ["🦈", "Shark", 800], ["👑", "Crown", 1500],
+            ["🦊", "Fox", 300], ["🐺", "Wolf", 500], ["🤖", "Robot", 600], ["👽", "Alien", 700], ["🦁", "Lion", 900, 4],
+            ["🥷", "Ninja", 1100, 5], ["🧙", "Wizard", 1300, 6], ["💀", "Skull", 1500, 7], ["🤑", "Money Face", 2000, 8],
+            ["🐉", "Dragon", 2500, 10], ["🦄", "Unicorn", 3500, 12], ["🌟", "Star", 5000, 15], ["🔱", "Trident", 10000, 25], ["🪐", "Planet", 15000, 30], ["🐙", "Octopus", 800, 3], ["🦉", "Owl", 1000, 4], ["🦅", "Eagle", 1600, 6], ["🧛", "Vampire", 2200, 8], ["🧞", "Genie", 3000, 11], ["🎩", "Top Hat", 4000, 13], ["🏴‍☠️", "Pirate", 6000, 18], ["🎭", "Masks", 8000, 22],
           ],
         };
         function applyCos() {
@@ -8418,53 +7311,18 @@
                       T[0] +
                       "' data-i='" +
                       it[0] +
-                      "'" +
-                      (L < (it[3] || 1) ? " disabled" : "") +
-                      ">" +
-                      (L < (it[3] || 1)
-                        ? "🔒 Lv " + it[3]
-                        : "Buy " + fmt(it[2]) + " 🪙") +
-                      "</button>") +
+                      "'" + (L < (it[3] || 1) ? " disabled" : "") + ">" + (L < (it[3] || 1) ? "🔒 Lv " + it[3] : "Buy " + fmt(it[2]) + " 🪙") + "</button>") +
                   "</div>";
               });
               h += "<br>";
             });
           } else if (rwTab === "badges") {
-            var ks = Object.keys(BADGES),
-              got0 = ks.filter(function (k) {
-                return pr.badges[k];
-              }).length;
+            var ks = Object.keys(BADGES), got0 = ks.filter(function (k) { return pr.badges[k]; }).length;
             h = "<b>" + got0 + " / " + ks.length + " unlocked</b><br><br>";
-            ks.sort(function (x, y) {
-              return (
-                (pr.badges[y] ? 1 : 0) - (pr.badges[x] ? 1 : 0) ||
-                BADGES[x].r - BADGES[y].r
-              );
-            }).forEach(function (k) {
-              var B = BADGES[k],
-                got = pr.badges[k],
-                c = B.g ? Math.min(B.g(), B.t) : 0;
-              h +=
-                "<div style='padding:6px 0;opacity:" +
-                (got ? 1 : 0.6) +
-                "'>" +
-                B.e +
-                " <b>" +
-                B.n +
-                "</b> · " +
-                (got ? "unlocked" : B.d) +
-                " <span style='color:var(--gold)'>+" +
-                fmt(B.r) +
-                " 🪙</span>";
-              if (B.g && !got)
-                h +=
-                  "<div style='height:5px;background:#2a3240;border-radius:3px;overflow:hidden;margin-top:3px'><i style='display:block;height:100%;width:" +
-                  (c / B.t) * 100 +
-                  "%;background:var(--gold)'></i></div><small style='color:var(--muted)'>" +
-                  fmt(Math.floor(c)) +
-                  " / " +
-                  fmt(B.t) +
-                  "</small>";
+            ks.sort(function (x, y) { return (pr.badges[y] ? 1 : 0) - (pr.badges[x] ? 1 : 0) || BADGES[x].r - BADGES[y].r; }).forEach(function (k) {
+              var B = BADGES[k], got = pr.badges[k], c = B.g ? Math.min(B.g(), B.t) : 0;
+              h += "<div style='padding:6px 0;opacity:" + (got ? 1 : 0.6) + "'>" + B.e + " <b>" + B.n + "</b> · " + (got ? "unlocked" : B.d) + " <span style='color:var(--gold)'>+" + fmt(B.r) + " 🪙</span>";
+              if (B.g && !got) h += "<div style='height:5px;background:#2a3240;border-radius:3px;overflow:hidden;margin-top:3px'><i style='display:block;height:100%;width:" + (c / B.t) * 100 + "%;background:var(--gold)'></i></div><small style='color:var(--muted)'>" + fmt(Math.floor(c)) + " / " + fmt(B.t) + "</small>";
               h += "</div>";
             });
           } else {
@@ -8565,10 +7423,7 @@
             return q[0] === id;
           })[0];
           if (a === "buy") {
-            if (lvOf(pr.xp) < (it[3] || 1)) {
-              toastMsg("Reach level " + it[3] + " first", "neg");
-              return;
-            }
+            if (lvOf(pr.xp) < (it[3] || 1)) { toastMsg("Reach level " + it[3] + " first", "neg"); return; }
             if (state.balance < it[2]) {
               toastMsg("Not enough coins", "neg");
               return;
@@ -8584,80 +7439,25 @@
           rwRender();
         });
 
+
+
         /* ===================== CRAPS ===================== */
         var DIE = ["🎲", "⚀", "⚁", "⚂", "⚃", "⚄", "⚅"],
           RPO = { 4: 2, 10: 2, 5: 1.5, 9: 1.5, 6: 1.2, 8: 1.2 },
           RDO = { 4: 0.5, 10: 0.5, 5: 2 / 3, 9: 2 / 3, 6: 5 / 6, 8: 5 / 6 },
           CR = { b: crEmpty(), point: 0, hist: [] },
           crMsg = $("#crMsg");
-        var PIPS = {
-          1: [4],
-          2: [0, 8],
-          3: [0, 4, 8],
-          4: [0, 2, 6, 8],
-          5: [0, 2, 4, 6, 8],
-          6: [0, 2, 3, 5, 6, 8],
-        };
-        function setDie(el, n) {
-          var h = "";
-          for (var i = 0; i < 9; i++)
-            h +=
-              "<i" + (PIPS[n].indexOf(i) >= 0 ? " class='on'" : "") + "></i>";
-          el.innerHTML = h;
-        }
-        SFX.rattle = function () {
-          for (var i = 0; i < 9; i++) {
-            noise(0.04, 0.12, i * 0.075, 1800 + Math.random() * 1500, null, 3);
-            tone(700 + Math.random() * 500, 0.03, "triangle", 0.04, i * 0.075);
-          }
-        };
-        SFX.crWin = function () {
-          [523, 659, 784, 1047].forEach(function (f, i) {
-            tone(f, 0.18, "triangle", 0.12, i * 0.08);
-          });
-        };
-        SFX.sevenOut = function () {
-          tone(220, 0.35, "sawtooth", 0.1, 0, 110);
-          tone(165, 0.5, "sawtooth", 0.1, 0.25, 70);
-        };
-        SFX.puck = function () {
-          noise(0.05, 0.2, 0, 900, null, 2);
-          tone(300, 0.1, "sine", 0.15, 0, 180);
-        };
-        function crEmpty() {
-          return {
-            PL: 0,
-            DP: 0,
-            PO: 0,
-            DO: 0,
-            FD: 0,
-            A7: 0,
-            AC: 0,
-            E11: 0,
-            P4: 0,
-            P5: 0,
-            P6: 0,
-            P8: 0,
-            P9: 0,
-            P10: 0,
-          };
-        }
-        function crTotal() {
-          var t = 0;
-          Object.keys(CR.b).forEach(function (k) {
-            t += CR.b[k];
-          });
-          return t;
-        }
+        var PIPS = { 1: [4], 2: [0, 8], 3: [0, 4, 8], 4: [0, 2, 6, 8], 5: [0, 2, 4, 6, 8], 6: [0, 2, 3, 5, 6, 8] };
+        function setDie(el, n) { var h = ""; for (var i = 0; i < 9; i++) h += "<i" + (PIPS[n].indexOf(i) >= 0 ? " class='on'" : "") + "></i>"; el.innerHTML = h; }
+        SFX.rattle = function () { for (var i = 0; i < 9; i++) { noise(0.04, 0.12, i * 0.075, 1800 + Math.random() * 1500, null, 3); tone(700 + Math.random() * 500, 0.03, "triangle", 0.04, i * 0.075); } };
+        SFX.crWin = function () { [523, 659, 784, 1047].forEach(function (f, i) { tone(f, 0.18, "triangle", 0.12, i * 0.08); }); };
+        SFX.sevenOut = function () { tone(220, 0.35, "sawtooth", 0.1, 0, 110); tone(165, 0.5, "sawtooth", 0.1, 0.25, 70); };
+        SFX.puck = function () { noise(0.05, 0.2, 0, 900, null, 2); tone(300, 0.1, "sine", 0.15, 0, 180); };
+        function crEmpty() { return { PL: 0, DP: 0, PO: 0, DO: 0, FD: 0, A7: 0, AC: 0, E11: 0, P4: 0, P5: 0, P6: 0, P8: 0, P9: 0, P10: 0 }; }
+        function crTotal() { var t = 0; Object.keys(CR.b).forEach(function (k) { t += CR.b[k]; }); return t; }
         function crRender() {
-          $$("#craps .crb").forEach(function (b) {
-            b.querySelector("b").textContent = fmt(
-              CR.b[b.getAttribute("data-k")]
-            );
-          });
-          $("#crPoint").textContent = CR.point
-            ? "· POINT IS " + CR.point
-            : "· come-out roll";
+          $$("#craps .crb").forEach(function (b) { b.querySelector("b").textContent = fmt(CR.b[b.getAttribute("data-k")]); });
+          $("#crPoint").textContent = CR.point ? "· POINT IS " + CR.point : "· come-out roll";
           $("#crPuck").textContent = CR.point ? "ON " + CR.point : "OFF";
           $("#crPuck").classList.toggle("on", !!CR.point);
           var el = $("#crHist");
@@ -8665,102 +7465,35 @@
           CR.hist.slice(-24).forEach(function (r) {
             var sp = document.createElement("span");
             sp.textContent = r;
-            sp.style.background =
-              r === 7
-                ? "#c0392b"
-                : r === 11
-                ? "#1e8449"
-                : r === 2 || r === 3 || r === 12
-                ? "#555"
-                : "#3b5bdb";
+            sp.style.background = r === 7 ? "#c0392b" : r === 11 ? "#1e8449" : r === 2 || r === 3 || r === 12 ? "#555" : "#3b5bdb";
             el.appendChild(sp);
           });
         }
         function crBlock(dest) {
-          if (dest === "craps" || !$("#craps").classList.contains("active"))
-            return false;
+          if (dest === "craps" || !$("#craps").classList.contains("active")) return false;
           if (CR.point && (CR.b.PL || CR.b.DP)) {
-            setMsg(
-              crMsg,
-              "Finish the point first - your line bet is still in play.",
-              "lose"
-            );
+            setMsg(crMsg, "Finish the point first - your line bet is still in play.", "lose");
             return true;
           }
           var t = crTotal();
-          if (t) {
-            CR.b = crEmpty();
-            setBalance(state.balance + t);
-            crRender();
-          }
+          if (t) { CR.b = crEmpty(); setBalance(state.balance + t); crRender(); }
           return false;
         }
         $$(".crb").forEach(function (b) {
           b.addEventListener("click", function () {
             if (busy) return;
-            var k = b.getAttribute("data-k"),
-              v = Math.floor(+$("#crChip").value) || 0;
-            if (v < 1) {
-              setMsg(crMsg, "Enter a chip value of 1 or more.", "lose");
-              return;
-            }
-            if (v > state.balance) {
-              setMsg(crMsg, "Not enough coins.", "lose");
-              return;
-            }
-            if ((k === "PL" || k === "DP") && CR.point) {
-              setMsg(
-                crMsg,
-                "Pass / Don't Pass can only be bet on the come-out roll.",
-                "lose"
-              );
-              return;
-            }
-            if ((k === "PL" && CR.b.DP) || (k === "DP" && CR.b.PL)) {
-              setMsg(crMsg, "Choose Pass or Don't Pass, not both.", "lose");
-              return;
-            }
-            if (/^P(4|5|6|8|9|10)$/.test(k) && !CR.point) {
-              setMsg(
-                crMsg,
-                "Place bets can only be made once a point is set.",
-                "lose"
-              );
-              return;
-            }
+            var k = b.getAttribute("data-k"), v = Math.floor(+$("#crChip").value) || 0;
+            if (v < 1) { setMsg(crMsg, "Enter a chip value of 1 or more.", "lose"); return; }
+            if (v > state.balance) { setMsg(crMsg, "Not enough coins.", "lose"); return; }
+            if ((k === "PL" || k === "DP") && CR.point) { setMsg(crMsg, "Pass / Don't Pass can only be bet on the come-out roll.", "lose"); return; }
+            if ((k === "PL" && CR.b.DP) || (k === "DP" && CR.b.PL)) { setMsg(crMsg, "Choose Pass or Don't Pass, not both.", "lose"); return; }
+            if (/^P(4|5|6|8|9|10)$/.test(k) && !CR.point) { setMsg(crMsg, "Place bets can only be made once a point is set.", "lose"); return; }
             if (k === "PO" || k === "DO") {
               var base = k === "PO" ? CR.b.PL : CR.b.DP;
-              if (!CR.point) {
-                setMsg(
-                  crMsg,
-                  "Odds can only be added once a point is set.",
-                  "lose"
-                );
-                return;
-              }
-              if (!base) {
-                setMsg(
-                  crMsg,
-                  "Odds need a " +
-                    (k === "PO" ? "Pass Line" : "Don't Pass") +
-                    " bet.",
-                  "lose"
-                );
-                return;
-              }
+              if (!CR.point) { setMsg(crMsg, "Odds can only be added once a point is set.", "lose"); return; }
+              if (!base) { setMsg(crMsg, "Odds need a " + (k === "PO" ? "Pass Line" : "Don't Pass") + " bet.", "lose"); return; }
               var mx = { 4: 3, 10: 3, 5: 4, 9: 4, 6: 5, 8: 5 }[CR.point];
-              if (CR.b[k] + v > base * mx) {
-                setMsg(
-                  crMsg,
-                  "Odds on " +
-                    CR.point +
-                    " are capped at " +
-                    mx +
-                    "× your line bet (3-4-5× rule).",
-                  "lose"
-                );
-                return;
-              }
+              if (CR.b[k] + v > base * mx) { setMsg(crMsg, "Odds on " + CR.point + " are capped at " + mx + "× your line bet (3-4-5× rule).", "lose"); return; }
             }
             setBalance(state.balance - v);
             CR.b[k] += v;
@@ -8772,252 +7505,102 @@
         $("#crClear").addEventListener("click", function () {
           if (busy) return;
           var r = 0;
-          [
-            "FD",
-            "A7",
-            "AC",
-            "E11",
-            "PO",
-            "DO",
-            "P4",
-            "P5",
-            "P6",
-            "P8",
-            "P9",
-            "P10",
-          ].forEach(function (k) {
-            r += CR.b[k];
-            CR.b[k] = 0;
-          });
-          if (!CR.point) {
-            r += CR.b.PL + CR.b.DP;
-            CR.b.PL = CR.b.DP = 0;
-          }
+          ["FD", "A7", "AC", "E11", "PO", "DO", "P4", "P5", "P6", "P8", "P9", "P10"].forEach(function (k) { r += CR.b[k]; CR.b[k] = 0; });
+          if (!CR.point) { r += CR.b.PL + CR.b.DP; CR.b.PL = CR.b.DP = 0; }
           setBalance(state.balance + r);
           crRender();
         });
         function crSettle(d1, d2) {
-          var s = d1 + d2,
-            b = CR.b,
-            w = 0,
-            p = 0,
-            pt = CR.point,
-            text = "";
-          if (b.FD) {
-            w += b.FD;
-            if ([3, 4, 9, 10, 11].indexOf(s) >= 0) p += b.FD * 2;
-            else if (s === 2) p += b.FD * 3;
-            else if (s === 12) p += b.FD * 4;
-          }
-          if (b.A7) {
-            w += b.A7;
-            if (s === 7) p += b.A7 * 5;
-          }
-          if (b.AC) {
-            w += b.AC;
-            if (s === 2 || s === 3 || s === 12) p += b.AC * 8;
-          }
-          if (b.E11) {
-            w += b.E11;
-            if (s === 11) p += b.E11 * 16;
-          }
+          var s = d1 + d2, b = CR.b, w = 0, p = 0, pt = CR.point, text = "";
+          if (b.FD) { w += b.FD; if ([3, 4, 9, 10, 11].indexOf(s) >= 0) p += b.FD * 2; else if (s === 2) p += b.FD * 3; else if (s === 12) p += b.FD * 4; }
+          if (b.A7) { w += b.A7; if (s === 7) p += b.A7 * 5; }
+          if (b.AC) { w += b.AC; if (s === 2 || s === 3 || s === 12) p += b.AC * 8; }
+          if (b.E11) { w += b.E11; if (s === 11) p += b.E11 * 16; }
           b.FD = b.A7 = b.AC = b.E11 = 0;
-          var PP = { 4: 1.8, 5: 1.4, 6: 7 / 6, 8: 7 / 6, 9: 1.4, 10: 1.8 },
-            placed = 0;
+          var PP = { 4: 1.8, 5: 1.4, 6: 7 / 6, 8: 7 / 6, 9: 1.4, 10: 1.8 }, placed = 0;
           if (pt) {
-            if (s === 7)
-              [4, 5, 6, 8, 9, 10].forEach(function (n) {
-                w += b["P" + n];
-                b["P" + n] = 0;
-              });
-            else if (PP[s] && b["P" + s]) {
-              p += Math.floor(b["P" + s] * PP[s]);
-              placed = 1;
-            }
+            if (s === 7) [4, 5, 6, 8, 9, 10].forEach(function (n) { w += b["P" + n]; b["P" + n] = 0; });
+            else if (PP[s] && b["P" + s]) { p += Math.floor(b["P" + s] * PP[s]); placed = 1; }
           }
           if (!pt) {
-            if (s === 7 || s === 11) {
-              w += b.PL + b.DP;
-              p += b.PL * 2;
-              b.PL = b.DP = 0;
-              text = "NATURAL " + s;
-            } else if (s === 2 || s === 3) {
-              w += b.PL + b.DP;
-              p += b.DP * 2;
-              b.PL = b.DP = 0;
-              text = "CRAPS " + s;
-            } else if (s === 12) {
-              w += b.PL + b.DP;
-              p += b.DP;
-              b.PL = b.DP = 0;
-              text = "CRAPS 12";
-            } else {
-              CR.point = s;
-              text = "POINT IS " + s;
-            }
+            if (s === 7 || s === 11) { w += b.PL + b.DP; p += b.PL * 2; b.PL = b.DP = 0; text = "NATURAL " + s; }
+            else if (s === 2 || s === 3) { w += b.PL + b.DP; p += b.DP * 2; b.PL = b.DP = 0; text = "CRAPS " + s; }
+            else if (s === 12) { w += b.PL + b.DP; p += b.DP; b.PL = b.DP = 0; text = "CRAPS 12"; }
+            else { CR.point = s; text = "POINT IS " + s; }
           } else if (s === pt) {
             w += b.PL + b.PO + b.DP + b.DO;
             p += b.PL * 2 + b.PO + Math.floor(b.PO * RPO[pt]);
-            b.PL = b.PO = b.DP = b.DO = 0;
-            CR.point = 0;
-            text = "POINT HIT " + s;
+            b.PL = b.PO = b.DP = b.DO = 0; CR.point = 0; text = "POINT HIT " + s;
           } else if (s === 7) {
             w += b.PL + b.PO + b.DP + b.DO;
             p += b.DP * 2 + b.DO + Math.floor(b.DO * RDO[pt]);
-            b.PL = b.PO = b.DP = b.DO = 0;
-            CR.point = 0;
-            text = "SEVEN OUT";
+            b.PL = b.PO = b.DP = b.DO = 0; CR.point = 0; text = "SEVEN OUT";
           } else text = "ROLLED " + s;
-          if (placed && text.indexOf("ROLLED") === 0)
-            text = "PLACE " + s + " WINS";
+          if (placed && text.indexOf("ROLLED") === 0) text = "PLACE " + s + " WINS";
           if (pt) {
             CR.hand = (CR.hand || 0) + 1;
-            if (!CR.point) {
-              var q = P();
-              q.cnt = q.cnt || {};
-              if (CR.hand > (q.cnt.crMax || 0)) q.cnt.crMax = CR.hand;
-              CR.hand = 0;
-              chk();
-            }
+            if (!CR.point) { var q = P(); q.cnt = q.cnt || {}; if (CR.hand > (q.cnt.crMax || 0)) q.cnt.crMax = CR.hand; CR.hand = 0; chk(); }
           }
           if (placed) cnt("crPlace", 1);
           CR.hist.push(s);
           var fe = $("#craps .felt");
           setBalance(state.balance + p);
-          if (w > 0 || p > 0) {
-            recordRound(w, p);
-            evt("craps", p > w ? 1 : 0);
-          }
-          var net = p - w,
-            bn = $("#crBanner");
+          if (w > 0 || p > 0) { recordRound(w, p); evt("craps", p > w ? 1 : 0); }
+          var net = p - w, bn = $("#crBanner");
           bn.textContent = text + " (" + d1 + " + " + d2 + ")";
-          bn.className =
-            "bjbanner on " +
-            (w > 0 || p > 0
-              ? net > 0
-                ? "win"
-                : net < 0
-                ? "lose"
-                : "push"
-              : "push");
-          setMsg(
-            crMsg,
-            w === 0 && p === 0
-              ? CR.point
-                ? "Point is " + CR.point + ". Roll again!"
-                : "Roll again!"
-              : net > 0
-              ? "You won " + signed(net) + " coins! 🎉"
-              : net === 0
-              ? "You broke even."
-              : "You lost " + fmt(-net) + " coins.",
-            w > 0 && net > 0 ? "win" : w > 0 && net < 0 ? "lose" : ""
-          );
+          bn.className = "bjbanner on " + (w > 0 || p > 0 ? (net > 0 ? "win" : net < 0 ? "lose" : "push") : "push");
+          setMsg(crMsg, w === 0 && p === 0 ? (CR.point ? "Point is " + CR.point + ". Roll again!" : "Roll again!") : net > 0 ? "You won " + signed(net) + " coins! 🎉" : net === 0 ? "You broke even." : "You lost " + fmt(-net) + " coins.", w > 0 && net > 0 ? "win" : w > 0 && net < 0 ? "lose" : "");
           if (w > 0 || p > 0) SFX.result(net, w || p, p);
           busy = false;
           $("#crRoll").disabled = false;
           $("#crClear").disabled = false;
           $("#crDice").classList.remove("roll");
-          fe.classList.remove("crwin", "crlose");
-          void fe.offsetWidth;
-          if (net > 0) fe.classList.add("crwin");
-          else if (w > 0 && net < 0) fe.classList.add("crlose");
-          if (text.indexOf("POINT HIT") === 0) {
-            cnt("crPt", 1);
-            if (net > 0) confetti(30);
-          }
+          fe.classList.remove("crwin", "crlose"); void fe.offsetWidth;
+          if (net > 0) fe.classList.add("crwin"); else if (w > 0 && net < 0) fe.classList.add("crlose");
+          if (text.indexOf("POINT HIT") === 0) { cnt("crPt", 1); if (net > 0) confetti(30); }
           if (text.indexOf("NATURAL") === 0 && net > 0) cnt("crNat", 1);
-          if (text === "SEVEN OUT") SFX.sevenOut();
-          else if (net > 0) SFX.crWin();
+          if (text === "SEVEN OUT") SFX.sevenOut(); else if (net > 0) SFX.crWin();
           if (CR.point && !pt) SFX.puck();
           crRender();
           checkGameOver();
         }
         $("#crRoll").addEventListener("click", function () {
           if (busy) return;
-          if (!crTotal() && !CR.point) {
-            setMsg(crMsg, "Place a bet first!", "lose");
-            return;
-          }
+          if (!crTotal() && !CR.point) { setMsg(crMsg, "Place a bet first!", "lose"); return; }
           busy = true;
           $("#crRoll").disabled = true;
           $("#crClear").disabled = true;
           $("#crBanner").className = "bjbanner";
           setMsg(crMsg, "Rolling...");
-          var n = 0,
-            d1 = 1 + Math.floor(Math.random() * 6),
-            d2 = 1 + Math.floor(Math.random() * 6);
-          var dc = $("#crDice"),
-            D1 = $("#crD1"),
-            D2 = $("#crD2");
-          dc.classList.remove("land");
-          dc.classList.add("roll");
-          SFX.rattle();
+          var n = 0, d1 = 1 + Math.floor(Math.random() * 6), d2 = 1 + Math.floor(Math.random() * 6);
+          var dc = $("#crDice"), D1 = $("#crD1"), D2 = $("#crD2");
+          dc.classList.remove("land"); dc.classList.add("roll"); SFX.rattle();
           (function tick() {
             if (n++ < 12) {
               setDie(D1, 1 + Math.floor(Math.random() * 6));
               setDie(D2, 1 + Math.floor(Math.random() * 6));
-              if (n % 4 === 1) SFX.rattle();
-              else SFX.tick(0.5);
+              if (n % 4 === 1) SFX.rattle(); else SFX.tick(0.5);
               setTimeout(tick, 70 + n * 9);
             } else {
-              setDie(D1, d1);
-              setDie(D2, d2);
-              dc.classList.remove("roll");
-              void dc.offsetWidth;
-              dc.classList.add("land");
+              setDie(D1, d1); setDie(D2, d2);
+              dc.classList.remove("roll"); void dc.offsetWidth; dc.classList.add("land");
               SFX.thud();
-              setTimeout(function () {
-                crSettle(d1, d2);
-              }, 600);
+              setTimeout(function () { crSettle(d1, d2); }, 600);
             }
           })();
         });
-        setDie($("#crD1"), 1);
-        setDie($("#crD2"), 1);
+        setDie($("#crD1"), 1); setDie($("#crD2"), 1);
         crRender();
 
         /* ===================== MULTIPLAYER POKER (Firebase) ===================== */
-        var MP = {
-            tid: null,
-            ref: null,
-            hr: null,
-            T: null,
-            hole: null,
-            G: null,
-            holes: {},
-            ln: null,
-            tm: null,
-            nt: null,
-            st: false,
-            di: -1,
-            hn: 0,
-            cl: false,
-            lob: {},
-            cn: -1,
-          },
+        var MP = { tid: null, ref: null, hr: null, T: null, hole: null, G: null, holes: {}, ln: null, tm: null, nt: null, st: false, di: -1, hn: 0, cl: false, lob: {}, cn: -1 },
           mpLob = null;
-        var TS = function () {
-          return firebase.database.ServerValue.TIMESTAMP;
-        };
-        function mpClean(o) {
-          return JSON.parse(JSON.stringify(o));
-        }
-        function mpMsg(t, c) {
-          setMsg($("#mpMsg"), t, c);
-        }
-        function mpIsHost() {
-          return !!(MP.T && MP.T.host === cur);
-        }
+        var TS = function () { return firebase.database.ServerValue.TIMESTAMP; };
+        function mpClean(o) { return JSON.parse(JSON.stringify(o)); }
+        function mpMsg(t, c) { setMsg($("#mpMsg"), t, c); }
+        function mpIsHost() { return !!(MP.T && MP.T.host === cur); }
         function mpIds(T) {
-          return Object.keys(T.seats || {})
-            .filter(function (k) {
-              var x = T.seats[k];
-              return !x.out && !x.lv && x.stack > 0;
-            })
-            .sort(function (a, b) {
-              return T.seats[a].at - T.seats[b].at;
-            });
+          return Object.keys(T.seats || {}).filter(function (k) { var x = T.seats[k]; return !x.out && !x.lv && x.stack > 0; }).sort(function (a, b) { return T.seats[a].at - T.seats[b].at; });
         }
         /* ---------- lobby ---------- */
         function mpOpen() {
@@ -9026,9 +7609,7 @@
           $("#pkTabCpu").classList.remove("on");
           $("#pkTabMp").classList.add("on");
           var ls = null;
-          try {
-            ls = localStorage.getItem("luckyplay-mp-" + cur);
-          } catch (e) {}
+          try { ls = localStorage.getItem("luckyplay-mp-" + cur); } catch (e) {}
           if (ls && !MP.tid) mpEnter(ls);
           if (!MP.tid) mpLobbyOn();
         }
@@ -9037,47 +7618,18 @@
           $("#mpTable").style.display = "none";
           if (mpLob || !fbDB) return;
           mpLob = fbDB.ref("pklobby");
-          mpLob.on(
-            "value",
-            function (sn) {
-              MP.lob = sn.val() || {};
-              mpList();
-            },
-            fbFail
-          );
+          mpLob.on("value", function (sn) { MP.lob = sn.val() || {}; mpList(); }, fbFail);
         }
         function mpList() {
-          var L = MP.lob || {},
-            now = Date.now();
+          var L = MP.lob || {}, now = Date.now();
           var rows = Object.keys(L).filter(function (k) {
             var x = L[k];
-            return (
-              x &&
-              now - (x.t || 0) < 600000 &&
-              (!x.priv || x.host === cur || (x.inv && x.inv[cur]))
-            );
+            return x && now - (x.t || 0) < 600000 && (!x.priv || x.host === cur || (x.inv && x.inv[cur]));
           });
-          $("#mpList").innerHTML =
-            rows
-              .map(function (k) {
-                var x = L[k];
-                return (
-                  "<div style='padding:6px 0;border-bottom:1px solid rgba(255,255,255,.15)'><b>" +
-                  esc(x.name) +
-                  "</b>" +
-                  (x.priv ? " 🔒" : "") +
-                  " — " +
-                  (x.n || 0) +
-                  "/" +
-                  x.max +
-                  " players · buy-in " +
-                  fmt(x.buy) +
-                  " <button class='secondary' data-j='" +
-                  esc(k) +
-                  "'>Join</button></div>"
-                );
-              })
-              .join("") || "No open tables yet. Create one or hit Quick match!";
+          $("#mpList").innerHTML = rows.map(function (k) {
+            var x = L[k];
+            return "<div style='padding:6px 0;border-bottom:1px solid rgba(255,255,255,.15)'><b>" + esc(x.name) + "</b>" + (x.priv ? " 🔒" : "") + " — " + (x.n || 0) + "/" + x.max + " players · buy-in " + fmt(x.buy) + " <button class='secondary' data-j='" + esc(k) + "'>Join</button></div>";
+          }).join("") || "No open tables yet. Create one or hit Quick match!";
         }
         $("#mpList").addEventListener("click", function (e) {
           var k = e.target.getAttribute("data-j");
@@ -9089,196 +7641,68 @@
         function mpJoin(tid) {
           if (!fbDB || !cur) return;
           var buy = 0;
-          fbDB
-            .ref("pkt/" + tid)
-            .once("value")
-            .then(function (sn) {
-              var T = sn.val();
-              if (!T || T.closed) throw "That table is closed.";
-              if (T.seats && T.seats[cur]) return;
-              if (Object.keys(T.seats || {}).length >= T.max)
-                throw "Table is full.";
-              if (state.balance < T.buy)
-                throw "Not enough coins (buy-in " + fmt(T.buy) + ").";
-              buy = T.buy;
-              setBalance(state.balance - buy);
-              return fbDB
-                .ref("pkt/" + tid + "/seats/" + cur)
-                .set({
-                  name: db.users[cur].name,
-                  av: P().sel.avatar,
-                  stack: buy,
-                  at: TS(),
-                })
-                .catch(function (e) {
-                  setBalance(state.balance + buy);
-                  throw e;
-                });
-            })
-            .then(function () {
-              try {
-                localStorage.setItem("luckyplay-mp-" + cur, tid);
-              } catch (e) {}
-              mpEnter(tid);
-            })
-            .catch(function (e) {
-              mpMsg(
-                typeof e === "string"
-                  ? e
-                  : "Could not join: " + (e.code || e.message),
-                "lose"
-              );
-            });
+          fbDB.ref("pkt/" + tid).once("value").then(function (sn) {
+            var T = sn.val();
+            if (!T || T.closed) throw "That table is closed.";
+            if (T.seats && T.seats[cur]) return;
+            if (Object.keys(T.seats || {}).length >= T.max) throw "Table is full.";
+            if (state.balance < T.buy) throw "Not enough coins (buy-in " + fmt(T.buy) + ").";
+            buy = T.buy;
+            setBalance(state.balance - buy);
+            return fbDB.ref("pkt/" + tid + "/seats/" + cur).set({ name: db.users[cur].name, av: P().sel.avatar, stack: buy, at: TS() }).catch(function (e) { setBalance(state.balance + buy); throw e; });
+          }).then(function () {
+            try { localStorage.setItem("luckyplay-mp-" + cur, tid); } catch (e) {}
+            mpEnter(tid);
+          }).catch(function (e) { mpMsg(typeof e === "string" ? e : "Could not join: " + (e.code || e.message), "lose"); });
         }
         function mpCreate(name, priv, inv, buy) {
           if (!fbDB || !cur) return;
-          if (state.balance < buy) {
-            mpMsg("Not enough coins for that buy-in.", "lose");
-            return;
-          }
-          var tid = cur + "_" + Date.now().toString(36),
-            seats = {},
-            up = {};
-          seats[cur] = {
-            name: db.users[cur].name,
-            av: P().sel.avatar,
-            stack: buy,
-            at: TS(),
-          };
-          up["pkt/" + tid] = {
-            name: name,
-            host: cur,
-            priv: !!priv,
-            inv: inv,
-            max: 6,
-            buy: buy,
-            status: "wait",
-            seats: seats,
-          };
-          up["pklobby/" + tid] = {
-            name: name,
-            host: cur,
-            priv: !!priv,
-            inv: inv,
-            n: 1,
-            max: 6,
-            buy: buy,
-            status: "wait",
-            t: TS(),
-          };
+          if (state.balance < buy) { mpMsg("Not enough coins for that buy-in.", "lose"); return; }
+          var tid = cur + "_" + Date.now().toString(36), seats = {}, up = {};
+          seats[cur] = { name: db.users[cur].name, av: P().sel.avatar, stack: buy, at: TS() };
+          up["pkt/" + tid] = { name: name, host: cur, priv: !!priv, inv: inv, max: 6, buy: buy, status: "wait", seats: seats };
+          up["pklobby/" + tid] = { name: name, host: cur, priv: !!priv, inv: inv, n: 1, max: 6, buy: buy, status: "wait", t: TS() };
           setBalance(state.balance - buy);
-          fbDB
-            .ref()
-            .update(up)
-            .then(function () {
-              try {
-                localStorage.setItem("luckyplay-mp-" + cur, tid);
-              } catch (e) {}
-              mpEnter(tid);
-            })
-            .catch(function (e) {
-              setBalance(state.balance + buy);
-              mpMsg("Could not create table: " + (e.code || e.message), "lose");
-            });
+          fbDB.ref().update(up).then(function () {
+            try { localStorage.setItem("luckyplay-mp-" + cur, tid); } catch (e) {}
+            mpEnter(tid);
+          }).catch(function (e) { setBalance(state.balance + buy); mpMsg("Could not create table: " + (e.code || e.message), "lose"); });
         }
-        function mpBuyVal() {
-          return Math.max(
-            200,
-            Math.min(1000, Math.floor(+$("#mpBuy").value) || 500)
-          );
-        }
+        function mpBuyVal() { return Math.max(200, Math.min(1000, Math.floor(+$("#mpBuy").value) || 500)); }
         $("#mpCreate").addEventListener("click", function () {
-          var inv = {},
-            priv = $("#mpPriv").checked;
-          if (priv)
-            $("#mpInv")
-              .value.split(",")
-              .forEach(function (x) {
-                x = x.trim().toLowerCase();
-                if (/^[a-z0-9_]{3,16}$/.test(x) && x !== cur) inv[x] = 1;
-              });
-          if (priv && !Object.keys(inv).length) {
-            mpMsg("Add at least one username to invite.", "lose");
-            return;
-          }
-          mpCreate(
-            $("#mpName").value.trim() || cur + "'s table",
-            priv,
-            inv,
-            mpBuyVal()
-          );
+          var inv = {}, priv = $("#mpPriv").checked;
+          if (priv) $("#mpInv").value.split(",").forEach(function (x) { x = x.trim().toLowerCase(); if (/^[a-z0-9_]{3,16}$/.test(x) && x !== cur) inv[x] = 1; });
+          if (priv && !Object.keys(inv).length) { mpMsg("Add at least one username to invite.", "lose"); return; }
+          mpCreate($("#mpName").value.trim() || cur + "'s table", priv, inv, mpBuyVal());
         });
         $("#mpQuick").addEventListener("click", function () {
-          var L = MP.lob || {},
-            now = Date.now(),
-            best = null;
+          var L = MP.lob || {}, now = Date.now(), best = null;
           Object.keys(L).forEach(function (k) {
             var x = L[k];
-            if (
-              !x ||
-              x.priv ||
-              now - (x.t || 0) > 600000 ||
-              (x.n || 0) >= x.max
-            )
-              return;
+            if (!x || x.priv || now - (x.t || 0) > 600000 || (x.n || 0) >= x.max) return;
             if (!best || (x.n || 0) > (L[best].n || 0)) best = k;
           });
-          if (best) {
-            $("#mpBuy").value = L[best].buy;
-            mpJoin(best);
-          } else mpCreate("Quick table", false, {}, mpBuyVal());
+          if (best) { $("#mpBuy").value = L[best].buy; mpJoin(best); }
+          else mpCreate("Quick table", false, {}, mpBuyVal());
         });
         /* ---------- table session ---------- */
         function mpReset() {
           if (MP.ref) MP.ref.off();
           if (MP.hr) MP.hr.off();
-          clearTimeout(MP.tm);
-          clearTimeout(MP.nt);
-          MP.tid = null;
-          MP.ref = null;
-          MP.hr = null;
-          MP.T = null;
-          MP.G = null;
-          MP.hole = null;
-          MP.cl = false;
-          MP.st = false;
-          MP.cn = -1;
-          MP.nt = null;
+          clearTimeout(MP.tm); clearTimeout(MP.nt);
+          MP.tid = null; MP.ref = null; MP.hr = null; MP.T = null; MP.G = null; MP.hole = null; MP.cl = false; MP.st = false; MP.cn = -1; MP.nt = null;
           if ($("#mpWrap").style.display !== "none") mpLobbyOn();
         }
         function mpEnter(tid) {
           if (MP.tid === tid) return;
-          MP.tid = tid;
-          MP.G = null;
-          MP.T = null;
-          MP.hole = null;
-          MP.holes = {};
-          MP.ln = null;
-          MP.cl = false;
-          MP.di = -1;
-          MP.cn = -1;
-          MP.pg = undefined;
-          MP.ps = null;
-          if (mpLob) {
-            mpLob.off();
-            mpLob = null;
-          }
+          MP.tid = tid; MP.G = null; MP.T = null; MP.hole = null; MP.holes = {}; MP.ln = null; MP.cl = false; MP.di = -1; MP.cn = -1; MP.pg = undefined; MP.ps = null;
+          if (mpLob) { mpLob.off(); mpLob = null; }
           $("#mpLobby").style.display = "none";
           $("#mpTable").style.display = "block";
           MP.ref = fbDB.ref("pkt/" + tid);
-          MP.ref.on("value", mpOnT, function (e) {
-            fbFail(e);
-            mpReset();
-          });
+          MP.ref.on("value", mpOnT, function (e) { fbFail(e); mpReset(); });
           MP.hr = fbDB.ref("pkh/" + tid + "/" + cur);
-          MP.hr.on(
-            "value",
-            function (sn) {
-              MP.hole = sn.val();
-              mpRender();
-            },
-            function () {}
-          );
+          MP.hr.on("value", function (sn) { MP.hole = sn.val(); mpRender(); }, function () {});
         }
         function mpSounds(T) {
           var G = T.g || null,
@@ -9298,163 +7722,84 @@
             }
             return;
           }
-          var changed = false,
-            nb = (G.board || []).length - (pg.board || []).length;
+          var changed = false, nb = (G.board || []).length - (pg.board || []).length;
           for (var k = 0; k < nb; k++) setTimeout(SFX.flip, k * 180);
           G.ids.forEach(function (u) {
-            if (G.fo[u] && !pg.fo[u]) {
-              SFX.fold();
-              changed = true;
-            } else if (G.ai[u] && !pg.ai[u]) {
-              SFX.allin();
-              changed = true;
-            } else if ((G.tot[u] || 0) > (pg.tot[u] || 0)) {
-              SFX.chips((G.tot[u] || 0) - (pg.tot[u] || 0) > 100 ? 4 : 2);
-              changed = true;
-            }
+            if (G.fo[u] && !pg.fo[u]) { SFX.fold(); changed = true; }
+            else if (G.ai[u] && !pg.ai[u]) { SFX.allin(); changed = true; }
+            else if ((G.tot[u] || 0) > (pg.tot[u] || 0)) { SFX.chips((G.tot[u] || 0) - (pg.tot[u] || 0) > 100 ? 4 : 2); changed = true; }
           });
-          if (
-            !changed &&
-            G.ph === "bet" &&
-            G.turn !== pg.turn &&
-            G.street === pg.street
-          )
-            SFX.knock();
-          if (G.ph === "bet" && G.turn === cur && pg.turn !== cur)
-            setTimeout(SFX.turn, nb > 0 ? 700 : 250);
+          if (!changed && G.ph === "bet" && G.turn !== pg.turn && G.street === pg.street) SFX.knock();
+          if (G.ph === "bet" && G.turn === cur && pg.turn !== cur) setTimeout(SFX.turn, nb > 0 ? 700 : 250);
           if (G.ph === "end" && pg.ph !== "end") {
             var won = G.pay && G.pay[cur] > 0;
-            setTimeout(
-              function () {
-                if (won) SFX.potwin(G.pay[cur] >= 400);
-                else SFX.chips(3);
-              },
-              nb > 0 ? 700 : 300
-            );
+            setTimeout(function () { if (won) SFX.potwin(G.pay[cur] >= 400); else SFX.chips(3); }, nb > 0 ? 700 : 300);
           }
         }
         function mpOnT(sn) {
           var T = sn.val();
           MP.T = T;
           if (!T) {
-            try {
-              localStorage.removeItem("luckyplay-mp-" + cur);
-            } catch (e) {}
-            mpReset();
-            mpMsg("Table closed.", "");
+            try { localStorage.removeItem("luckyplay-mp-" + cur); } catch (e) {}
+            mpReset(); mpMsg("Table closed.", "");
             return;
           }
           /* Firebase drops empty objects/arrays, so restore them before use */
           T.seats = T.seats || {};
           if (T.g) {
-            ["bet", "tot", "st", "fo", "ai", "ac", "pay"].forEach(function (k) {
-              T.g[k] = T.g[k] || {};
-            });
+            ["bet", "tot", "st", "fo", "ai", "ac", "pay"].forEach(function (k) { T.g[k] = T.g[k] || {}; });
             T.g.board = T.g.board || [];
             T.g.ids = T.g.ids || [];
           }
-          if (
-            T.g &&
-            T.g.ph === "end" &&
-            T.g.ids.indexOf(cur) >= 0 &&
-            MP.rec !== MP.tid + "_" + T.g.n
-          ) {
+          if (T.g && T.g.ph === "end" && T.g.ids.indexOf(cur) >= 0 && MP.rec !== MP.tid + "_" + T.g.n) {
             MP.rec = MP.tid + "_" + T.g.n;
             recordRound(T.g.tot[cur] || 0, (T.g.pay && T.g.pay[cur]) || 0);
           }
-          try {
-            mpSounds(T);
-          } catch (e) {}
-          var me = T.seats && T.seats[cur],
-            tid = MP.tid;
+          try { mpSounds(T); } catch (e) {}
+          var me = T.seats && T.seats[cur], tid = MP.tid;
           if (me && me.out) {
             if (MP.cl) return;
             MP.cl = true;
-            var amt = me.stack || 0,
-              last = Object.keys(T.seats).length <= 1;
-            MP.ref
-              .child("seats/" + cur)
-              .remove()
-              .then(function () {
-                setBalance(state.balance + amt);
-                try {
-                  localStorage.removeItem("luckyplay-mp-" + cur);
-                } catch (e) {}
-                if (T.closed && last) {
-                  var u = {};
-                  u["pkt/" + tid] = null;
-                  u["pklobby/" + tid] = null;
-                  fbDB
-                    .ref()
-                    .update(u)
-                    .catch(function () {});
-                }
-                toastMsg("Table stack returned: " + fmt(amt) + " coins", "pos");
-                mpReset();
-              })
-              .catch(function (e) {
-                MP.cl = false;
-                fbFail(e);
-              });
+            var amt = me.stack || 0, last = Object.keys(T.seats).length <= 1;
+            MP.ref.child("seats/" + cur).remove().then(function () {
+              setBalance(state.balance + amt);
+              try { localStorage.removeItem("luckyplay-mp-" + cur); } catch (e) {}
+              if (T.closed && last) { var u = {}; u["pkt/" + tid] = null; u["pklobby/" + tid] = null; fbDB.ref().update(u).catch(function () {}); }
+              toastMsg("Table stack returned: " + fmt(amt) + " coins", "pos");
+              mpReset();
+            }).catch(function (e) { MP.cl = false; fbFail(e); });
             return;
           }
-          if (!me) {
-            mpReset();
-            return;
-          }
+          if (!me) { mpReset(); return; }
           mpRender();
           if (T.host === cur) mpHostTick();
         }
         /* ---------- host engine ---------- */
         function mpHostTick() {
-          var T = MP.T,
-            G = MP.G;
+          var T = MP.T, G = MP.G;
           if (T.closed) return;
-          if (T.g && !G && !MP.st && T.status === "play" && !MP.nt) {
-            mpCloseTable();
-            return;
-          }
+          if (T.g && !G && !MP.st && T.status === "play" && !MP.nt) { mpCloseTable(); return; }
           Object.keys(T.seats || {}).forEach(function (u) {
             var s = T.seats[u];
             if (!s.lv || s.out) return;
-            if (G && G.ph === "bet" && G.ids.indexOf(u) >= 0) {
-              if (!G.fo[u]) mpFoldOut(u);
-              return;
-            }
-            MP.ref
-              .child("seats/" + u + "/out")
-              .set(true)
-              .catch(fbFail);
+            if (G && G.ph === "bet" && G.ids.indexOf(u) >= 0) { if (!G.fo[u]) mpFoldOut(u); return; }
+            MP.ref.child("seats/" + u + "/out").set(true).catch(fbFail);
           });
-          if (T.act && T.act.n !== MP.ln) {
-            MP.ln = T.act.n;
-            mpAct(T.act.u, T.act.k, T.act.a);
-          }
+          if (T.act && T.act.n !== MP.ln) { MP.ln = T.act.n; mpAct(T.act.u, T.act.k, T.act.a); }
           var n = Object.keys(T.seats || {}).length;
           if (n !== MP.cn) {
             MP.cn = n;
-            var lu = {};
-            lu["pklobby/" + MP.tid + "/n"] = n;
-            lu["pklobby/" + MP.tid + "/t"] = TS();
-            fbDB
-              .ref()
-              .update(lu)
-              .catch(function () {});
+            var lu = {}; lu["pklobby/" + MP.tid + "/n"] = n; lu["pklobby/" + MP.tid + "/t"] = TS();
+            fbDB.ref().update(lu).catch(function () {});
           }
           if (!MP.G && !MP.st && !MP.nt && mpIds(T).length >= 2) {
             MP.st = true;
-            setTimeout(function () {
-              MP.st = false;
-              if (!MP.G && MP.T && !MP.T.closed) mpStart();
-            }, 2500);
+            setTimeout(function () { MP.st = false; if (!MP.G && MP.T && !MP.T.closed) mpStart(); }, 2500);
           }
         }
         function mpNxt(G, idx) {
           var n = G.ids.length;
-          for (var i = 1; i <= n; i++) {
-            var u = G.ids[(idx + i) % n];
-            if (!G.fo[u] && !G.ai[u]) return u;
-          }
+          for (var i = 1; i <= n; i++) { var u = G.ids[(idx + i) % n]; if (!G.fo[u] && !G.ai[u]) return u; }
           return null;
         }
         function mpPush() {
@@ -9465,100 +7810,43 @@
           up["pkt/" + MP.tid + "/status"] = "play";
           fbDB.ref().update(up).catch(fbFail);
           clearTimeout(MP.tm);
-          if (G.ph === "bet" && G.turn)
-            MP.tm = setTimeout(function () {
-              var u = G.turn;
-              if (MP.G === G && u)
-                mpAct(u, G.cur - (G.bet[u] || 0) > 0 ? "f" : "c", 0);
-            }, 45500);
+          if (G.ph === "bet" && G.turn) MP.tm = setTimeout(function () {
+            var u = G.turn;
+            if (MP.G === G && u) mpAct(u, G.cur - (G.bet[u] || 0) > 0 ? "f" : "c", 0);
+          }, 45500);
         }
         function mpStart() {
-          var T = MP.T,
-            ids = mpIds(T),
-            n = ids.length;
+          var T = MP.T, ids = mpIds(T), n = ids.length;
           if (n < 2) return;
-          var di = (MP.di + 1) % n,
-            sb = n === 2 ? di : (di + 1) % n,
-            bb = (sb + 1) % n,
-            first = n === 2 ? sb : (bb + 1) % n;
-          MP.di = di;
-          MP.hn++;
-          var deck = pkDeck(),
-            holes = {},
-            hh = {};
-          var G = {
-            n: MP.hn,
-            ids: ids,
-            dealer: ids[di],
-            st: {},
-            bet: {},
-            tot: {},
-            fo: {},
-            ai: {},
-            ac: {},
-            board: [],
-            street: 0,
-            cur: 20,
-            minR: 20,
-            ph: "bet",
-            msg: "",
-            show: null,
-          };
-          ids.forEach(function (u) {
-            G.st[u] = T.seats[u].stack;
-            G.bet[u] = 0;
-            G.tot[u] = 0;
-            holes[u] = [deck.pop(), deck.pop()];
-            hh[u] = holes[u];
-          });
-          function post(u, a) {
-            a = Math.min(a, G.st[u]);
-            G.st[u] -= a;
-            G.bet[u] += a;
-            G.tot[u] += a;
-            if (!G.st[u]) G.ai[u] = 1;
-          }
-          post(ids[sb], 10);
-          post(ids[bb], 20);
-          MP.deck = deck;
-          MP.holes = holes;
-          MP.G = G;
+          var di = (MP.di + 1) % n, sb = n === 2 ? di : (di + 1) % n, bb = (sb + 1) % n, first = n === 2 ? sb : (bb + 1) % n;
+          MP.di = di; MP.hn++;
+          var deck = pkDeck(), holes = {}, hh = {};
+          var G = { n: MP.hn, ids: ids, dealer: ids[di], st: {}, bet: {}, tot: {}, fo: {}, ai: {}, ac: {}, board: [], street: 0, cur: 20, minR: 20, ph: "bet", msg: "", show: null };
+          ids.forEach(function (u) { G.st[u] = T.seats[u].stack; G.bet[u] = 0; G.tot[u] = 0; holes[u] = [deck.pop(), deck.pop()]; hh[u] = holes[u]; });
+          function post(u, a) { a = Math.min(a, G.st[u]); G.st[u] -= a; G.bet[u] += a; G.tot[u] += a; if (!G.st[u]) G.ai[u] = 1; }
+          post(ids[sb], 10); post(ids[bb], 20);
+          MP.deck = deck; MP.holes = holes; MP.G = G;
           G.turn = mpNxt(G, (first - 1 + n) % n);
           var up = {};
           up["pkh/" + MP.tid] = mpClean(hh);
-          fbDB
-            .ref()
-            .update(up)
-            .then(function () {
-              mpPush();
-            })
-            .catch(fbFail);
+          fbDB.ref().update(up).then(function () { mpPush(); }).catch(fbFail);
         }
         function mpCall(G, u) {
           var p = Math.min(G.cur - (G.bet[u] || 0), G.st[u]);
-          G.st[u] -= p;
-          G.bet[u] = (G.bet[u] || 0) + p;
-          G.tot[u] += p;
+          G.st[u] -= p; G.bet[u] = (G.bet[u] || 0) + p; G.tot[u] += p;
           if (!G.st[u]) G.ai[u] = 1;
         }
         function mpAct(u, k, a) {
           var G = MP.G;
-          if (!G || G.ph !== "bet" || G.turn !== u || G.ids.indexOf(u) < 0)
-            return;
+          if (!G || G.ph !== "bet" || G.turn !== u || G.ids.indexOf(u) < 0) return;
           if (k === "f") G.fo[u] = 1;
           else if (k === "r") {
-            var mx = (G.bet[u] || 0) + G.st[u],
-              to = Math.min(Math.max(Math.floor(+a) || 0, G.cur + G.minR), mx);
+            var mx = (G.bet[u] || 0) + G.st[u], to = Math.min(Math.max(Math.floor(+a) || 0, G.cur + G.minR), mx);
             if (to <= G.cur) mpCall(G, u);
             else {
               var add = to - (G.bet[u] || 0);
-              G.st[u] -= add;
-              G.bet[u] = to;
-              G.tot[u] += add;
-              if (to - G.cur >= G.minR) {
-                G.minR = to - G.cur;
-                G.ac = {};
-              }
+              G.st[u] -= add; G.bet[u] = to; G.tot[u] += add;
+              if (to - G.cur >= G.minR) { G.minR = to - G.cur; G.ac = {}; }
               G.cur = to;
               if (!G.st[u]) G.ai[u] = 1;
             }
@@ -9566,40 +7854,19 @@
           G.ac[u] = 1;
           mpAdvance(true);
         }
-        function mpFoldOut(u) {
-          MP.G.fo[u] = 1;
-          mpAdvance(MP.G.turn === u);
-        }
+        function mpFoldOut(u) { MP.G.fo[u] = 1; mpAdvance(MP.G.turn === u); }
         function mpAdvance(move) {
-          var G = MP.G,
-            alive = G.ids.filter(function (u) {
-              return !G.fo[u];
-            });
+          var G = MP.G, alive = G.ids.filter(function (u) { return !G.fo[u]; });
           if (alive.length === 1) {
-            var tot = 0,
-              pay = {};
-            G.ids.forEach(function (x) {
-              tot += G.tot[x];
-            });
+            var tot = 0, pay = {};
+            G.ids.forEach(function (x) { tot += G.tot[x]; });
             pay[alive[0]] = tot;
-            return mpEnd(
-              pay,
-              T_name(alive[0]) +
-                " wins " +
-                fmt(tot) +
-                " (everyone else folded)",
-              null
-            );
+            return mpEnd(pay, T_name(alive[0]) + " wins " + fmt(tot) + " (everyone else folded)", null);
           }
-          var can = alive.filter(function (u) {
-            return !G.ai[u];
-          });
-          var done = can.every(function (u) {
-            return G.ac[u] && (G.bet[u] || 0) === G.cur;
-          });
+          var can = alive.filter(function (u) { return !G.ai[u]; });
+          var done = can.every(function (u) { return G.ac[u] && (G.bet[u] || 0) === G.cur; });
           if (!done) {
-            if (move || G.fo[G.turn] || G.ai[G.turn])
-              G.turn = mpNxt(G, G.ids.indexOf(G.turn));
+            if (move || G.fo[G.turn] || G.ai[G.turn]) G.turn = mpNxt(G, G.ids.indexOf(G.turn));
             return mpPush();
           }
           while (true) {
@@ -9607,110 +7874,51 @@
             G.street++;
             var cnt = G.street === 1 ? 3 : 1;
             for (var i = 0; i < cnt; i++) G.board.push(MP.deck.pop());
-            G.ids.forEach(function (x) {
-              G.bet[x] = 0;
-            });
-            G.ac = {};
-            G.cur = 0;
-            G.minR = 20;
-            can = alive.filter(function (u) {
-              return !G.ai[u];
-            });
+            G.ids.forEach(function (x) { G.bet[x] = 0; });
+            G.ac = {}; G.cur = 0; G.minR = 20;
+            can = alive.filter(function (u) { return !G.ai[u]; });
             if (can.length >= 2) break;
           }
           G.turn = mpNxt(G, G.ids.indexOf(G.dealer));
           mpPush();
         }
-        function T_name(u) {
-          var s = MP.T && MP.T.seats && MP.T.seats[u];
-          return s ? s.name : u;
-        }
+        function T_name(u) { var s = MP.T && MP.T.seats && MP.T.seats[u]; return s ? s.name : u; }
         function mpShow() {
-          var G = MP.G,
-            alive = G.ids.filter(function (u) {
-              return !G.fo[u];
-            }),
-            ev = {},
-            show = {},
-            pay = {},
-            names = {};
-          alive.forEach(function (u) {
-            ev[u] = pkBest(MP.holes[u].concat(G.board));
-            show[u] = MP.holes[u];
-          });
+          var G = MP.G, alive = G.ids.filter(function (u) { return !G.fo[u]; }), ev = {}, show = {}, pay = {}, names = {};
+          alive.forEach(function (u) { ev[u] = pkBest(MP.holes[u].concat(G.board)); show[u] = MP.holes[u]; });
           var lv = [];
-          alive.forEach(function (u) {
-            if (G.tot[u] && lv.indexOf(G.tot[u]) < 0) lv.push(G.tot[u]);
-          });
-          lv.sort(function (a, b) {
-            return a - b;
-          });
+          alive.forEach(function (u) { if (G.tot[u] && lv.indexOf(G.tot[u]) < 0) lv.push(G.tot[u]); });
+          lv.sort(function (a, b) { return a - b; });
           var prev = 0;
           lv.forEach(function (L) {
             var amt = 0;
-            G.ids.forEach(function (u) {
-              amt += Math.max(
-                0,
-                Math.min(G.tot[u], L) - Math.min(G.tot[u], prev)
-              );
-            });
-            var el = alive.filter(function (u) {
-                return G.tot[u] >= L;
-              }),
-              best = -1,
-              ws = [];
-            el.forEach(function (u) {
-              var r = ev[u].sc;
-              if (r > best) {
-                best = r;
-                ws = [u];
-              } else if (r === best) ws.push(u);
-            });
+            G.ids.forEach(function (u) { amt += Math.max(0, Math.min(G.tot[u], L) - Math.min(G.tot[u], prev)); });
+            var el = alive.filter(function (u) { return G.tot[u] >= L; }), best = -1, ws = [];
+            el.forEach(function (u) { var r = ev[u].sc; if (r > best) { best = r; ws = [u]; } else if (r === best) ws.push(u); });
             var sh = Math.floor(amt / ws.length);
-            ws.forEach(function (u, i) {
-              pay[u] =
-                (pay[u] || 0) + sh + (i === 0 ? amt - sh * ws.length : 0);
-              names[u] = pkName(ev[u]);
-            });
+            ws.forEach(function (u, i) { pay[u] = (pay[u] || 0) + sh + (i === 0 ? amt - sh * ws.length : 0); names[u] = pkName(ev[u]); });
             prev = L;
           });
-          var msg = Object.keys(pay)
-            .map(function (u) {
-              return T_name(u) + " wins " + fmt(pay[u]) + " (" + names[u] + ")";
-            })
-            .join(" · ");
+          var msg = Object.keys(pay).map(function (u) { return T_name(u) + " wins " + fmt(pay[u]) + " (" + names[u] + ")"; }).join(" · ");
           mpEnd(pay, msg, show);
         }
         function mpEnd(pay, msg, show) {
-          var G = MP.G,
-            up = {};
+          var G = MP.G, up = {};
           clearTimeout(MP.tm);
-          G.ids.forEach(function (u) {
-            G.st[u] += pay[u] || 0;
-            up["pkt/" + MP.tid + "/seats/" + u + "/stack"] = G.st[u];
-          });
-          G.ph = "end";
-          G.pay = pay;
-          G.msg = msg;
-          G.show = show;
-          G.turn = null;
+          G.ids.forEach(function (u) { G.st[u] += pay[u] || 0; up["pkt/" + MP.tid + "/seats/" + u + "/stack"] = G.st[u]; });
+          G.ph = "end"; G.pay = pay; G.msg = msg; G.show = show; G.turn = null;
           up["pkt/" + MP.tid + "/g"] = mpClean(G);
           fbDB.ref().update(up).catch(fbFail);
           MP.nt = setTimeout(mpNext, 6000);
         }
         function mpNext() {
           MP.nt = null;
-          var T = MP.T,
-            G = MP.G;
+          var T = MP.T, G = MP.G;
           if (!T || T.closed || !mpIsHost()) return;
           var up = {};
           Object.keys(T.seats || {}).forEach(function (u) {
             var s = T.seats[u];
-            if (
-              !s.out &&
-              (s.lv || (G && G.ids.indexOf(u) >= 0 && G.st[u] === 0))
-            )
-              up["pkt/" + MP.tid + "/seats/" + u + "/out"] = true;
+            if (!s.out && (s.lv || (G && G.ids.indexOf(u) >= 0 && G.st[u] === 0))) up["pkt/" + MP.tid + "/seats/" + u + "/out"] = true;
           });
           MP.G = null;
           up["pkt/" + MP.tid + "/g"] = null;
@@ -9718,13 +7926,9 @@
           fbDB.ref().update(up).catch(fbFail);
         }
         function mpCloseTable() {
-          var T = MP.T,
-            up = {};
-          clearTimeout(MP.tm);
-          clearTimeout(MP.nt);
-          Object.keys(T.seats || {}).forEach(function (u) {
-            up["pkt/" + MP.tid + "/seats/" + u + "/out"] = true;
-          });
+          var T = MP.T, up = {};
+          clearTimeout(MP.tm); clearTimeout(MP.nt);
+          Object.keys(T.seats || {}).forEach(function (u) { up["pkt/" + MP.tid + "/seats/" + u + "/out"] = true; });
           up["pkt/" + MP.tid + "/closed"] = true;
           up["pkt/" + MP.tid + "/g"] = null;
           up["pklobby/" + MP.tid] = null;
@@ -9734,234 +7938,108 @@
         /* ---------- rendering & controls ---------- */
         var MPPOS = {
           1: [{ x: 50, y: 8, l: 1, bx: 64, by: 22 }],
-          2: [
-            { x: 20, y: 26, l: 1, bx: 33, by: 36 },
-            { x: 80, y: 26, bx: 67, by: 36 },
-          ],
-          3: [
-            { x: 14, y: 56, l: 1, bx: 26, by: 50 },
-            { x: 50, y: 8, l: 1, bx: 64, by: 22 },
-            { x: 86, y: 56, bx: 74, by: 50 },
-          ],
-          4: [
-            { x: 13, y: 64, l: 1, bx: 25, by: 54 },
-            { x: 22, y: 18, l: 1, bx: 33, by: 32 },
-            { x: 78, y: 18, bx: 67, by: 32 },
-            { x: 87, y: 64, bx: 75, by: 54 },
-          ],
-          5: [
-            { x: 12, y: 68, l: 1, bx: 24, by: 56 },
-            { x: 12, y: 34, l: 1, bx: 24, by: 42 },
-            { x: 50, y: 8, l: 1, bx: 64, by: 22 },
-            { x: 88, y: 34, bx: 76, by: 42 },
-            { x: 88, y: 68, bx: 76, by: 56 },
-          ],
+          2: [{ x: 20, y: 26, l: 1, bx: 33, by: 36 }, { x: 80, y: 26, bx: 67, by: 36 }],
+          3: [{ x: 14, y: 56, l: 1, bx: 26, by: 50 }, { x: 50, y: 8, l: 1, bx: 64, by: 22 }, { x: 86, y: 56, bx: 74, by: 50 }],
+          4: [{ x: 13, y: 64, l: 1, bx: 25, by: 54 }, { x: 22, y: 18, l: 1, bx: 33, by: 32 }, { x: 78, y: 18, bx: 67, by: 32 }, { x: 87, y: 64, bx: 75, by: 54 }],
+          5: [{ x: 12, y: 68, l: 1, bx: 24, by: 56 }, { x: 12, y: 34, l: 1, bx: 24, by: 42 }, { x: 50, y: 8, l: 1, bx: 64, by: 22 }, { x: 88, y: 34, bx: 76, by: 42 }, { x: 88, y: 68, bx: 76, by: 56 }],
         };
         function mpRender() {
           var T = MP.T;
           if (!T || !MP.tid) return;
           var G = T.g || null,
-            ids = Object.keys(T.seats)
-              .filter(function (u) {
-                return !T.seats[u].out;
-              })
-              .sort(function (a, b) {
-                return T.seats[a].at - T.seats[b].at;
-              }),
+            ids = Object.keys(T.seats).filter(function (u) { return !T.seats[u].out; }).sort(function (a, b) { return T.seats[a].at - T.seats[b].at; }),
             mi = Math.max(0, ids.indexOf(cur)),
-            order = ids.map(function (u, i) {
-              return ids[(mi + i) % ids.length];
-            }),
+            order = ids.map(function (u, i) { return ids[(mi + i) % ids.length]; }),
             pos = MPPOS[Math.min(5, Math.max(1, order.length - 1))] || [],
-            inHand = function (u) {
-              return G && G.ids.indexOf(u) >= 0;
-            };
-          $("#mpTitle").textContent =
-            T.name + (T.priv ? " 🔒" : "") + " · blinds 10/20";
+            inHand = function (u) { return G && G.ids.indexOf(u) >= 0; };
+          $("#mpTitle").textContent = T.name + (T.priv ? " 🔒" : "") + " · blinds 10/20";
           var felt = $("#mpSeats");
           felt.innerHTML = "";
           order.forEach(function (u, i) {
-            var s2 = T.seats[u],
-              inH = inHand(u),
-              me = u === cur;
+            var s2 = T.seats[u], inH = inHand(u), me = u === cur;
             var sp = me ? { x: 50, y: 90, bx: 70, by: 56 } : pos[i - 1];
             if (!sp) return;
             var won = G && G.ph === "end" && G.pay && G.pay[u] > 0;
-            var seat = pkEl(
-              "div",
-              "pkseat" +
-                (me ? " me" : sp.l ? " l" : " r") +
-                (inH && G.fo[u] ? " folded" : "") +
-                (G && G.turn === u ? " turn" : "") +
-                (won ? " win" : ""),
-              felt
-            );
+            var seat = pkEl("div", "pkseat" + (me ? " me" : sp.l ? " l" : " r") + (inH && G.fo[u] ? " folded" : "") + (G && G.turn === u ? " turn" : "") + (won ? " win" : ""), felt);
             seat.style.left = sp.x + "%";
             seat.style.top = sp.y + "%";
             if (!me) {
               var cd = pkEl("div", "pkcards", seat);
               if (inH && !G.fo[u]) {
                 var sh = G.show && G.show[u];
-                for (var k = 0; k < 2; k++)
-                  cd.appendChild(
-                    pkCard(
-                      sh && sh[k] ? { v: sh[k].v, s: sh[k].s } : { v: 2, s: 0 },
-                      "",
-                      !sh,
-                      false
-                    )
-                  );
+                for (var k = 0; k < 2; k++) cd.appendChild(pkCard(sh && sh[k] ? { v: sh[k].v, s: sh[k].s } : { v: 2, s: 0 }, "", !sh, false));
               }
             }
             pkEl("div", "pkav", seat).textContent = s2.av || "🙂";
-            pkEl("div", "pkstack", seat).textContent =
-              (me ? "🪙 " : "") + fmt(inH ? G.st[u] : s2.stack);
-            pkEl("div", "pkname", seat).textContent =
-              s2.name + (T.host === u ? " 👑" : "");
-            var tag = s2.lv
-              ? "Leaving"
-              : inH && G.fo[u]
-              ? "Fold"
-              : inH && G.ai[u] && !G.fo[u]
-              ? "All-in"
-              : G && !inH
-              ? "Next hand"
-              : "";
+            pkEl("div", "pkstack", seat).textContent = (me ? "🪙 " : "") + fmt(inH ? G.st[u] : s2.stack);
+            pkEl("div", "pkname", seat).textContent = s2.name + (T.host === u ? " 👑" : "");
+            var tag = s2.lv ? "Leaving" : inH && G.fo[u] ? "Fold" : inH && G.ai[u] && !G.fo[u] ? "All-in" : G && !inH ? "Next hand" : "";
             if (won) tag = "+" + fmt(G.pay[u]);
-            if (tag) {
-              var bg = pkEl("div", "pkbadge", seat);
-              bg.textContent = tag;
-              bg.style.display = "block";
-            }
-            if (G && G.dealer === u && inH)
-              pkEl("div", "pkD", seat, "D").style.display = "flex";
+            if (tag) { var bg = pkEl("div", "pkbadge", seat); bg.textContent = tag; bg.style.display = "block"; }
+            if (G && G.dealer === u && inH) pkEl("div", "pkD", seat, "D").style.display = "flex";
             if (inH && G.bet[u] > 0) {
               var bt = pkEl("div", "mpbet", felt);
-              bt.style.left = sp.bx + "%";
-              bt.style.top = sp.by + "%";
+              bt.style.left = sp.bx + "%"; bt.style.top = sp.by + "%";
               bt.textContent = fmt(G.bet[u]);
             }
           });
-          var bd = $("#mpBoard"),
-            bc = G && G.board ? G.board : [];
+          var bd = $("#mpBoard"), bc = G && G.board ? G.board : [];
           bd.innerHTML = "";
-          bc.forEach(function (c) {
-            bd.appendChild(pkCard({ v: c.v, s: c.s }, "b", false));
-          });
+          bc.forEach(function (c) { bd.appendChild(pkCard({ v: c.v, s: c.s }, "b", false)); });
           if (G) for (var q = bc.length; q < 5; q++) pkEl("div", "pkslot", bd);
           var pot = 0;
-          if (G && G.tot)
-            Object.keys(G.tot).forEach(function (u) {
-              pot += G.tot[u];
-            });
+          if (G && G.tot) Object.keys(G.tot).forEach(function (u) { pot += G.tot[u]; });
           $("#mpPot").textContent = G ? "Pot: " + fmt(pot) : "";
-          var hd = $("#mpHand"),
-            hole = inHand(cur) && MP.hole ? MP.hole : null;
+          var hd = $("#mpHand"), hole = inHand(cur) && MP.hole ? MP.hole : null;
           hd.innerHTML = "";
           hd.className = "pkhero" + (G && G.fo[cur] ? " dim" : "");
-          if (hole)
-            hole.forEach(function (c) {
-              hd.appendChild(pkCard({ v: c.v, s: c.s }, "h", false));
-            });
-          $("#mpHN").textContent =
-            hole && bc.length >= 3 ? pkName(pkBest(hole.concat(bc))) : "";
-          var st = $("#mpStatus"),
-            bar = $("#mpBar"),
-            mine = G && G.ph === "bet" && G.turn === cur;
-          if (!G)
-            st.textContent =
-              mpIds(T).length < 2
-                ? "Waiting for another player to sit down..."
-                : "Next hand starting...";
+          if (hole) hole.forEach(function (c) { hd.appendChild(pkCard({ v: c.v, s: c.s }, "h", false)); });
+          $("#mpHN").textContent = hole && bc.length >= 3 ? pkName(pkBest(hole.concat(bc))) : "";
+          var st = $("#mpStatus"), bar = $("#mpBar"), mine = G && G.ph === "bet" && G.turn === cur;
+          if (!G) st.textContent = mpIds(T).length < 2 ? "Waiting for another player to sit down..." : "Next hand starting...";
           else if (G.ph === "end") st.textContent = G.msg || "";
-          else
-            st.innerHTML = mine
-              ? "<b>Your turn</b> <span id='mpCd'></span>"
-              : "Waiting for " +
-                esc(T_name(G.turn)) +
-                " <span id='mpCd'></span>";
+          else st.innerHTML = mine ? "<b>Your turn</b> <span id='mpCd'></span>" : "Waiting for " + esc(T_name(G.turn)) + " <span id='mpCd'></span>";
           bar.style.display = mine ? "flex" : "none";
           if (mine) {
-            var need = G.cur - (G.bet[cur] || 0),
-              stk = G.st[cur],
-              minTo = G.cur + G.minR;
-            $("#mpC").textContent =
-              need > 0 ? "Call " + fmt(Math.min(need, stk)) : "Check";
-            $("#mpAmt").min = minTo;
-            $("#mpAmt").max = (G.bet[cur] || 0) + stk;
-            if (document.activeElement !== $("#mpAmt"))
-              $("#mpAmt").value = Math.min(minTo, (G.bet[cur] || 0) + stk);
-            $("#mpR").disabled =
-              $("#mpAmt").disabled =
-              $("#mpA").disabled =
-                stk <= need;
+            var need = G.cur - (G.bet[cur] || 0), stk = G.st[cur], minTo = G.cur + G.minR;
+            $("#mpC").textContent = need > 0 ? "Call " + fmt(Math.min(need, stk)) : "Check";
+            $("#mpAmt").min = minTo; $("#mpAmt").max = (G.bet[cur] || 0) + stk;
+            if (document.activeElement !== $("#mpAmt")) $("#mpAmt").value = Math.min(minTo, (G.bet[cur] || 0) + stk);
+            $("#mpR").disabled = $("#mpAmt").disabled = $("#mpA").disabled = stk <= need;
           }
         }
         setInterval(function () {
-          var G = MP.T && MP.T.g,
-            el = $("#mpCd");
-          if (el && G && G.dl)
-            el.textContent =
-              "(" + Math.max(0, Math.round((G.dl - Date.now()) / 1000)) + "s)";
+          var G = MP.T && MP.T.g, el = $("#mpCd");
+          if (el && G && G.dl) el.textContent = "(" + Math.max(0, Math.round((G.dl - Date.now()) / 1000)) + "s)";
         }, 1000);
         function mpSend(k, a) {
           if (!MP.ref) return;
           SFX.click();
-          MP.ref
-            .child("act")
-            .set({ u: cur, k: k, a: a || 0, n: Date.now() + Math.random() })
-            .catch(fbFail);
+          MP.ref.child("act").set({ u: cur, k: k, a: a || 0, n: Date.now() + Math.random() }).catch(fbFail);
           $("#mpBar").style.display = "none";
         }
-        $("#mpF").addEventListener("click", function () {
-          mpSend("f");
-        });
-        $("#mpC").addEventListener("click", function () {
-          mpSend("c");
-        });
-        $("#mpR").addEventListener("click", function () {
-          mpSend("r", +$("#mpAmt").value);
-        });
-        $("#mpA").addEventListener("click", function () {
-          mpSend("r", 1e9);
-        });
+        $("#mpF").addEventListener("click", function () { mpSend("f"); });
+        $("#mpC").addEventListener("click", function () { mpSend("c"); });
+        $("#mpR").addEventListener("click", function () { mpSend("r", +$("#mpAmt").value); });
+        $("#mpA").addEventListener("click", function () { mpSend("r", 1e9); });
         $("#mpLeave").addEventListener("click", function () {
           if (!MP.T) return;
           if (mpIsHost()) {
-            if (
-              Object.keys(MP.T.seats || {}).length > 1 &&
-              !window.confirm(
-                "You are the host. Leaving closes the table for everyone (stacks are returned). Leave?"
-              )
-            )
-              return;
+            if (Object.keys(MP.T.seats || {}).length > 1 && !window.confirm("You are the host. Leaving closes the table for everyone (stacks are returned). Leave?")) return;
             mpCloseTable();
-          } else
-            MP.ref
-              .child("seats/" + cur + "/lv")
-              .set(true)
-              .catch(fbFail);
+          } else MP.ref.child("seats/" + cur + "/lv").set(true).catch(fbFail);
           mpMsg("Leaving... your stack will be returned.", "");
         });
         $("#pkTabCpu").addEventListener("click", function () {
-          if (MP.tid) {
-            note("Leave your multiplayer table first.");
-            return;
-          }
+          if (MP.tid) { note("Leave your multiplayer table first."); return; }
           $("#mpWrap").style.display = "none";
           $("#pkCpuWrap").style.display = "block";
           $("#pkTabMp").classList.remove("on");
           $("#pkTabCpu").classList.add("on");
         });
         $("#pkTabMp").addEventListener("click", function () {
-          if (PK.on) {
-            note("Cash out of the CPU table first.");
-            return;
-          }
-          if (!cur || !fbDB) {
-            note("Log in to play with other players.");
-            return;
-          }
+          if (PK.on) { note("Cash out of the CPU table first."); return; }
+          if (!cur || !fbDB) { note("Log in to play with other players."); return; }
           mpOpen();
         });
 
@@ -9982,10 +8060,7 @@
                   if (k === cur) return;
                   var x = b[k] || {};
                   db.users[k] = {
-                    name:
-                      String(x.name || k)
-                        .replace(/[^A-Za-z0-9_]/g, "")
-                        .slice(0, 16) || k,
+                    name: String(x.name || k).replace(/[^A-Za-z0-9_]/g, "").slice(0, 16) || k,
                     data: {
                       balance: x.bal || 0,
                       stats: { peak: x.peak || 0, spins: x.n || 0 },
@@ -10030,7 +8105,12 @@
               bd[i] = 1;
             });
             var up = {};
-            up["users/" + k] = JSON.parse(JSON.stringify(u));
+            /* write each child separately so pending admin gifts (users/<k>/gifts) are never overwritten */
+            var uc = JSON.parse(JSON.stringify(u));
+            Object.keys(uc).forEach(function (f) {
+              if (f !== "gifts") up["users/" + k + "/" + f] = uc[f];
+            });
+            if (!("pend" in uc)) up["users/" + k + "/pend"] = null;
             up["board/" + k] = JSON.parse(
               JSON.stringify({
                 name: u.name,
@@ -10225,7 +8305,37 @@
             s <= 1 ? "var(--lose)" : s <= 3 ? "var(--gold)" : "var(--win)";
         });
         var banRef = null,
-          banKey = null;
+          banKey = null,
+          giftRef = null,
+          giftKey = null;
+        /* coins sent by the admin arrive in users/<name>/gifts; claim each one exactly once */
+        function giftWatch(key) {
+          if (!fbDB || giftKey === key) return;
+          if (giftRef) giftRef.off();
+          giftKey = key;
+          giftRef = fbDB.ref("users/" + key + "/gifts");
+          giftRef.on(
+            "child_added",
+            function (sn) {
+              if (cur !== key) return;
+              var v = sn.val() || {},
+                amt = Math.floor(Number(v.amt));
+              if (!(amt >= 1 && amt <= 1000000000) || v.from !== "admin") {
+                sn.ref.remove().catch(function () {});
+                return;
+              }
+              sn.ref
+                .remove()
+                .then(function () {
+                  if (cur !== key) return;
+                  setBalance(state.balance + amt);
+                  toastMsg("🎁 Admin gave you " + fmt(amt) + " coins!", "pos");
+                })
+                .catch(fbFail);
+            },
+            function () {}
+          );
+        }
         function enter(key, remember) {
           cur = key;
           if (fbDB && banKey !== key) {
@@ -10301,6 +8411,7 @@
           pkRecover();
           checkGameOver();
           show("home");
+          giftWatch(key);
         }
         function showRec(code, key, remember) {
           pending = { key: key, remember: remember };
@@ -10351,20 +8462,11 @@
             return;
           }
           if (authMode === "register" && !$("#authAge").checked) {
-            setMsg(
-              authMsg,
-              "Please confirm you are 18+ and that this is a free play-coin game.",
-              "lose"
-            );
+            setMsg(authMsg, "Please confirm you are 18+ and that this is a free play-coin game.", "lose");
             return;
           }
           if (!fbAuth) {
-            setMsg(
-              authMsg,
-              "Cannot reach Firebase" +
-                (fbInitErr ? ": " + fbInitErr : ". Check your connection."),
-              "lose"
-            );
+            setMsg(authMsg, "Cannot reach Firebase" + (fbInitErr ? ": " + fbInitErr : ". Check your connection."), "lose");
             return;
           }
           if (authMode === "reset") {
@@ -10480,6 +8582,11 @@
           bcRender();
           var savePromise = dbSave();
           cur = null;
+          if (giftRef) {
+            giftRef.off();
+            giftRef = null;
+            giftKey = null;
+          }
           Promise.resolve(savePromise)
             .catch(function () {})
             .then(function () {
@@ -10510,13 +8617,7 @@
           });
         });
         setInterval(function () {
-          if (
-            cur &&
-            !busy &&
-            !PK.on &&
-            !MP.tid &&
-            Date.now() - idleT > 20 * 60000
-          )
+          if (cur && !busy && !PK.on && !MP.tid && Date.now() - idleT > 20 * 60000)
             doLogout();
         }, 30000);
 
@@ -10696,10 +8797,7 @@
         function lbShown(k) {
           if (k === "admin") return false;
           var x = db.users[k],
-            sp =
-              k === cur
-                ? state.stats.spins
-                : x.data && x.data.stats && x.data.stats.spins;
+            sp = k === cur ? state.stats.spins : x.data && x.data.stats && x.data.stats.spins;
           return (sp || 0) > 0;
         }
         function esc(t) {
@@ -10743,14 +8841,8 @@
                       fmt(x.peak || 0) +
                       "<br>" +
                       (bn[k]
-                        ? "<button class='secondary' data-a='unban' data-k='" +
-                          ek +
-                          "'>Unban</button>"
-                        : "<button class='secondary' data-a='reset' data-k='" +
-                          ek +
-                          "'>Reset coins</button> <button class='secondary' style='color:var(--lose)' data-a='ban' data-k='" +
-                          ek +
-                          "'>Ban</button>") +
+                        ? "<button class='secondary' data-a='unban' data-k='" + ek + "'>Unban</button>"
+                        : "<button class='secondary' data-a='give' data-k='" + ek + "'>🎁 Give</button> <button class='secondary' data-a='reset' data-k='" + ek + "'>Reset coins</button> <button class='secondary' style='color:var(--lose)' data-a='ban' data-k='" + ek + "'>Ban</button>") +
                       "</div>"
                     );
                   })
@@ -10767,25 +8859,73 @@
         $("#admClose").addEventListener("click", function () {
           $("#admOv").classList.remove("show");
         });
+        function admGive(k, amt) {
+          var m = $("#admMsg");
+          k = String(k || "").trim().toLowerCase();
+          amt = Math.floor(Number(amt));
+          if (cur !== "admin") return;
+          if (!(amt >= 1 && amt <= 1000000000)) {
+            setMsg(m, "Enter a whole number of coins from 1 to 1,000,000,000.", "lose");
+            return;
+          }
+          if (!/^[a-z0-9_]{3,16}$/.test(k) || k === "admin") {
+            setMsg(m, "Enter another player's username.", "lose");
+            return;
+          }
+          if (!window.confirm("Give " + fmt(amt) + " coins to " + k + "?")) return;
+          setMsg(m, "Sending...", "");
+          fbDB
+            .ref("board/" + k)
+            .once("value")
+            .then(function (sn) {
+              if (!sn.val()) throw { message: "No player named \"" + k + "\" found." };
+              var id = fbDB.ref("users/" + k + "/gifts").push().key,
+                up = {};
+              up["users/" + k + "/gifts/" + id] = {
+                amt: amt,
+                from: "admin",
+                at: firebase.database.ServerValue.TIMESTAMP,
+              };
+              return fbDB.ref().update(up);
+            })
+            .then(function () {
+              /* keep the leaderboard number in step; the player's own save also refreshes it */
+              fbDB
+                .ref("board/" + k + "/bal")
+                .transaction(function (v) {
+                  return typeof v === "number" ? v + amt : v;
+                })
+                .catch(function () {});
+              setMsg(m, "Sent " + fmt(amt) + " coins to " + k + ". They get them as soon as they are online.", "win");
+              $("#admAmt").value = "";
+              admRender();
+            })
+            .catch(function (e) {
+              if (e && e.code) fbFail(e);
+              setMsg(m, (e && e.message) || "Could not send coins.", "lose");
+            });
+        }
+        $("#admGive").addEventListener("click", function () {
+          admGive($("#admUser").value, $("#admAmt").value);
+        });
         $("#admList").addEventListener("click", function (e) {
           var a = e.target.getAttribute("data-a"),
             k = e.target.getAttribute("data-k"),
             up = {};
           if (cur !== "admin" || !a || !k || k === "admin") return;
+          if (a === "give") {
+            $("#admUser").value = k;
+            admGive(k, $("#admAmt").value);
+            return;
+          }
           if (a === "ban") {
-            if (
-              !window.confirm(
-                "Ban " + k + " and remove them from the leaderboard?"
-              )
-            )
-              return;
+            if (!window.confirm("Ban " + k + " and remove them from the leaderboard?")) return;
             up["banned/" + k] = true;
             up["board/" + k] = null;
           } else if (a === "unban") {
             up["banned/" + k] = null;
           } else if (a === "reset") {
-            if (!window.confirm("Reset " + k + " to " + START + " coins?"))
-              return;
+            if (!window.confirm("Reset " + k + " to " + START + " coins?")) return;
             up["users/" + k + "/data/balance"] = START;
             up["users/" + k + "/data/stats/peak"] = START;
             up["board/" + k + "/bal"] = START;
@@ -10817,38 +8957,21 @@
       })();
 
       (function () {
-        var T =
-          "⚠️ NOT A CASINO. This is a free game with play coins that have no real-world value and can never be cashed out. Do not treat it as real gambling.";
+        var T = "⚠️ NOT A CASINO. This is a free game with play coins that have no real-world value and can never be cashed out. Do not treat it as real gambling.";
         document.querySelectorAll("main .view").forEach(function (v) {
-          var h = v.querySelector(".title"),
-            d = document.createElement("div");
-          d.className = "notice";
-          d.textContent = T;
-          if (h) h.insertAdjacentElement("afterend", d);
-          else v.insertBefore(d, v.firstChild);
+          var h = v.querySelector(".title"), d = document.createElement("div");
+          d.className = "notice"; d.textContent = T;
+          if (h) h.insertAdjacentElement("afterend", d); else v.insertBefore(d, v.firstChild);
         });
         var f = document.querySelector("footer");
-        if (f)
-          f.insertAdjacentHTML(
-            "beforeend",
-            "<p><b>Disclaimer:</b> Lucky Play is an entertainment project, not a casino or gambling service. No real money is used, won, or paid out. Not affiliated with any casino. Odds and rules are simplified.</p>"
-          );
-        var ok = false;
-        try {
-          ok = localStorage.getItem("lp_ack") === "1";
-        } catch (e) {}
+        if (f) f.insertAdjacentHTML("beforeend", "<p><b>Disclaimer:</b> Lucky Play is an entertainment project, not a casino or gambling service. No real money is used, won, or paid out. Not affiliated with any casino. Odds and rules are simplified.</p>");
+        var ok = false; try { ok = localStorage.getItem("lp_ack") === "1"; } catch (e) {}
         if (!ok) {
           var o = document.createElement("div");
           o.className = "ack";
-          o.innerHTML =
-            "<div><h2>⚠️ This is NOT a casino</h2><p>Lucky Play is a free game. Coins are pretend, have no value, and can't be cashed out. Nothing here is real gambling or advice.</p><button class='primary' id='ackBtn'>I understand</button></div>";
+          o.innerHTML = "<div><h2>⚠️ This is NOT a casino</h2><p>Lucky Play is a free game. Coins are pretend, have no value, and can't be cashed out. Nothing here is real gambling or advice.</p><button class='primary' id='ackBtn'>I understand</button></div>";
           document.body.appendChild(o);
-          document.getElementById("ackBtn").onclick = function () {
-            try {
-              localStorage.setItem("lp_ack", "1");
-            } catch (e) {}
-            o.remove();
-          };
+          document.getElementById("ackBtn").onclick = function () { try { localStorage.setItem("lp_ack", "1"); } catch (e) {} o.remove(); };
         }
       })();
     </script>
