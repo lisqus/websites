@@ -8061,6 +8061,7 @@
                   var x = b[k] || {};
                   db.users[k] = {
                     name: String(x.name || k).replace(/[^A-Za-z0-9_]/g, "").slice(0, 16) || k,
+                    lbOff: !!x.hide,
                     data: {
                       balance: x.bal || 0,
                       stats: { peak: x.peak || 0, spins: x.n || 0 },
@@ -8108,7 +8109,7 @@
             /* write each child separately so pending admin gifts (users/<k>/gifts) are never overwritten */
             var uc = JSON.parse(JSON.stringify(u));
             Object.keys(uc).forEach(function (f) {
-              if (f !== "gifts") up["users/" + k + "/" + f] = uc[f];
+              if (f !== "gifts" && f !== "lbOff") up["users/" + k + "/" + f] = uc[f];
             });
             if (!("pend" in uc)) up["users/" + k + "/pend"] = null;
             up["board/" + k] = JSON.parse(
@@ -8120,6 +8121,7 @@
                 n: st.spins || 0,
                 bal: d.balance || 0,
                 badges: bd,
+                hide: u.lbOff ? true : undefined,
                 t: Date.now(),
               })
             );
@@ -8307,12 +8309,27 @@
         var banRef = null,
           banKey = null,
           giftRef = null,
-          giftKey = null;
+          giftKey = null,
+          lbRef = null;
         /* coins sent by the admin arrive in users/<name>/gifts; claim each one exactly once */
         function giftWatch(key) {
           if (!fbDB || giftKey === key) return;
           if (giftRef) giftRef.off();
           giftKey = key;
+          if (lbRef) lbRef.off();
+          lbRef = fbDB.ref("users/" + key + "/lbOff");
+          lbRef.on(
+            "value",
+            function (sn) {
+              if (cur !== key || !db.users[key]) return;
+              var f = !!sn.val();
+              if (f === !!db.users[key].lbOff) return;
+              if (f) db.users[key].lbOff = true;
+              else delete db.users[key].lbOff;
+              dbWrite();
+            },
+            function () {}
+          );
           giftRef = fbDB.ref("users/" + key + "/gifts");
           giftRef.on(
             "child_added",
@@ -8587,6 +8604,10 @@
             giftRef = null;
             giftKey = null;
           }
+          if (lbRef) {
+            lbRef.off();
+            lbRef = null;
+          }
           Promise.resolve(savePromise)
             .catch(function () {})
             .then(function () {
@@ -8795,7 +8816,7 @@
             });
         });
         function lbShown(k) {
-          if (k === "admin") return false;
+          if (k === "admin" || (db.users[k] && db.users[k].lbOff)) return false;
           var x = db.users[k],
             sp = k === cur ? state.stats.spins : x.data && x.data.stats && x.data.stats.spins;
           return (sp || 0) > 0;
@@ -8835,6 +8856,7 @@
                       esc(x.name || k) +
                       "</b>" +
                       (bn[k] ? " 🚫" : "") +
+                      (x.hide ? " 🙈 hidden from leaderboard" : "") +
                       " — bal " +
                       fmt(x.bal || 0) +
                       ", peak " +
@@ -8842,7 +8864,11 @@
                       "<br>" +
                       (bn[k]
                         ? "<button class='secondary' data-a='unban' data-k='" + ek + "'>Unban</button>"
-                        : "<button class='secondary' data-a='give' data-k='" + ek + "'>🎁 Give</button> <button class='secondary' data-a='reset' data-k='" + ek + "'>Reset coins</button> <button class='secondary' style='color:var(--lose)' data-a='ban' data-k='" + ek + "'>Ban</button>") +
+                        : "<button class='secondary' data-a='give' data-k='" + ek + "'>🎁 Give</button> " +
+                          (x.hide
+                            ? "<button class='secondary' data-a='lbon' data-k='" + ek + "'>Show on leaderboard</button> "
+                            : "<button class='secondary' data-a='lboff' data-k='" + ek + "'>🚪 Kick from leaderboard</button> ") +
+                          "<button class='secondary' data-a='reset' data-k='" + ek + "'>Reset coins</button> <button class='secondary' style='color:var(--lose)' data-a='ban' data-k='" + ek + "'>Ban</button>") +
                       "</div>"
                     );
                   })
@@ -8922,6 +8948,13 @@
             if (!window.confirm("Ban " + k + " and remove them from the leaderboard?")) return;
             up["banned/" + k] = true;
             up["board/" + k] = null;
+          } else if (a === "lboff") {
+            if (!window.confirm("Remove " + k + " from the leaderboard? They keep their account and coins.")) return;
+            up["users/" + k + "/lbOff"] = true;
+            up["board/" + k + "/hide"] = true;
+          } else if (a === "lbon") {
+            up["users/" + k + "/lbOff"] = null;
+            up["board/" + k + "/hide"] = null;
           } else if (a === "unban") {
             up["banned/" + k] = null;
           } else if (a === "reset") {
