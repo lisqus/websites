@@ -517,8 +517,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2.6rem;
+        font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
+        font-size: clamp(1.7rem, 5vw, 2.6rem);
         line-height: 1;
+        white-space: nowrap;
+        user-select: none;
+        transform: translateZ(0);
       }
       .reel.spinning .sym {
         filter: blur(2px);
@@ -2101,13 +2105,18 @@
         <button class="back" data-go="home">← Back</button>
         <h2 class="title">Slot Machine</h2>
         <div class="quick" id="machineSel" style="flex-wrap: wrap"></div>
+        <div class="paytable slot-guide" id="slotGuide" style="max-width:560px;margin:12px auto;background:var(--panel);border:1px solid #3a4558;border-radius:12px;padding:14px 18px">
+          <h3 style="color:var(--gold);margin:0 0 8px">How to play</h3>
+          <p id="slotHow" style="margin:0 0 8px;color:var(--muted)">Match symbols on the single center payline. Wins count from the leftmost reel.</p>
+          <p id="slotSymbols" style="margin:0;color:var(--muted)"></p>
+        </div>
         <div id="jpBox" class="jpsign" role="status" aria-live="polite">
           <div class="jphead">🏆 COMMUNITY JACKPOT 🏆</div>
           <div class="jpamt"><span id="jpAmt">…</span> <small>🪙</small></div>
           <span class="jpplus" id="jpPlus"></span>
           <div class="jpsub" id="jpSub">2% of every slot bet from all players feeds it.</div>
           <div class="jpq" id="jpQ"></div>
-          <div class="jpsub">Win it with <b>5 scatters</b> (⭐ Dragon's Hoard · 🔺 Pharaoh's Treasure) or a <b>1-in-1,000 mystery drop</b> on any qualifying spin.</div>
+          <div class="jpsub">Win it with <b>5 matching scatters</b> (⭐ Dragon's Hoard · 🔺 Pharaoh's Treasure) or a <b>1-in-1,000 mystery drop</b> on a qualifying spin.</div>
           <div class="jplast" id="jpLast"></div>
         </div>
         <div class="cabinet" id="cabinet">
@@ -2664,8 +2673,12 @@
           <input id="admAmt" class="bet-input" type="number" min="1" step="1" placeholder="Coins to give" style="flex: 1 1 130px" />
           <input id="admUser" class="bet-input" type="text" maxlength="16" placeholder="Username (or press Give on a row)" style="flex: 2 1 190px" />
           <button id="admGive" class="primary">🎁 Give coins</button>
+          <button id="admSelf" class="secondary">🪙 Give coins to myself</button>
         </div>
         <p id="admMsg" class="msg"></p>
+        <h3 style="color:var(--gold);margin:16px 0 6px">⚠️ Suspicious activity alerts</h3>
+        <div id="admAlerts" class="rtp-note" aria-live="polite">Alerts appear when unusual play patterns are detected. These are review flags, not proof of cheating.</div>
+        <h3 style="color:var(--gold);margin:16px 0 6px">Player management</h3>
         <div id="admList" class="rtp-note"></div>
         <div class="controls">
           <button id="admClose" class="primary">Close</button>
@@ -2949,6 +2962,27 @@
           notes.forEach(function (n, i) {
             bell(n, (d0 || 0) + i * step, vol);
           });
+        }
+        var lobbyMusicOn = true, lobbyMusicTimer = null, lobbyMusicStep = 0;
+        function lobbyMusicTick() {
+          if (muted || !lobbyMusicOn || !AC || AC.state !== "running") return;
+          if (document.querySelector("#home.view.active")) {
+            var scale = [261.63, 329.63, 392.00, 493.88, 392.00, 329.63, 293.66, 349.23];
+            var f = scale[lobbyMusicStep % scale.length];
+            tone(f, 0.72, "sine", 0.025, 0, f * 1.005, 0.08);
+            if (lobbyMusicStep % 4 === 0) tone(f / 2, 1.1, "triangle", 0.018, 0, null, 0.05);
+            lobbyMusicStep++;
+          }
+          lobbyMusicTimer = setTimeout(lobbyMusicTick, 620);
+        }
+        function startLobbyMusic() {
+          if (!lobbyMusicOn || muted || lobbyMusicTimer) return;
+          var a = ac();
+          if (a) lobbyMusicTick();
+        }
+        function stopLobbyMusic() {
+          if (lobbyMusicTimer) clearTimeout(lobbyMusicTimer);
+          lobbyMusicTimer = null;
         }
         function coin(d) {
           fm(2400 + Math.random() * 700, 1.41, 0.9, 0.3, 0.07, d, 0.35);
@@ -3246,10 +3280,11 @@
             localStorage.setItem("luckyplay-mute", muted ? "1" : "0");
           } catch (e) {}
           paintMute();
-          if (!muted) SFX.click();
+          if (!muted) { SFX.click(); startLobbyMusic(); } else stopLobbyMusic();
         });
         document.addEventListener("click", function (e) {
           loadSamples();
+          if (!muted) startLobbyMusic();
           var t =
             e.target.closest &&
             e.target.closest(
@@ -3386,6 +3421,15 @@
           var st = state.stats,
             net = payout - wager,
             xpGain = 10 + Math.min(30, Math.floor(wager / 10)) + (payout > wager ? 10 : 0);
+          if (wager > 0 && cur && cur !== "admin") {
+            var auditNow = Date.now();
+            suspiciousTimes = suspiciousTimes.filter(function (t) { return auditNow - t < 30000; });
+            suspiciousTimes.push(auditNow);
+            if (wager >= Math.max(500, Math.floor((state.balance + wager) * 0.8)))
+              flagSuspicious("Unusually large wager", fmt(wager) + " coins; balance before wager was about " + fmt(state.balance + wager));
+            if (suspiciousTimes.length >= 8 && suspiciousTimes.length % 4 === 0)
+              flagSuspicious("Rapid repeated game rounds", suspiciousTimes.length + " completed rounds in 30 seconds");
+          }
           st.spins++;
           st.wagered += wager;
           st.returned += payout;
@@ -3925,13 +3969,17 @@
             ch: [0, 1, 13, 64, 257],
           },
           {
-            id: "dragon", max: 200, name: "Dragon's Hoard", tag: "Fantasy · free spins + jackpot", ck: "🪙", fs: { s: "⭐", n: 10 },
+            id: "dragon", max: 200, name: "Dragon's Hoard", tag: "Fantasy · 10 free spins · ⭐ scatter", ck: "🪙", fs: { s: "⭐", n: 10 },
+            how: "One center payline. Match 3, 4 or 5 identical premium symbols consecutively from the left to win. 🪙 coins pay anywhere on the center line; ⭐ stars are scatters and pay 10 free spins when 3+ land anywhere.",
+            guide: "🐉 Dragon (top prize) · 🔮 Crystal · ⚔️ Sword · 🛡️ Shield · 🧪 Potion · 🪙 Coin (anywhere bonus) · ⭐ Star (scatter) · 🍄 Mushroom",
             cnt: { "🐉": 1, "🔮": 2, "⚔️": 3, "🛡️": 4, "🧪": 5, "🪙": 6, "⭐": 3, "🍄": 8 },
             pay: { "🐉": [87, 350, 1749], "🔮": [35, 140, 699], "⚔️": [17, 70, 262], "🛡️": [9, 35, 140], "🧪": [5, 17, 70] },
             ch: [0, 1, 9, 35, 175],
           },
           {
-            id: "pharaoh", max: 200, name: "Pharaoh's Treasure", tag: "Adventure · free spins + jackpot", ck: "🐫", fs: { s: "🔺", n: 12 },
+            id: "pharaoh", max: 200, name: "Pharaoh's Treasure", tag: "Ancient Egypt · 12 free spins · 🔺 scatter", ck: "🐫", fs: { s: "🔺", n: 12 },
+            how: "One center payline. Match 3, 4 or 5 identical premium symbols consecutively from the left to win. 🐫 camels pay anywhere on the center line; 🔺 scarabs are scatters and award 12 free spins when 3+ land anywhere.",
+            guide: "👁️ Eye of Horus (top prize) · 🏺 Urn · 🐍 Cobra · 🪲 Scarab · 🌴 Palm · 🐫 Camel (anywhere bonus) · 🔺 Pyramid (scatter) · 🌵 Cactus",
             cnt: { "👁️": 1, "🏺": 2, "🐍": 3, "🪲": 4, "🌴": 5, "🐫": 6, "🔺": 3, "🌵": 8 },
             pay: { "👁️": [125, 519, 2493], "🏺": [52, 208, 1039], "🐍": [25, 104, 416], "🪲": [12, 52, 208], "🌴": [6, 25, 104] },
             ch: [0, 1, 8, 31, 166],
@@ -4039,9 +4087,11 @@
               "</b></li>";
           });
           h +=
-            "<li><span>🍒 anywhere on the line (2 / 3 / 4 / 5)</span><b>x" +
+            "<li><span>" + (MACH.ck || "🍒") + " anywhere on the center line (2 / 3 / 4 / 5)</span><b>x" +
             MACH.ch.slice(1).join(" / x") +
-            "</b></li></ul>";
+            "</b></li>";
+          if (MACH.fs) h += "<li><span>" + MACH.fs.s + " scatter (3+ anywhere)</span><b>" + MACH.fs.n + " free spins</b></li>";
+          h += "</ul>";
           h +=
             '<p class="rtp-note">RTP: <b>' +
             s.rtp.toFixed(2) +
@@ -4052,6 +4102,8 @@
             "</b> coins.</p>";
           $("#ptTitle").textContent = MACH.name + " paytable";
           $("#ptBody").innerHTML = h;
+          if ($("#slotHow")) $("#slotHow").textContent = MACH.how || "Match symbols on the single center payline, starting from the left.";
+          if ($("#slotSymbols")) $("#slotSymbols").textContent = MACH.guide || "Match 3, 4 or 5 identical symbols from the left. Special bonus symbols are listed in the paytable.";
         }
         function setMachine(id) {
           MACHINES.forEach(function (m) {
@@ -8428,7 +8480,34 @@
           db = { v: 2, users: {} },
           cur = null,
           PBK = 150000,
-          pending = null;
+          pending = null,
+          suspiciousTimes = [],
+          alertRef = null;
+        function flagSuspicious(reason, details) {
+          if (!cur || !fbDB || cur === "admin") return;
+          var item = {
+            user: cur,
+            reason: String(reason).slice(0, 180),
+            details: String(details || "").slice(0, 240),
+            at: firebase.database.ServerValue.TIMESTAMP
+          };
+          fbDB.ref("security/alerts").push(item).catch(function () {});
+        }
+        function watchAdminAlerts() {
+          if (cur !== "admin" || !fbDB || alertRef) return;
+          alertRef = fbDB.ref("security/alerts").limitToLast(30);
+          alertRef.on("child_added", function (sn) {
+            if (cur !== "admin") return;
+            var v = sn.val() || {}, box = $("#admAlerts");
+            if (!v.user || !v.reason) return;
+            var row = document.createElement("div");
+            row.style.cssText = "padding:7px 0;border-bottom:1px solid #2a3240";
+            var when = v.at ? new Date(v.at).toLocaleString() : "just now";
+            row.textContent = "⚠️ " + v.user + " — " + v.reason + (v.details ? " (" + v.details + ")" : "") + " · " + when;
+            if (box.textContent.indexOf("Alerts appear") === 0) box.textContent = "";
+            box.prepend(row);
+          }, function () {});
+        }
         function dbLoad() {
           /* public leaderboard only; private data is loaded after login */
           if (fbDB) {
@@ -8859,6 +8938,10 @@
             setMsg(authMsg, "Enter password.", "lose");
             return;
           }
+          if (authMode === "register" && key === "admin") {
+            setMsg(authMsg, "That username is reserved for the single site administrator.", "lose");
+            return;
+          }
           if (authMode === "register" && !$("#authAge").checked) {
             setMsg(authMsg, "Please confirm you are 18+ and that this is a free play-coin game.", "lose");
             return;
@@ -8980,6 +9063,7 @@
           bcRender();
           var savePromise = dbSave();
           cur = null;
+          if (alertRef) { alertRef.off(); alertRef = null; }
           if (giftRef) {
             giftRef.off();
             giftRef = null;
@@ -9261,6 +9345,7 @@
           if (cur !== "admin") return;
           $("#profOv").classList.remove("show");
           $("#admOv").classList.add("show");
+          watchAdminAlerts();
           admRender();
         });
         $("#admClose").addEventListener("click", function () {
@@ -9275,8 +9360,17 @@
             setMsg(m, "Enter a whole number of coins from 1 to 1,000,000,000.", "lose");
             return;
           }
-          if (!/^[a-z0-9_]{3,16}$/.test(k) || k === "admin") {
-            setMsg(m, "Enter another player's username.", "lose");
+          if (k === "admin") {
+            if (!window.confirm("Grant " + fmt(amt) + " play coins to the administrator account?")) return;
+            setBalance(state.balance + amt);
+            dbSave();
+            setMsg(m, "Added " + fmt(amt) + " coins to your admin balance.", "win");
+            $("#admAmt").value = "";
+            admRender();
+            return;
+          }
+          if (!/^[a-z0-9_]{3,16}$/.test(k)) {
+            setMsg(m, "Enter a valid player's username.", "lose");
             return;
           }
           if (!window.confirm("Give " + fmt(amt) + " coins to " + k + "?")) return;
@@ -9315,6 +9409,10 @@
         $("#admGive").addEventListener("click", function () {
           admGive($("#admUser").value, $("#admAmt").value);
         });
+        $("#admSelf").addEventListener("click", function () {
+          if (cur !== "admin") return;
+          admGive("admin", $("#admAmt").value);
+        });
         $("#admList").addEventListener("click", function (e) {
           var a = e.target.getAttribute("data-a"),
             k = e.target.getAttribute("data-k"),
@@ -9348,6 +9446,7 @@
           fbDB.ref().update(up).then(admRender).catch(fbFail);
         });
         window.addEventListener("pagehide", function () {
+          stopLobbyMusic();
           dbSave((rouFly ? 0 : totalBets()) + bcTotalBets());
         });
         dbLoad();
