@@ -517,12 +517,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-family: "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;
-        font-size: clamp(1.7rem, 5vw, 2.6rem);
+        font-size: 2.6rem;
         line-height: 1;
-        white-space: nowrap;
-        user-select: none;
-        transform: translateZ(0);
       }
       .reel.spinning .sym {
         filter: blur(2px);
@@ -1947,29 +1943,6 @@
       body[data-dice="emerald"] .die{--dieb:linear-gradient(145deg,#3ddc84,#0a6b3a);--diep:radial-gradient(circle at 35% 30%,#fff,#d8f5e2)}
       body[data-dice="amethyst"] .die{--dieb:linear-gradient(145deg,#b07cf0,#4a1a8a);--diep:radial-gradient(circle at 35% 30%,#fff,#eadcff)}
       body[data-dice="bone"] .die{--dieb:linear-gradient(145deg,#f1e6c8,#cdbd92);--diep:radial-gradient(circle at 35% 30%,#5a4a2a,#1a1204)}
-      .jpsign{position:relative;max-width:760px;margin:10px auto 18px;padding:20px 18px 16px;text-align:center;border-radius:22px;
-        background:radial-gradient(120% 140% at 50% 0%,#5a1424 0%,#2a0a14 55%,#150610 100%);
-        border:3px solid #f5c542;box-shadow:0 0 0 3px #7a1f1f,0 0 34px rgba(245,197,66,.45),inset 0 0 40px rgba(255,59,87,.2);overflow:hidden}
-      .jpsign::before,.jpsign::after{content:"";position:absolute;left:12px;right:12px;height:8px;pointer-events:none;
-        background:radial-gradient(circle,#fff3c4 0 2.5px,transparent 3.5px) 0 50%/20px 8px repeat-x;animation:jpblink 1.1s steps(1) infinite}
-      .jpsign::before{top:5px}.jpsign::after{bottom:5px;animation-delay:.55s}
-      @keyframes jpblink{50%{opacity:.25}}
-      .jphead{font-weight:900;letter-spacing:3px;font-size:clamp(.95rem,3.2vw,1.25rem);color:#ffe9a8;text-shadow:0 0 12px rgba(245,197,66,.8)}
-      .jpamt{font-weight:900;font-size:clamp(2.2rem,9vw,4rem);line-height:1.1;margin:4px 0;font-variant-numeric:tabular-nums;
-        background:linear-gradient(180deg,#fff7d1,#f5c542 55%,#c98a10);-webkit-background-clip:text;background-clip:text;color:transparent;
-        filter:drop-shadow(0 0 14px rgba(245,197,66,.55))}
-      .jpamt small{font-size:.5em;-webkit-text-fill-color:initial}
-      .jpsign.bump .jpamt{animation:jpbump .5s ease}
-      @keyframes jpbump{40%{transform:scale(1.08)}}
-      .jpplus{position:absolute;right:22px;top:46px;font-weight:800;color:#5ee28a;opacity:0;pointer-events:none}
-      .jpplus.go{animation:jpplus 1.2s ease-out}
-      @keyframes jpplus{0%{opacity:1;transform:translateY(6px)}100%{opacity:0;transform:translateY(-22px)}}
-      .jpsub{font-size:.9rem;color:#f1e3c0;margin-top:2px}
-      .jpq{display:inline-block;margin:10px 0 4px;padding:6px 14px;border-radius:999px;font-weight:700;font-size:.88rem;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.4);color:#fff}
-      .jpq.ok{border-color:#5ee28a;color:#b8ffd0;background:rgba(30,132,73,.35)}
-      .jpq.no{border-color:#ffb347;color:#ffe0a8}
-      .jplast{font-size:.85rem;color:#d9cba8;margin-top:6px;min-height:1.2em}
-      .jpsign.off .jpamt{filter:none;background:none;-webkit-text-fill-color:#9aa4b2;color:#9aa4b2;font-size:1.6rem}
       .notice{max-width:640px;margin:6px auto 14px;padding:8px 12px;border:1px dashed #ffd45a;border-radius:10px;color:#ffe9a8;font-size:.78rem;text-align:center;background:rgba(122,31,31,.25)}
       .ack{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.88);display:grid;place-items:center;padding:20px}
       .ack div{max-width:460px;background:#171c24;border:2px solid #ffd45a;border-radius:16px;padding:24px;text-align:center}
@@ -1984,6 +1957,13 @@
       .vpc .pcard{margin-right:0;width:70px;height:100px;transition:transform .15s}
       .vpc.held .pcard{outline:3px solid var(--gold);transform:translateY(-10px)}
       .vph{height:20px;color:var(--gold);font-weight:800;font-size:.8rem;margin-top:4px}
+#rwOv .over-box{max-width:820px}
+      .shgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-top:10px}
+      .shc{background:#10151c;border:2px solid #2a3240;border-radius:12px;padding:10px;text-align:center}
+      .shc.on{border-color:var(--gold)} .shc .pv{font-size:2rem;height:44px;display:grid;place-items:center}
+      .shc small{display:block;color:var(--muted);margin:2px 0 6px}
+      .lbrow{display:flex;gap:8px;padding:6px 8px;border-radius:8px;align-items:center}.lbrow.me{background:rgba(242,193,78,.18)}
+      .vipbar{height:10px;background:#2a3240;border-radius:5px;overflow:hidden;margin:6px 0}
 </style>
   </head>
   <body>
@@ -2105,20 +2085,7 @@
         <button class="back" data-go="home">← Back</button>
         <h2 class="title">Slot Machine</h2>
         <div class="quick" id="machineSel" style="flex-wrap: wrap"></div>
-        <div class="paytable slot-guide" id="slotGuide" style="max-width:560px;margin:12px auto;background:var(--panel);border:1px solid #3a4558;border-radius:12px;padding:14px 18px">
-          <h3 style="color:var(--gold);margin:0 0 8px">How to play</h3>
-          <p id="slotHow" style="margin:0 0 8px;color:var(--muted)">Match symbols on the single center payline. Wins count from the leftmost reel.</p>
-          <p id="slotSymbols" style="margin:0;color:var(--muted)"></p>
-        </div>
-        <div id="jpBox" class="jpsign" role="status" aria-live="polite">
-          <div class="jphead">🏆 COMMUNITY JACKPOT 🏆</div>
-          <div class="jpamt"><span id="jpAmt">…</span> <small>🪙</small></div>
-          <span class="jpplus" id="jpPlus"></span>
-          <div class="jpsub" id="jpSub">2% of every slot bet from all players feeds it.</div>
-          <div class="jpq" id="jpQ"></div>
-          <div class="jpsub">Win it with <b>5 matching scatters</b> (⭐ Dragon's Hoard · 🔺 Pharaoh's Treasure) or a <b>1-in-1,000 mystery drop</b> on a qualifying spin.</div>
-          <div class="jplast" id="jpLast"></div>
-        </div>
+        <div id="jpBox" class="notice" style="display:none">🏆 Community Jackpot: <b id="jpAmt"></b> · 2% of every slot bet feeds it · hit 5 ⭐/🔺 scatters to win it!</div>
         <div class="cabinet" id="cabinet">
           <div class="marquee" id="marquee">★ LUCKY PLAY ★</div>
           <div class="bulbs" id="bulbsTop"></div>
@@ -2401,8 +2368,9 @@
               inputmode="numeric"
             />
           </div>
-          <div class="controls">
-            <button id="pkSit" class="primary">SIT DOWN</button>
+          <div class="bet-row" style="margin-top:8px"><label for="pkVar">Game</label><select id="pkVar" class="bet-input" style="width:230px;font-size:1rem"><option value="holdem">Texas Hold'em (No-Limit)</option><option value="omaha">Omaha (Pot-Limit, 4 cards)</option><option value="short">Short Deck 6+ (No-Limit)</option></select></div>
+          <p class="rtp-note" style="text-align:center">Short Deck: 36-card deck (no 2-5). Flush beats full house, three of a kind beats a straight, A-6-7-8-9 is the low straight. Omaha: you get 4 cards and must use exactly 2 of them plus 3 from the board.</p>
+          <div class="controls"><button id="pkSit" class="primary">SIT DOWN</button>
           </div>
           <p id="pkBuyMsg" class="msg">Minimum buy-in is 200 coins.</p>
         </div>
@@ -2551,6 +2519,7 @@
           <button class="rwt on" data-t="daily">🎯 Daily</button>
           <button class="rwt" data-t="shop">🛒 Shop</button>
           <button class="rwt" data-t="badges">🏅 Badges</button>
+          <button class="rwt" data-t="vip">💎 VIP</button>
           <button class="rwt" data-t="board">🏆 Leaderboard</button>
         </div>
         <div id="rwBody" class="rtp-note" style="margin-top: 12px"></div>
@@ -2669,27 +2638,6 @@
         "
       >
         <h2 style="color: var(--gold); text-align: center">🛡 Admin panel</h2>
-        <div class="controls" style="flex-wrap: wrap; margin-bottom: 8px">
-          <input id="admAmt" class="bet-input" type="number" min="1" step="1" placeholder="Coins to give" style="flex: 1 1 130px" />
-          <input id="admUser" class="bet-input" type="text" maxlength="16" placeholder="Username (or press Give on a row)" style="flex: 2 1 190px" />
-          <button id="admGive" class="primary">🎁 Give coins</button>
-          <button id="admSelf" class="secondary">🪙 Give coins to myself</button>
-        </div>
-        <div class="controls" style="flex-wrap:wrap;margin:8px 0">
-          <input id="admSetCoins" class="bet-input" type="number" min="0" step="1" placeholder="Set my coin balance" style="flex:1 1 160px" />
-          <button id="admApplyCoins" class="secondary">Set my coins</button>
-          <button id="admResetCoins" class="secondary">♻️ Reset my coins to 0</button>
-        </div>
-        <div class="controls" style="flex-wrap:wrap;margin:8px 0">
-          <input id="admXpAmt" class="bet-input" type="number" min="1" step="1" placeholder="XP to add" style="flex:1 1 130px" />
-          <button id="admAddXp" class="secondary">✨ Add XP to myself</button>
-          <input id="admLevel" class="bet-input" type="number" min="1" max="100000" step="1" placeholder="Set my level" style="flex:1 1 130px" />
-          <button id="admSetLevel" class="secondary">👑 Set my level</button>
-        </div>
-        <p id="admMsg" class="msg"></p>
-        <h3 style="color:var(--gold);margin:16px 0 6px">⚠️ Suspicious activity alerts</h3>
-        <div id="admAlerts" class="rtp-note" aria-live="polite">Alerts appear when unusual play patterns are detected. These are review flags, not proof of cheating.</div>
-        <h3 style="color:var(--gold);margin:16px 0 6px">Player management</h3>
         <div id="admList" class="rtp-note"></div>
         <div class="controls">
           <button id="admClose" class="primary">Close</button>
@@ -2973,63 +2921,6 @@
           notes.forEach(function (n, i) {
             bell(n, (d0 || 0) + i * step, vol);
           });
-        }
-        // Warm, laid-back jazz lounge loop: swung piano chords, walking bass and a soft ride pulse.
-        var lobbyMusicOn = true, lobbyMusicTimer = null, lobbyMusicStep = 0;
-        var jazzChords = [
-          [261.63, 329.63, 392.00, 493.88], // Cmaj7
-          [220.00, 261.63, 329.63, 392.00], // Am7
-          [174.61, 207.65, 261.63, 349.23], // Fmaj7
-          [196.00, 246.94, 293.66, 349.23]  // G7
-        ];
-        var jazzBass = [
-          [65.41, 82.41, 98.00, 110.00],
-          [55.00, 69.30, 82.41, 98.00],
-          [43.65, 55.00, 65.41, 73.42],
-          [49.00, 61.74, 73.42, 87.31]
-        ];
-        var jazzMelody = [
-          523.25, 587.33, 659.25, 587.33, 493.88, 440.00, 392.00, 440.00,
-          523.25, 659.25, 587.33, 523.25, 493.88, 392.00, 440.00, 493.88
-        ];
-        function jazzPianoChord(chord, delay) {
-          chord.forEach(function (f, i) {
-            tone(f, 0.48, "triangle", 0.018, delay + i * 0.012, f * 0.997, 0.22);
-          });
-        }
-        function jazzRide(delay) {
-          // Quiet filtered-noise tick for a brushed ride-cymbal feel.
-          noise(0.055, 0.012, delay, 8200, 6100, 0.7, 0.12);
-        }
-        function lobbyMusicTick() {
-          if (muted || !lobbyMusicOn || !AC || AC.state !== "running") return;
-          if (document.querySelector("#home.view.active")) {
-            var beat = lobbyMusicStep % 16;
-            var bar = Math.floor(lobbyMusicStep / 16) % jazzChords.length;
-            var chord = jazzChords[bar];
-            if (beat === 0 || beat === 8) jazzPianoChord(chord, 0);
-            if (beat % 2 === 0) {
-              var bassIndex = (beat / 2) % 4;
-              tone(jazzBass[bar][bassIndex], 0.52, "triangle", 0.045, 0, null, 0.12);
-            }
-            if (beat % 2 === 0) {
-              var note = jazzMelody[(lobbyMusicStep / 2 | 0) % jazzMelody.length];
-              tone(note, 0.28, "sine", 0.018, 0.025, note * 0.995, 0.18);
-            }
-            if (beat % 2 === 1) jazzRide(0);
-            lobbyMusicStep++;
-          }
-          // Alternating short/long eighth notes create a gentle swing.
-          lobbyMusicTimer = setTimeout(lobbyMusicTick, lobbyMusicStep % 2 ? 390 : 210);
-        }
-        function startLobbyMusic() {
-          if (!lobbyMusicOn || muted || lobbyMusicTimer) return;
-          var a = ac();
-          if (a) lobbyMusicTick();
-        }
-        function stopLobbyMusic() {
-          if (lobbyMusicTimer) clearTimeout(lobbyMusicTimer);
-          lobbyMusicTimer = null;
         }
         function coin(d) {
           fm(2400 + Math.random() * 700, 1.41, 0.9, 0.3, 0.07, d, 0.35);
@@ -3327,11 +3218,10 @@
             localStorage.setItem("luckyplay-mute", muted ? "1" : "0");
           } catch (e) {}
           paintMute();
-          if (!muted) { SFX.click(); startLobbyMusic(); } else stopLobbyMusic();
+          if (!muted) SFX.click();
         });
         document.addEventListener("click", function (e) {
           loadSamples();
-          if (!muted) startLobbyMusic();
           var t =
             e.target.closest &&
             e.target.closest(
@@ -3468,15 +3358,6 @@
           var st = state.stats,
             net = payout - wager,
             xpGain = 10 + Math.min(30, Math.floor(wager / 10)) + (payout > wager ? 10 : 0);
-          if (wager > 0 && cur && cur !== "admin") {
-            var auditNow = Date.now();
-            suspiciousTimes = suspiciousTimes.filter(function (t) { return auditNow - t < 30000; });
-            suspiciousTimes.push(auditNow);
-            if (wager >= Math.max(500, Math.floor((state.balance + wager) * 0.8)))
-              flagSuspicious("Unusually large wager", fmt(wager) + " coins; balance before wager was about " + fmt(state.balance + wager));
-            if (suspiciousTimes.length >= 8 && suspiciousTimes.length % 4 === 0)
-              flagSuspicious("Rapid repeated game rounds", suspiciousTimes.length + " completed rounds in 30 seconds");
-          }
           st.spins++;
           st.wagered += wager;
           st.returned += payout;
@@ -4016,17 +3897,13 @@
             ch: [0, 1, 13, 64, 257],
           },
           {
-            id: "dragon", max: 200, name: "Dragon's Hoard", tag: "Fantasy · 10 free spins · ⭐ scatter", ck: "🪙", fs: { s: "⭐", n: 10 },
-            how: "One center payline. Match 3, 4 or 5 identical premium symbols consecutively from the left to win. 🪙 coins pay anywhere on the center line; ⭐ stars are scatters and pay 10 free spins when 3+ land anywhere.",
-            guide: "🐉 Dragon (top prize) · 🔮 Crystal · ⚔️ Sword · 🛡️ Shield · 🧪 Potion · 🪙 Coin (anywhere bonus) · ⭐ Star (scatter) · 🍄 Mushroom",
+            id: "dragon", max: 200, name: "Dragon's Hoard", tag: "Fantasy · free spins + jackpot", ck: "🪙", fs: { s: "⭐", n: 10 },
             cnt: { "🐉": 1, "🔮": 2, "⚔️": 3, "🛡️": 4, "🧪": 5, "🪙": 6, "⭐": 3, "🍄": 8 },
             pay: { "🐉": [87, 350, 1749], "🔮": [35, 140, 699], "⚔️": [17, 70, 262], "🛡️": [9, 35, 140], "🧪": [5, 17, 70] },
             ch: [0, 1, 9, 35, 175],
           },
           {
-            id: "pharaoh", max: 200, name: "Pharaoh's Treasure", tag: "Ancient Egypt · 12 free spins · 🔺 scatter", ck: "🐫", fs: { s: "🔺", n: 12 },
-            how: "One center payline. Match 3, 4 or 5 identical premium symbols consecutively from the left to win. 🐫 camels pay anywhere on the center line; 🔺 scarabs are scatters and award 12 free spins when 3+ land anywhere.",
-            guide: "👁️ Eye of Horus (top prize) · 🏺 Urn · 🐍 Cobra · 🪲 Scarab · 🌴 Palm · 🐫 Camel (anywhere bonus) · 🔺 Pyramid (scatter) · 🌵 Cactus",
+            id: "pharaoh", max: 200, name: "Pharaoh's Treasure", tag: "Adventure · free spins + jackpot", ck: "🐫", fs: { s: "🔺", n: 12 },
             cnt: { "👁️": 1, "🏺": 2, "🐍": 3, "🪲": 4, "🌴": 5, "🐫": 6, "🔺": 3, "🌵": 8 },
             pay: { "👁️": [125, 519, 2493], "🏺": [52, 208, 1039], "🐍": [25, 104, 416], "🪲": [12, 52, 208], "🌴": [6, 25, 104] },
             ch: [0, 1, 8, 31, 166],
@@ -4134,11 +4011,9 @@
               "</b></li>";
           });
           h +=
-            "<li><span>" + (MACH.ck || "🍒") + " anywhere on the center line (2 / 3 / 4 / 5)</span><b>x" +
+            "<li><span>🍒 anywhere on the line (2 / 3 / 4 / 5)</span><b>x" +
             MACH.ch.slice(1).join(" / x") +
-            "</b></li>";
-          if (MACH.fs) h += "<li><span>" + MACH.fs.s + " scatter (3+ anywhere)</span><b>" + MACH.fs.n + " free spins</b></li>";
-          h += "</ul>";
+            "</b></li></ul>";
           h +=
             '<p class="rtp-note">RTP: <b>' +
             s.rtp.toFixed(2) +
@@ -4149,8 +4024,6 @@
             "</b> coins.</p>";
           $("#ptTitle").textContent = MACH.name + " paytable";
           $("#ptBody").innerHTML = h;
-          if ($("#slotHow")) $("#slotHow").textContent = MACH.how || "Match symbols on the single center payline, starting from the left.";
-          if ($("#slotSymbols")) $("#slotSymbols").textContent = MACH.guide || "Match 3, 4 or 5 identical symbols from the left. Special bonus symbols are listed in the paytable.";
         }
         function setMachine(id) {
           MACHINES.forEach(function (m) {
@@ -4174,7 +4047,6 @@
             b.classList.toggle("on", b.getAttribute("data-m") === id);
           });
           renderPay();
-          if ($("#jpQ")) jpQual();
         }
         MACHINES.forEach(function (m) {
           var b = document.createElement("button");
@@ -4240,84 +4112,14 @@
           }
         }
 
-        var FS = { left: 0, bet: 0, cur: 0 }, jpRef = null, jpLastRef = null;
-        var JP = { min: 100, seed: 1000, shown: 0, target: 0, raf: 0, seen: null, ready: false };
-        function jpPaintAmt() {
-          $("#jpAmt").textContent = fmt(Math.round(JP.shown));
-        }
-        function jpAnimate() {
-          if (JP.raf) return;
-          (function step() {
-            var d = JP.target - JP.shown;
-            if (Math.abs(d) < 1) { JP.shown = JP.target; JP.raf = 0; jpPaintAmt(); return; }
-            JP.shown += d * 0.12 + (d > 0 ? 0.5 : -0.5);
-            jpPaintAmt();
-            JP.raf = requestAnimationFrame(step);
-          })();
-        }
-        function jpOffline(msg) {
-          var bx = $("#jpBox");
-          bx.classList.add("off");
-          $("#jpAmt").textContent = msg;
-          $("#jpSub").textContent = "";
-        }
-        function jpQual() {
-          var q = $("#jpQ"), v = Math.floor(Number($("#slotBet").value)) || 0;
-          if (!MACH.fs) { q.className = "jpq no"; q.textContent = "ℹ️ This machine can't win it. Play Dragon's Hoard or Pharaoh's Treasure."; return; }
-          if (v >= JP.min) { q.className = "jpq ok"; q.textContent = "✅ Your bet qualifies for the jackpot"; }
-          else { q.className = "jpq no"; q.textContent = "⚠️ Bet " + fmt(JP.min) + "+ coins to qualify"; }
-        }
+        var FS = { left: 0, bet: 0, cur: 0 }, jpRef = null;
         function jpInit() {
-          if (jpRef) return;
-          if (!fbDB) { jpOffline("Needs internet"); return; }
-          var bx = $("#jpBox");
+          if (!fbDB || jpRef) return;
           jpRef = fbDB.ref("jackpot/pool");
-          jpRef.on("value", function (sn) {
-            var v = sn.val(), amt = typeof v === "number" ? v : JP.seed;
-            bx.classList.remove("off");
-            $("#jpSub").textContent = "2% of every slot bet from all players feeds it.";
-            if (JP.target && amt > JP.target) { bx.classList.remove("bump"); void bx.offsetWidth; bx.classList.add("bump"); }
-            JP.target = amt;
-            if (!JP.ready) { JP.shown = amt; JP.ready = true; jpPaintAmt(); } else jpAnimate();
-            jpQual();
-          }, function (e) { jpOffline("Unavailable"); $("#jpSub").textContent = "Jackpot access was denied. Check that the supplied Firebase rules were published."; });
-          jpLastRef = fbDB.ref("jackpot/last");
-          jpLastRef.on("value", function (sn) {
-            var v = sn.val(), el = $("#jpLast");
-            if (!v || !v.amt) { el.textContent = "Nobody has won yet. Be the first!"; JP.seen = 0; return; }
-            var nm = String(v.u || "Someone").replace(/[^A-Za-z0-9_]/g, "").slice(0, 16) || "Someone";
-            el.textContent = "👑 Last winner: " + nm + " won " + fmt(v.amt) + " 🪙" + (v.how ? " (" + v.how + ")" : "");
-            if (JP.seen !== null && v.at && v.at !== JP.seen && v.u !== (cur && db.users[cur] && db.users[cur].name))
-              toastMsg("🏆 " + nm + " just won the community jackpot: " + fmt(v.amt) + " 🪙!", "pos");
-            JP.seen = v.at || 0;
-          }, function () {});
-          jpQual();
+          jpRef.on("value", function (sn) { var v = sn.val(); if (v == null) return; $("#jpBox").style.display = "block"; $("#jpAmt").textContent = fmt(v) + " 🪙"; }, function () {});
         }
-        function jpAdd(bet) {
-          var x = Math.max(1, Math.floor(bet * 0.02));
-          if (!jpRef) return;
-          var p = $("#jpPlus"); p.textContent = "+" + x; p.classList.remove("go"); void p.offsetWidth; p.classList.add("go");
-          jpRef.transaction(function (v) { return (typeof v === "number" ? v : JP.seed) + x; }).catch(function () {});
-        }
-        /* pays the whole pool exactly once (transaction), resets it to the seed, records the winner */
-        function jpWin(how, cb) {
-          if (!jpRef) return;
-          var got = 0;
-          jpRef.transaction(function (v) { got = typeof v === "number" ? v : JP.seed; return JP.seed; }).then(function (r) {
-            if (!r.committed || got < 1) return;
-            var nm = (cur && db.users[cur] && db.users[cur].name) || "Player";
-            try {
-              fbDB.ref("jackpot/last").set({ u: nm, amt: got, how: how, at: firebase.database.ServerValue.TIMESTAMP }).catch(function () {});
-              fbDB.ref("jackpot/hits").transaction(function (n) { return (n || 0) + 1; }).catch(function () {});
-            } catch (e) {}
-            cb(got);
-          }).catch(function () {});
-        }
-        function jpPaid(how, title) {
-          jpWin(how, function (g) { gift(g); fanfare(title, "+" + fmt(g) + " 🪙", 3, true); coinRain(); });
-        }
-        $("#slotBet").addEventListener("input", jpQual);
-        $$(".qbtn").forEach(function (b) { b.addEventListener("click", function () { setTimeout(jpQual, 0); }); });
+        function jpAdd(bet) { if (jpRef) jpRef.transaction(function (v) { return (v == null ? 1000 : v) + Math.max(1, Math.floor(bet * 0.02)); }).catch(function () {}); }
+        function jpWin(cb) { if (!jpRef) return; var got = 0; jpRef.transaction(function (v) { got = v || 1000; return 1000; }).then(function (r) { if (r.committed && got > 1000) cb(got); }).catch(function () {}); }
         function finishSlots(symbols, bet) {
           pendClear();
           var res = evaluate(symbols),
@@ -4368,10 +4170,7 @@
             setMsg(slotMsg, "⭐ " + sc + " SCATTERS! " + fsm.n + " FREE SPINS!" + (win ? " (+" + fmt(win) + ")" : ""), "win");
             fanfare("⭐ FREE SPINS!", fsm.n + " free spins at " + fmt(FS.bet) + " each", 2, false);
           }
-          if (sc === 5) {
-            if (bet >= JP.min) jpPaid("5 scatters", "🏆 COMMUNITY JACKPOT!");
-            else fanfare("😬 5 SCATTERS!", "Bet " + fmt(JP.min) + "+ to qualify for the jackpot", 1, false);
-          } else if (fsm && !FS.cur && bet >= JP.min && Math.random() < 0.001) jpPaid("mystery drop", "🎁 MYSTERY JACKPOT!");
+          if (sc === 5) jpWin(function (g) { gift(g); fanfare("🏆 COMMUNITY JACKPOT!", "+" + fmt(g) + " 🪙", 3, true); });
           if (FS.left > 0) { setTimeout(function () { startSpin(true); }, 2400); return; }
           FS.cur = 0; busy = false; spinSlots.disabled = false; betInput.disabled = false; checkGameOver();
         }
@@ -5268,7 +5067,7 @@
           var st = 0;
           if (g.length === 5) {
             if (v[0] - v[4] === 4) st = v[0];
-            else if (v[0] === 14 && v[1] === 5) st = 5;
+            else if (v[0] === 14 && v[1] === (PK.variant === "short" ? 9 : 5)) st = v[1];
           }
           var cat, tb;
           if (st && fl) {
@@ -5299,7 +5098,7 @@
             cat = 0;
             tb = v;
           }
-          var sc = cat;
+          var sc = PK.variant === "short" ? [0, 1, 2, 4, 3, 6, 5, 7, 8][cat] : cat;
           for (var i = 0; i < 5; i++) sc = sc * 15 + (tb[i] || 0);
           return { sc: sc, cat: cat, tb: tb };
         }
@@ -5322,6 +5121,52 @@
             }
           }
           return best;
+        }
+        function pkBestV(hole, board) {
+          if (PK.variant !== "omaha" || hole.length !== 4 || board.length < 3) return pkBest(hole.concat(board));
+          var best = null, n = board.length;
+          for (var a = 0; a < 3; a++)
+            for (var b = a + 1; b < 4; b++)
+              for (var i = 0; i < n - 2; i++)
+                for (var j = i + 1; j < n - 1; j++)
+                  for (var k = j + 1; k < n; k++) {
+                    var h = [hole[a], hole[b], board[i], board[j], board[k]], r = pkEval5(h);
+                    if (!best || r.sc > best.sc) { best = r; best.hand = h; }
+                  }
+          return best;
+        }
+        function pkEquityO(p, sims) {
+          var used = {}, rest = [], wins = 0;
+          p.hole.concat(PK.board).forEach(function (c) { used[c.v * 4 + c.s] = 1; });
+          for (var s2 = 0; s2 < 4; s2++) for (var v = PK.variant === "short" ? 6 : 2; v <= 14; v++) if (!used[v * 4 + s2]) rest.push({ v: v, s: s2 });
+          var opp = PK.players.filter(function (o) { return o !== p && !o.folded; }).length, nB = 5 - PK.board.length, N = rest.length, need = opp * 4 + nB;
+          for (var k = 0; k < sims; k++) {
+            for (var i = 0; i < need; i++) { var j = i + Math.floor(Math.random() * (N - i)), t = rest[i]; rest[i] = rest[j]; rest[j] = t; }
+            var board = PK.board.concat(rest.slice(opp * 4, opp * 4 + nB)), mine = pkBestV(p.hole, board).sc, beaten = true, ties = 0;
+            for (var o = 0; o < opp; o++) {
+              var sc = pkBestV(rest.slice(o * 4, o * 4 + 4), board).sc;
+              if (sc > mine) { beaten = false; break; }
+              if (sc === mine) ties++;
+            }
+            if (beaten) wins += 1 / (ties + 1);
+          }
+          return wins / sims;
+        }
+        function pkDecideO(p) {
+          var toCall = PK.curBet - p.bet, pot = pkPot(), rnd = Math.random, ag = p.persona.aggr,
+            opp = PK.players.filter(function (o) { return o !== p && !o.folded; }).length,
+            canRaise = !p.noRaise && p.stack > toCall && PK.players.some(function (o) { return o !== p && !o.folded && !o.allin; });
+          var e = pkEquityO(p, PK.street === 0 ? 160 : 220), fair = 1 / (opp + 1), need = toCall / (pot + toCall);
+          if (PK.street === 0) need *= 0.55;
+          function rs(f) { return { a: "raise", to: PK.curBet + Math.max(PK.minRaise, Math.round((pot + toCall) * f / 5) * 5) }; }
+          if (toCall === 0) {
+            if (canRaise && e > fair + 0.22 && rnd() < 0.5 + 0.4 * ag) return rs(0.5 + rnd() * 0.4);
+            if (canRaise && e > fair + 0.1 && rnd() < 0.3 * ag) return rs(0.4);
+            return { a: "check" };
+          }
+          if (canRaise && e > fair + 0.3 && rnd() < 0.4 + 0.4 * ag) return rs(0.7);
+          if (e > need + 0.02 - (p.persona.loose - 0.5) * 0.05) return { a: "call" };
+          return { a: "fold" };
         }
         function pkName(r) {
           var t = r.tb;
@@ -5351,7 +5196,7 @@
         function pkDeck() {
           var d = [];
           for (var s2 = 0; s2 < 4; s2++)
-            for (var v = 2; v <= 14; v++) d.push({ v: v, s: s2 });
+            for (var v = PK.variant === "short" ? 6 : 2; v <= 14; v++) d.push({ v: v, s: s2 });
           for (var i = d.length - 1; i > 0; i--) {
             var j = Math.floor(Math.random() * (i + 1)),
               t = d[i];
@@ -5700,12 +5545,12 @@
           );
           var hn = $("#pkHN");
           if (me.hole.length && PK.board.length >= 3 && !me.folded)
-            hn.textContent = pkName(pkBest(me.hole.concat(PK.board)));
+            hn.textContent = pkName(pkBestV(me.hole, PK.board));
           else hn.textContent = "";
           pkUpdateButtons();
           var tc = $("#tableChip");
           tc.style.display = "inline-block";
-          tc.textContent = "♠ At poker table: " + fmt(me.stack);
+          tc.textContent = "♠ " + ({ holdem: "Hold'em", omaha: "Omaha", short: "Short Deck" }[PK.variant] || "Hold'em") + ": " + fmt(me.stack);
         }
 
         function pkMyTurn() {
@@ -5718,7 +5563,7 @@
               return o !== me && !o.folded && !o.allin;
             });
           var minTo = PK.curBet + PK.minRaise,
-            maxTo = me.bet + me.stack;
+            maxTo = PK.variant === "omaha" ? Math.min(me.bet + me.stack, PK.curBet + pkPot() + toCall) : me.bet + me.stack;
           return {
             toCall: toCall,
             minTo: minTo,
@@ -5854,7 +5699,7 @@
           pkMsg("New hand. Blinds " + PK.sb + "/" + PK.bb + ".");
           pkRender();
           var order = [];
-          for (var r = 0; r < 2; r++)
+          for (var r = 0; r < (PK.holeN || 2); r++)
             for (var k = 0; k < 7; k++) order.push(pkNext(PK.button + k));
           var step = 0;
           (function dealNext() {
@@ -5999,6 +5844,7 @@
           } else {
             var cap = p.bet + p.stack;
             to = Math.min(to, cap);
+            if (PK.variant === "omaha") to = Math.min(to, PK.curBet + pkPot() + toCall);
             var inc = to - PK.curBet,
               pay = to - p.bet,
               wasZero = PK.curBet === 0,
@@ -6172,6 +6018,7 @@
         }
         function pkFinish(msg, cls, heroWon, big) {
           evt("poker", heroWon ? 1 : 0);
+          if (heroWon && PK.variant && PK.variant !== "holdem") cnt("w_" + PK.variant, 1);
           PK.over = true;
           PK.running = false;
           PK.waiting = false;
@@ -6220,7 +6067,7 @@
                 c.flip = true;
               });
             p.show = true;
-            p.res = pkBest(p.hole.concat(PK.board));
+            p.res = pkBestV(p.hole, PK.board);
           });
           var meA = alive.filter(function (p) {
             return p.human;
@@ -6439,7 +6286,7 @@
           });
           var rest = [];
           for (var s2 = 0; s2 < 4; s2++)
-            for (var v = 2; v <= 14; v++)
+            for (var v = PK.variant === "short" ? 6 : 2; v <= 14; v++)
               if (!used[v * 4 + s2]) rest.push({ v: v, s: s2 });
           var opps = PK.players.filter(function (o) {
               return o !== p && !o.folded;
@@ -6498,6 +6345,7 @@
           return wins / sims;
         }
         function pkDecide(p) {
+          if (PK.variant === "omaha") return pkDecideO(p);
           var me = p.persona,
             idx = PK.players.indexOf(p),
             rnd = Math.random;
@@ -6875,6 +6723,7 @@
             localStorage.removeItem("luckyplay-poker-" + cur);
           } catch (e) {}
           PK.on = false;
+          PK.variant = "holdem"; PK.holeN = 2;
           PK.players = [];
           $("#tableChip").style.display = "none";
           $("#pkGame").style.display = "none";
@@ -6910,6 +6759,7 @@
           PK.hF = { n: 0, f: 0 };
           PK.hS = { raises: 0, calls: 0 };
           PK.hP = { n: 0, v: 0 };
+          PK.variant = $("#pkVar").value; PK.holeN = PK.variant === "omaha" ? 4 : 2;
           PK.handNo = 0;
           PK.players = [{ name: "You", human: true, stack: b }];
           PKCPU.forEach(function (c) {
@@ -7225,6 +7075,7 @@
         function P() {
           var pr = state.prog || (state.prog = freshProg());
           if (!pr.own.dice) { pr.own.dice = ["ivory"]; pr.sel.dice = "ivory"; }
+          if (!pr.own.title) { pr.own.title = ["none"]; pr.sel.title = "none"; }
           return pr;
         }
         function gift(n) {
@@ -7298,6 +7149,8 @@
           free20: { e: "🎁", n: "Freeloader", d: "Claim 20 free coin bonuses", r: 1500, g: function () { return C("free"); }, t: 20 },
           chest7: { e: "🧰", n: "Chest Hunter", d: "Open 7 Daily Chests", r: 4000, g: function () { return C("chest"); }, t: 7 },
           dxp150: { e: "🦉", n: "Night Owl", d: "Play 150 rounds during Double XP Hour", r: 3000, g: function () { return C("dxp"); }, t: 150 },
+          w_omaha: { e: "🅾️", n: "Omaha Ace", d: "Win 25 Omaha hands", r: 3000, g: function () { return C("w_omaha"); }, t: 25 },
+          w_short: { e: "6️⃣", n: "Short Deck Shark", d: "Win 25 Short Deck hands", r: 3000, g: function () { return C("w_short"); }, t: 25 },
         };
         var bq = 0;
         function badge(id) {
@@ -7360,6 +7213,7 @@
             "%";
         }
         var SHOP = {
+          title: [["none", "No title", 0], ["rookie", "Rookie", 300], ["gambler", "Gambler", 1500, 3], ["shark", "Card Shark", 5000, 8], ["roller", "High Roller", 15000, 12], ["whale", "Whale", 50000, 15], ["legend", "Living Legend", 150000, 20], ["mogul", "Mogul", 500000, 25], ["tycoon", "Tycoon", 1500000, 30], ["royal", "Casino Royalty", 5000000, 40], ["immortal", "Immortal", 25000000, 50]],
           felt: [
             ["green", "Classic Green", 0], ["blue", "Royal Blue", 500], ["black", "Sleek Black", 800], ["burgundy", "Burgundy", 1200],
             ["teal", "Lagoon", 700], ["purple", "Amethyst", 1000, 3], ["sunset", "Sunset", 1800, 5], ["ice", "Glacier", 2500, 8],
@@ -7387,8 +7241,7 @@
           document.body.setAttribute("data-back", pr.sel.back);
           document.body.setAttribute("data-dice", pr.sel.dice || "ivory");
           if (cur && db.users[cur])
-            $("#userChip").textContent =
-              pr.sel.avatar + " " + db.users[cur].name;
+            $("#userChip").textContent = chipName(cur);
         }
 
         var POOL = [
@@ -7403,6 +7256,9 @@
           ["poker_play", "Play 5 poker hands", 5, 200],
           ["poker_win", "Win 2 poker hands", 2, 250],
           ["poker_fh", "Make a Full House or better in poker", 1, 400],
+          ["craps_play", "Roll the dice in craps 10 times", 10, 120], ["craps_win", "Win 4 craps rounds", 4, 150],
+          ["videopoker_play", "Play 12 video poker hands", 12, 120], ["videopoker_win", "Win 6 video poker hands", 6, 160],
+          ["war_play", "Play 12 rounds of Casino War", 12, 100], ["war_win", "Win 6 Casino War rounds", 6, 140],
         ];
         function dayStr(ms) {
           var d = new Date(ms);
@@ -7426,7 +7282,7 @@
                 return k;
               }),
               pick = [];
-            for (var n = 0; n < 3; n++) {
+            for (var n = 0; n < 5; n++) {
               seed = (seed * 1664525 + 1013904223) >>> 0;
               pick.push(idx.splice(Math.floor(seed / 4096) % idx.length, 1)[0]);
             }
@@ -7435,7 +7291,7 @@
               c: {},
               g: pick.map(function (k) {
                 var q = POOL[k];
-                return { k: q[0], t: q[1], need: q[2], r: q[3], done: 0 };
+                return { k: q[0], t: q[1], need: q[2], r: q[3] * (1 + Math.floor(lvOf(pr.xp) / 5)), done: 0 };
               }),
             };
             pr.streak =
@@ -7464,8 +7320,8 @@
             }
           });
           if (d.g.every(function (x) { return x.done; }) && !d.chest) {
-            d.chest = 1; gift(500); cnt("chest", 1);
-            setTimeout(function () { fanfare("🎁 DAILY CHEST!", "All 3 challenges done · +500 🪙", 3, true); }, 1800);
+            d.chest = 1; var cr = 500 + 100 * lvOf(P().xp); gift(cr); cnt("chest", 1);
+            setTimeout(function () { fanfare("🎁 DAILY CHEST!", "All challenges done · +" + fmt(cr) + " 🪙", 3, true); }, 1800);
           }
           save();
         }
@@ -7563,6 +7419,18 @@
             toastMsg("Refill unlocks in " + mmss(s.ms), "neg");
         });
 
+        var SHT = "felt", LB = { k: "p" },
+          TIERS = [["Bronze", 0, 3], ["Silver", 50000, 4], ["Gold", 250000, 5], ["Platinum", 1000000, 6], ["Diamond", 5000000, 8], ["Black Card", 25000000, 10]];
+        function chipName(k) {
+          var pr = P(), t = SHOP.title.filter(function (x) { return x[0] === pr.sel.title; })[0];
+          return pr.sel.avatar + " " + (pr.prestige ? "⭐".repeat(Math.min(pr.prestige, 5)) + " " : "") + db.users[k].name + (t && t[0] !== "none" ? " · " + t[1] : "");
+        }
+        function vipInfo() {
+          var pr = P(), wg = state.stats.wagered, ti = 0;
+          TIERS.forEach(function (t, i) { if (wg >= t[1]) ti = i; });
+          var loss = Math.max(0, (state.stats.wagered - state.stats.returned) - (pr.cbBase || 0));
+          return { ti: ti, wg: wg, cb: Math.floor(loss * TIERS[ti][2] / 100), wait: (pr.cbAt || 0) + 4 * 36e5 - Date.now() };
+        }
         var rwTab = "daily";
         function rwRender() {
           var pr = P(),
@@ -7604,38 +7472,24 @@
                 "</div>";
             });
           } else if (rwTab === "shop") {
-            [
-              ["felt", "Table felt"],
-              ["back", "Card backs"],
-              ["dice", "Craps dice"],
-              ["avatar", "Avatars"],
-            ].forEach(function (T) {
-              h += "<b style='color:var(--gold)'>" + T[1] + "</b><br>";
-              SHOP[T[0]].forEach(function (it) {
-                var own = pr.own[T[0]].indexOf(it[0]) >= 0,
-                  on = pr.sel[T[0]] === it[0];
-                h +=
-                  "<div style='display:flex;justify-content:space-between;align-items:center;padding:4px 0'><span>" +
-                  (T[0] === "avatar" ? it[0] + " " : "") +
-                  it[1] +
-                  "</span>" +
-                  (on
-                    ? "<b>Equipped</b>"
-                    : own
-                    ? "<button class='small' data-a='eq' data-t='" +
-                      T[0] +
-                      "' data-i='" +
-                      it[0] +
-                      "'>Equip</button>"
-                    : "<button class='small' data-a='buy' data-t='" +
-                      T[0] +
-                      "' data-i='" +
-                      it[0] +
-                      "'" + (L < (it[3] || 1) ? " disabled" : "") + ">" + (L < (it[3] || 1) ? "🔒 Lv " + it[3] : "Buy " + fmt(it[2]) + " 🪙") + "</button>") +
-                  "</div>";
-              });
-              h += "<br>";
+            var CATS = [["felt", "🟩 Felt"], ["back", "🂠 Card backs"], ["dice", "🎲 Dice"], ["avatar", "🙂 Avatars"], ["title", "🏷️ Titles"]];
+            h = "<div class='quick' style='flex-wrap:wrap;margin:0 0 6px'>" + CATS.map(function (c) {
+              return "<button class='rwt" + (SHT === c[0] ? " on" : "") + "' data-a='stab' data-i='" + c[0] + "'>" + c[1] + " <small>" + pr.own[c[0]].length + "/" + SHOP[c[0]].length + "</small></button>";
+            }).join("") + "</div><div class='shgrid'>";
+            SHOP[SHT].forEach(function (it) {
+              var own = pr.own[SHT].indexOf(it[0]) >= 0, on = pr.sel[SHT] === it[0], need = it[3] || 1,
+                pv = SHT === "avatar" ? it[0] : SHT === "title" ? "🏷️" : SHT === "dice" ? "🎲" : SHT === "back" ? "🂠" : "🟩";
+              h += "<div class='shc" + (on ? " on" : "") + "'><div class='pv'>" + pv + "</div><b>" + it[1] + "</b><small>" + (own ? "Owned" : need > 1 ? "Level " + need : "&nbsp;") + "</small>" +
+                (on ? "<b style='color:var(--gold)'>Equipped</b>" : own ? "<button class='small' data-a='eq' data-t='" + SHT + "' data-i='" + it[0] + "'>Equip</button>"
+                  : "<button class='small' data-a='buy' data-t='" + SHT + "' data-i='" + it[0] + "'" + (L < need ? " disabled" : "") + ">" + (L < need ? "🔒 Lv " + need : fmt(it[2]) + " 🪙") + "</button>") + "</div>";
             });
+            h += "</div>";
+          } else if (rwTab === "vip") {
+            var V = vipInfo(), nx = TIERS[V.ti + 1];
+            h = "<h3 style='color:var(--gold);margin:0'>💎 " + TIERS[V.ti][0] + " VIP</h3>" +
+              (nx ? "<div class='vipbar'><i style='display:block;height:100%;width:" + Math.min(100, (V.wg - TIERS[V.ti][1]) / (nx[1] - TIERS[V.ti][1]) * 100) + "%;background:var(--gold)'></i></div><small>" + fmt(V.wg) + " / " + fmt(nx[1]) + " wagered to reach " + nx[0] + "</small>" : "<small>Top tier reached!</small>") +
+              "<p><b>Cashback:</b> " + TIERS[V.ti][2] + "% of your net losses, claimable every 4 hours. Available now: <b>" + fmt(V.cb) + " 🪙</b></p><button class='small' data-a='cb'" + (V.cb < 1 || V.wait > 0 ? " disabled" : "") + ">" + (V.wait > 0 ? "Next in " + mmss(V.wait) : "Claim cashback") + "</button>" +
+              "<hr style='border-color:#2a3240;margin:14px 0'><h3 style='color:var(--gold);margin:0'>⭐ Prestige ×" + (pr.prestige || 0) + "</h3><p>At level 20 you can Prestige: your level resets to 1, you earn a ⭐ by your name, a " + fmt(25000 * ((pr.prestige || 0) + 1)) + " 🪙 bonus and +10% on free coin bonuses forever. Keep your shop items.</p><button class='small' data-a='pres'" + (L < 20 ? " disabled" : "") + ">" + (L < 20 ? "🔒 Reach level 20" : "Prestige now") + "</button>";
           } else if (rwTab === "badges") {
             var ks = Object.keys(BADGES), got0 = ks.filter(function (k) { return pr.badges[k]; }).length;
             h = "<b>" + got0 + " / " + ks.length + " unlocked</b><br><br>";
@@ -7659,6 +7513,7 @@
                   L: lvOf(pg.xp),
                   p: st.peak,
                   b: live ? state.balance : x.data.balance,
+                  n: st.spins || 0,
                   bd: Object.keys(pg.badges || {})
                     .map(function (i) {
                       return BADGES[i] ? BADGES[i].e : "";
@@ -7668,24 +7523,13 @@
                 };
               })
               .sort(function (x, y) {
-                return y.p - x.p;
+                return (y[LB.k] || 0) - (x[LB.k] || 0);
               });
-            h = "<i>Leaderboard:</i><br><br>";
-            rows.slice(0, 10).forEach(function (r, i) {
-              h +=
-                i +
-                1 +
-                ". " +
-                r.av +
-                " " +
-                (r.me ? "<b>" + esc(r.n) + " (you)</b>" : esc(r.n)) +
-                " · Lv " +
-                r.L +
-                " · peak " +
-                fmt(r.p) +
-                " " +
-                r.bd +
-                "<br>";
+            var LBT = [["p", "🏔️ Peak"], ["b", "💰 Balance"], ["L", "⭐ Level"], ["n", "🎲 Rounds"]], rk = 0;
+            rows.forEach(function (r, i) { if (r.me) rk = i + 1; });
+            h = "<div class='quick' style='flex-wrap:wrap;margin:0 0 8px'>" + LBT.map(function (t) { return "<button class='rwt" + (LB.k === t[0] ? " on" : "") + "' data-a='lbs' data-i='" + t[0] + "'>" + t[1] + "</button>"; }).join("") + "</div><small>" + rows.length + " players · your rank: <b>" + (rk || "–") + "</b></small>";
+            rows.slice(0, 50).forEach(function (r, i) {
+              h += "<div class='lbrow" + (r.me ? " me" : "") + "'><span style='width:34px'>" + (["🥇", "🥈", "🥉"][i] || (i + 1) + ".") + "</span><span style='flex:1'>" + r.av + " " + (r.me ? "<b>" : "") + esc(r.n) + (r.me ? " (you)</b>" : "") + " · Lv " + r.L + " " + Array.from(r.bd).slice(0, 8).join("") + "</span><b style='color:var(--gold)'>" + fmt(r[LB.k] || 0) + "</b></div>";
             });
             h +=
               "<br><button class='small' data-a='copy'>Copy score card</button>";
@@ -7721,6 +7565,18 @@
             a = b.getAttribute("data-a"),
             t = b.getAttribute("data-t"),
             id = b.getAttribute("data-i");
+          if (a === "lbs") { LB.k = id; rwRender(); return; }
+          if (a === "stab") { SHT = id; rwRender(); return; }
+          if (a === "cb") {
+            var V = vipInfo(); if (V.cb < 1 || V.wait > 0) return;
+            pr.cbBase = state.stats.wagered - state.stats.returned; pr.cbAt = Date.now(); gift(V.cb);
+            fanfare("💎 CASHBACK", "+" + fmt(V.cb) + " 🪙 (" + TIERS[V.ti][0] + ")", 2, false); save(); rwRender(); return;
+          }
+          if (a === "pres") {
+            if (lvOf(pr.xp) < 20 || !window.confirm("Prestige? Your level resets to 1 (you keep coins and shop items).")) return;
+            pr.prestige = (pr.prestige || 0) + 1; pr.xp = 0; gift(25000 * pr.prestige);
+            fanfare("⭐ PRESTIGE " + pr.prestige, "+" + fmt(25000 * pr.prestige) + " 🪙", 3, true); renderLevel(); applyCos(); save(); rwRender(); return;
+          }
           if (a === "copy") {
             var L = lvOf(pr.xp);
             try {
@@ -7992,67 +7848,29 @@
           b.textContent = v; b.style.transform = "translate(-50%,-50%) rotate(" + a + "deg) translateY(-105px)";
           $("#lwDisc").appendChild(b);
         });
-        /* ---- Daily Lucky Wheel: strictly one spin per calendar day, survives log out / log in ---- */
-        var SRV = { off: 0 };
-        if (fbDB) fbDB.ref(".info/serverTimeOffset").on("value", function (sn) { SRV.off = Number(sn.val()) || 0; }, function () {});
-        function lwNow() { return Date.now() + SRV.off; }
-        function lwKey() { return "lp_wheel_" + cur; }
-        function lwLocal() { try { return localStorage.getItem(lwKey()); } catch (e) { return null; } }
-        function lwMark(day) { try { localStorage.setItem(lwKey(), day); } catch (e) {} }
-        function lwDone(day) { return !!cur && (P().wheelDay === day || lwLocal() === day); }
-        function lwLeft() {
-          var n = new Date(lwNow()), m = new Date(n.getFullYear(), n.getMonth(), n.getDate() + 1);
-          var t = Math.max(0, Math.floor((m - n) / 1000));
-          return ("0" + Math.floor(t / 3600)).slice(-2) + ":" + ("0" + Math.floor((t % 3600) / 60)).slice(-2) + ":" + ("0" + (t % 60)).slice(-2);
-        }
-        function lwPaint(resetMsg) {
-          var btn = $("#lwSpin");
-          if (!btn || LW.spinning) return;
-          if (!cur) { btn.disabled = true; btn.textContent = "Log in to spin"; return; }
-          if (lwDone(dayStr(lwNow()))) {
-            btn.disabled = true; btn.textContent = "Next free spin in " + lwLeft();
-            if (resetMsg) setMsg(lwMsg, "You already spun today. Come back tomorrow! 🌙", "lose");
-          } else {
-            btn.disabled = false; btn.textContent = "SPIN (free)";
-            if (resetMsg) setMsg(lwMsg, "One free spin per day. Each day in a row adds a streak bonus!", "");
-          }
-        }
-        function lwRun(pr, today) {
-          pr.wheelStreak = pr.wheelLast === dayStr(lwNow() - 864e5) ? (pr.wheelStreak || 0) + 1 : 1;
-          pr.wheelDay = today; pr.wheelLast = today; lwMark(today); dbSave();
+        $("#lwSpin").addEventListener("click", function () {
+          if (busy) return;
+          var pr = P(), today = dayStr(Date.now());
+          if (pr.wheelDay === today) { setMsg(lwMsg, "You already spun today. Come back tomorrow! 🌙", "lose"); return; }
+          pr.wheelStreak = pr.wheelLast === dayStr(Date.now() - 864e5) ? (pr.wheelStreak || 0) + 1 : 1;
+          pr.wheelDay = today; pr.wheelLast = today; save();
           var tw = 0; LWW.forEach(function (x) { tw += x; });
           var r = Math.random() * tw, k = 0; while (r >= LWW[k]) { r -= LWW[k]; k++; }
-          var bonus = Math.min(10, pr.wheelStreak) * 20, prize = LWP[k] + bonus, who = cur;
-          busy = true; LW.spinning = true; $("#lwSpin").disabled = true; SFX.spinStart();
+          var bonus = Math.min(10, pr.wheelStreak) * 20, prize = LWP[k] + bonus;
+          busy = true; $("#lwSpin").disabled = true; SFX.spinStart();
           var target = ((360 - (k * 45 + 22.5)) % 360), cur0 = ((LW.rot % 360) + 360) % 360;
           LW.rot += 360 * 5 + ((target - cur0 + 360) % 360);
           $("#lwDisc").style.transform = "rotate(" + LW.rot + "deg)";
           setMsg(lwMsg, "Spinning...");
           setTimeout(function () {
-            if (cur === who) {
-              gift(prize); cnt("wheel", 1); SFX.win(prize >= 500 ? 3 : 1); confetti(prize >= 500 ? 90 : 35);
-              setMsg(lwMsg, "You won " + LWP[k] + " + " + bonus + " streak bonus (day " + pr.wheelStreak + ") = " + fmt(prize) + " coins! 🎉", "win");
-            }
-            busy = false; LW.spinning = false; save(); lwPaint(false);
+            gift(prize); cnt("wheel", 1); SFX.win(prize >= 500 ? 3 : 1); confetti(prize >= 500 ? 90 : 35);
+            setMsg(lwMsg, "You won " + LWP[k] + " + " + bonus + " streak bonus (day " + pr.wheelStreak + ") = " + fmt(prize) + " coins! 🎉", "win");
+            busy = false; $("#lwSpin").disabled = false; save();
           }, 4700);
-        }
-        $("#lwSpin").addEventListener("click", function () {
-          if (busy || LW.spinning || !cur) return;
-          var pr = P(), today = dayStr(lwNow());
-          if (lwDone(today)) { lwPaint(true); return; }
-          LW.spinning = true; $("#lwSpin").disabled = true; setMsg(lwMsg, "Checking...");
-          function go() { LW.spinning = false; lwRun(pr, today); }
-          if (!fbDB) { go(); return; }
-          /* ask the server too, so a stale or reset local copy can never allow a second spin */
-          fbDB.ref("users/" + cur + "/data/prog/wheelDay").once("value").then(function (sn) {
-            if (sn.val() === today) { pr.wheelDay = today; lwMark(today); LW.spinning = false; lwPaint(true); }
-            else go();
-          }).catch(go);
         });
-        setInterval(function () { lwPaint(false); }, 1000);
 
         function dxpOn() { var h = new Date().getHours(); return h === 20 || h === 21; }
-        function freeAmt() { return 50 + 10 * lvOf(P().xp); }
+        function freeAmt() { return Math.floor((50 + 10 * lvOf(P().xp)) * (1 + 0.1 * (P().prestige || 0))); }
         function paintFree() {
           if (cur) jpInit();
           var c = $("#freeChip"), x = $("#dxpChip");
@@ -8527,34 +8345,7 @@
           db = { v: 2, users: {} },
           cur = null,
           PBK = 150000,
-          pending = null,
-          suspiciousTimes = [],
-          alertRef = null;
-        function flagSuspicious(reason, details) {
-          if (!cur || !fbDB || cur === "admin") return;
-          var item = {
-            user: cur,
-            reason: String(reason).slice(0, 180),
-            details: String(details || "").slice(0, 240),
-            at: firebase.database.ServerValue.TIMESTAMP
-          };
-          fbDB.ref("security/alerts").push(item).catch(function () {});
-        }
-        function watchAdminAlerts() {
-          if (cur !== "admin" || !fbDB || alertRef) return;
-          alertRef = fbDB.ref("security/alerts").limitToLast(30);
-          alertRef.on("child_added", function (sn) {
-            if (cur !== "admin") return;
-            var v = sn.val() || {}, box = $("#admAlerts");
-            if (!v.user || !v.reason) return;
-            var row = document.createElement("div");
-            row.style.cssText = "padding:7px 0;border-bottom:1px solid #2a3240";
-            var when = v.at ? new Date(v.at).toLocaleString() : "just now";
-            row.textContent = "⚠️ " + v.user + " — " + v.reason + (v.details ? " (" + v.details + ")" : "") + " · " + when;
-            if (box.textContent.indexOf("Alerts appear") === 0) box.textContent = "";
-            box.prepend(row);
-          }, function () {});
-        }
+          pending = null;
         function dbLoad() {
           /* public leaderboard only; private data is loaded after login */
           if (fbDB) {
@@ -8567,7 +8358,6 @@
                   var x = b[k] || {};
                   db.users[k] = {
                     name: String(x.name || k).replace(/[^A-Za-z0-9_]/g, "").slice(0, 16) || k,
-                    lbOff: !!x.hide,
                     data: {
                       balance: x.bal || 0,
                       stats: { peak: x.peak || 0, spins: x.n || 0 },
@@ -8612,12 +8402,7 @@
               bd[i] = 1;
             });
             var up = {};
-            /* write each child separately so pending admin gifts (users/<k>/gifts) are never overwritten */
-            var uc = JSON.parse(JSON.stringify(u));
-            Object.keys(uc).forEach(function (f) {
-              if (f !== "gifts" && f !== "lbOff") up["users/" + k + "/" + f] = uc[f];
-            });
-            if (!("pend" in uc)) up["users/" + k + "/pend"] = null;
+            up["users/" + k] = JSON.parse(JSON.stringify(u));
             up["board/" + k] = JSON.parse(
               JSON.stringify({
                 name: u.name,
@@ -8627,7 +8412,6 @@
                 n: st.spins || 0,
                 bal: d.balance || 0,
                 badges: bd,
-                hide: u.lbOff ? true : undefined,
                 t: Date.now(),
               })
             );
@@ -8813,52 +8597,7 @@
             s <= 1 ? "var(--lose)" : s <= 3 ? "var(--gold)" : "var(--win)";
         });
         var banRef = null,
-          banKey = null,
-          giftRef = null,
-          giftKey = null,
-          lbRef = null;
-        /* coins sent by the admin arrive in users/<name>/gifts; claim each one exactly once */
-        function giftWatch(key) {
-          if (!fbDB || giftKey === key) return;
-          if (giftRef) giftRef.off();
-          giftKey = key;
-          if (lbRef) lbRef.off();
-          lbRef = fbDB.ref("users/" + key + "/lbOff");
-          lbRef.on(
-            "value",
-            function (sn) {
-              if (cur !== key || !db.users[key]) return;
-              var f = !!sn.val();
-              if (f === !!db.users[key].lbOff) return;
-              if (f) db.users[key].lbOff = true;
-              else delete db.users[key].lbOff;
-              dbWrite();
-            },
-            function () {}
-          );
-          giftRef = fbDB.ref("users/" + key + "/gifts");
-          giftRef.on(
-            "child_added",
-            function (sn) {
-              if (cur !== key) return;
-              var v = sn.val() || {},
-                amt = Math.floor(Number(v.amt));
-              if (!(amt >= 1 && amt <= 1000000000) || v.from !== "admin") {
-                sn.ref.remove().catch(function () {});
-                return;
-              }
-              sn.ref
-                .remove()
-                .then(function () {
-                  if (cur !== key) return;
-                  setBalance(state.balance + amt);
-                  toastMsg("🎁 Admin gave you " + fmt(amt) + " coins!", "pos");
-                })
-                .catch(fbFail);
-            },
-            function () {}
-          );
-        }
+          banKey = null;
         function enter(key, remember) {
           cur = key;
           if (fbDB && banKey !== key) {
@@ -8923,8 +8662,7 @@
           renderBets();
           bcRender();
           renderUI();
-          $("#userChip").textContent =
-            P().sel.avatar + " " + db.users[key].name;
+          $("#userChip").textContent = chipName(key);
           $("#userChip").style.cursor = "pointer";
           $("#authOv").classList.remove("show");
           $("#overlay").classList.remove("show");
@@ -8934,8 +8672,6 @@
           pkRecover();
           checkGameOver();
           show("home");
-          giftWatch(key);
-          if (typeof lwPaint === "function") lwPaint(true);
         }
         function showRec(code, key, remember) {
           pending = { key: key, remember: remember };
@@ -8983,10 +8719,6 @@
             }
           } else if (!pw) {
             setMsg(authMsg, "Enter password.", "lose");
-            return;
-          }
-          if (authMode === "register" && key === "admin") {
-            setMsg(authMsg, "That username is reserved for the single site administrator.", "lose");
             return;
           }
           if (authMode === "register" && !$("#authAge").checked) {
@@ -9110,16 +8842,6 @@
           bcRender();
           var savePromise = dbSave();
           cur = null;
-          if (alertRef) { alertRef.off(); alertRef = null; }
-          if (giftRef) {
-            giftRef.off();
-            giftRef = null;
-            giftKey = null;
-          }
-          if (lbRef) {
-            lbRef.off();
-            lbRef = null;
-          }
           Promise.resolve(savePromise)
             .catch(function () {})
             .then(function () {
@@ -9328,7 +9050,7 @@
             });
         });
         function lbShown(k) {
-          if (k === "admin" || (db.users[k] && db.users[k].lbOff)) return false;
+          if (k === "admin") return false;
           var x = db.users[k],
             sp = k === cur ? state.stats.spins : x.data && x.data.stats && x.data.stats.spins;
           return (sp || 0) > 0;
@@ -9368,7 +9090,6 @@
                       esc(x.name || k) +
                       "</b>" +
                       (bn[k] ? " 🚫" : "") +
-                      (x.hide ? " 🙈 hidden from leaderboard" : "") +
                       " — bal " +
                       fmt(x.bal || 0) +
                       ", peak " +
@@ -9376,11 +9097,7 @@
                       "<br>" +
                       (bn[k]
                         ? "<button class='secondary' data-a='unban' data-k='" + ek + "'>Unban</button>"
-                        : "<button class='secondary' data-a='give' data-k='" + ek + "'>🎁 Give</button> " +
-                          (x.hide
-                            ? "<button class='secondary' data-a='lbon' data-k='" + ek + "'>Show on leaderboard</button> "
-                            : "<button class='secondary' data-a='lboff' data-k='" + ek + "'>🚪 Kick from leaderboard</button> ") +
-                          "<button class='secondary' data-a='reset' data-k='" + ek + "'>Reset coins</button> <button class='secondary' style='color:var(--lose)' data-a='ban' data-k='" + ek + "'>Ban</button>") +
+                        : "<button class='secondary' data-a='reset' data-k='" + ek + "'>Reset coins</button> <button class='secondary' style='color:var(--lose)' data-a='ban' data-k='" + ek + "'>Ban</button>") +
                       "</div>"
                     );
                   })
@@ -9392,131 +9109,20 @@
           if (cur !== "admin") return;
           $("#profOv").classList.remove("show");
           $("#admOv").classList.add("show");
-          watchAdminAlerts();
           admRender();
         });
         $("#admClose").addEventListener("click", function () {
           $("#admOv").classList.remove("show");
-        });
-        function admGive(k, amt) {
-          var m = $("#admMsg");
-          k = String(k || "").trim().toLowerCase();
-          amt = Math.floor(Number(amt));
-          if (cur !== "admin") return;
-          if (!(amt >= 1 && amt <= 1000000000)) {
-            setMsg(m, "Enter a whole number of coins from 1 to 1,000,000,000.", "lose");
-            return;
-          }
-          if (k === "admin") {
-            if (!window.confirm("Grant " + fmt(amt) + " play coins to the administrator account?")) return;
-            setBalance(state.balance + amt);
-            dbSave();
-            setMsg(m, "Added " + fmt(amt) + " coins to your admin balance.", "win");
-            $("#admAmt").value = "";
-            admRender();
-            return;
-          }
-          if (!/^[a-z0-9_]{3,16}$/.test(k)) {
-            setMsg(m, "Enter a valid player's username.", "lose");
-            return;
-          }
-          if (!window.confirm("Give " + fmt(amt) + " coins to " + k + "?")) return;
-          setMsg(m, "Sending...", "");
-          fbDB
-            .ref("board/" + k)
-            .once("value")
-            .then(function (sn) {
-              if (!sn.val()) throw { message: "No player named \"" + k + "\" found." };
-              var id = fbDB.ref("users/" + k + "/gifts").push().key,
-                up = {};
-              up["users/" + k + "/gifts/" + id] = {
-                amt: amt,
-                from: "admin",
-                at: firebase.database.ServerValue.TIMESTAMP,
-              };
-              return fbDB.ref().update(up);
-            })
-            .then(function () {
-              /* keep the leaderboard number in step; the player's own save also refreshes it */
-              fbDB
-                .ref("board/" + k + "/bal")
-                .transaction(function (v) {
-                  return typeof v === "number" ? v + amt : v;
-                })
-                .catch(function () {});
-              setMsg(m, "Sent " + fmt(amt) + " coins to " + k + ". They get them as soon as they are online.", "win");
-              $("#admAmt").value = "";
-              admRender();
-            })
-            .catch(function (e) {
-              if (e && e.code) fbFail(e);
-              setMsg(m, (e && e.message) || "Could not send coins.", "lose");
-            });
-        }
-        $("#admGive").addEventListener("click", function () {
-          admGive($("#admUser").value, $("#admAmt").value);
-        });
-        $("#admSelf").addEventListener("click", function () {
-          if (cur !== "admin") return;
-          admGive("admin", $("#admAmt").value);
-        });
-        $("#admApplyCoins").addEventListener("click", function () {
-          if (cur !== "admin") return;
-          var n = Number($("#admSetCoins").value), m = $("#admMsg");
-          if (!Number.isSafeInteger(n) || n < 0 || n > 1000000000000) {
-            setMsg(m, "Enter a whole coin balance from 0 to 1,000,000,000,000.", "lose"); return;
-          }
-          if (!window.confirm("Set the administrator's coin balance to " + fmt(n) + "?")) return;
-          setBalance(n); dbSave();
-          setMsg(m, "Your coin balance is now " + fmt(n) + ".", "pos");
-        });
-        $("#admResetCoins").addEventListener("click", function () {
-          if (cur !== "admin" || !window.confirm("Reset the administrator's coin balance to zero?")) return;
-          setBalance(0); dbSave();
-          setMsg($("#admMsg"), "Your coins have been reset to 0.", "pos");
-        });
-        $("#admAddXp").addEventListener("click", function () {
-          if (cur !== "admin") return;
-          var n = Number($("#admXpAmt").value), m = $("#admMsg");
-          if (!Number.isSafeInteger(n) || n < 1 || n > 1000000000000) {
-            setMsg(m, "Enter whole XP from 1 to 1,000,000,000,000.", "lose"); return;
-          }
-          P().xp = Math.min(1000000000000, (Number(P().xp) || 0) + n);
-          dbSave(); renderLevel();
-          setMsg(m, "Added " + fmt(n) + " XP. You are now level " + lvOf(P().xp) + ".", "pos");
-        });
-        $("#admSetLevel").addEventListener("click", function () {
-          if (cur !== "admin") return;
-          var n = Number($("#admLevel").value), m = $("#admMsg");
-          if (!Number.isSafeInteger(n) || n < 1 || n > 100000) {
-            setMsg(m, "Choose a level from 1 to 100,000.", "lose"); return;
-          }
-          if (!window.confirm("Set the administrator to level " + n + "?")) return;
-          P().xp = lvXp(n);
-          dbSave(); renderLevel();
-          setMsg(m, "Your level is now " + n + " (" + fmt(P().xp) + " XP).", "pos");
         });
         $("#admList").addEventListener("click", function (e) {
           var a = e.target.getAttribute("data-a"),
             k = e.target.getAttribute("data-k"),
             up = {};
           if (cur !== "admin" || !a || !k || k === "admin") return;
-          if (a === "give") {
-            $("#admUser").value = k;
-            admGive(k, $("#admAmt").value);
-            return;
-          }
           if (a === "ban") {
             if (!window.confirm("Ban " + k + " and remove them from the leaderboard?")) return;
             up["banned/" + k] = true;
             up["board/" + k] = null;
-          } else if (a === "lboff") {
-            if (!window.confirm("Remove " + k + " from the leaderboard? They keep their account and coins.")) return;
-            up["users/" + k + "/lbOff"] = true;
-            up["board/" + k + "/hide"] = true;
-          } else if (a === "lbon") {
-            up["users/" + k + "/lbOff"] = null;
-            up["board/" + k + "/hide"] = null;
           } else if (a === "unban") {
             up["banned/" + k] = null;
           } else if (a === "reset") {
@@ -9529,7 +9135,6 @@
           fbDB.ref().update(up).then(admRender).catch(fbFail);
         });
         window.addEventListener("pagehide", function () {
-          stopLobbyMusic();
           dbSave((rouFly ? 0 : totalBets()) + bcTotalBets());
         });
         dbLoad();
