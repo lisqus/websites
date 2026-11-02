@@ -1973,7 +1973,7 @@
           class="net"
           style="display: none; cursor: pointer"
         ></span
-        ><button id="rwBtn" class="small">🎁 Rewards</button>
+        ><span id="freeChip" class="net" style="display:none;cursor:pointer"></span><span id="dxpChip" class="net" style="display:none;color:#ffd45a">⚡ Double XP Hour!</span><button id="rwBtn" class="small">🎁 Rewards</button>
         <span id="userChip" class="net"></span
         ><button id="logoutBtn" class="small">Log out</button
         ><button id="muteBtn" class="small" title="Sound on/off">🔊</button>
@@ -2078,6 +2078,7 @@
         <button class="back" data-go="home">← Back</button>
         <h2 class="title">Slot Machine</h2>
         <div class="quick" id="machineSel" style="flex-wrap: wrap"></div>
+        <div id="jpBox" class="notice" style="display:none">🏆 Community Jackpot: <b id="jpAmt"></b> · 2% of every slot bet feeds it · hit 5 ⭐/🔺 scatters to win it!</div>
         <div class="cabinet" id="cabinet">
           <div class="marquee" id="marquee">★ LUCKY PLAY ★</div>
           <div class="bulbs" id="bulbsTop"></div>
@@ -2165,8 +2166,11 @@
             ><button class="bjq" data-q="double">2×</button
             ><button class="bjq" data-q="max">Max</button>
           </div>
-          <div class="quick">
-            <span class="bjtxt">Hands:</span>
+          <div class="quick" style="flex-wrap:wrap"><span class="bjtxt">Side bets:</span>
+            <input id="bjPP" class="bet-input" type="number" min="0" placeholder="Perfect Pairs" style="width:130px;font-size:.9rem" inputmode="numeric" />
+            <input id="bj213" class="bet-input" type="number" min="0" placeholder="21+3" style="width:100px;font-size:.9rem" inputmode="numeric" /></div>
+          <p class="rtp-note" style="text-align:center">Perfect Pairs (your 2 cards): mixed 5:1 · coloured 12:1 · perfect 25:1. 21+3 (your 2 cards + dealer up-card): flush 5:1 · straight 10:1 · trips 30:1 · straight flush 40:1 · suited trips 100:1.</p>
+          <div class="quick"><span class="bjtxt">Hands:</span>
             <button class="bjs on" data-s="1">1</button
             ><button class="bjs" data-s="2">2</button
             ><button class="bjs" data-s="3">3</button>
@@ -3883,12 +3887,24 @@
             },
             ch: [0, 1, 13, 64, 257],
           },
+          {
+            id: "dragon", max: 200, name: "Dragon's Hoard", tag: "Fantasy · free spins + jackpot", ck: "🪙", fs: { s: "⭐", n: 10 },
+            cnt: { "🐉": 1, "🔮": 2, "⚔️": 3, "🛡️": 4, "🧪": 5, "🪙": 6, "⭐": 3, "🍄": 8 },
+            pay: { "🐉": [75, 301, 1506], "🔮": [30, 120, 602], "⚔️": [15, 60, 226], "🛡️": [8, 30, 120], "🧪": [5, 15, 60] },
+            ch: [0, 1, 8, 30, 151],
+          },
+          {
+            id: "pharaoh", max: 200, name: "Pharaoh's Treasure", tag: "Adventure · free spins + jackpot", ck: "🐫", fs: { s: "🔺", n: 12 },
+            cnt: { "👁️": 1, "🏺": 2, "🐍": 3, "🪲": 4, "🌴": 5, "🐫": 6, "🔺": 3, "🌵": 8 },
+            pay: { "👁️": [101, 422, 2023], "🏺": [42, 169, 843], "🐍": [20, 84, 337], "🪲": [10, 42, 169], "🌴": [5, 20, 84] },
+            ch: [0, 1, 7, 25, 135],
+          },
         ];
         var MACH = MACHINES[0];
         function mStats(m) {
           var r = 0,
             h = 0,
-            pc = m.cnt["🍒"] / 32,
+            pc = m.cnt[m.ck || "🍒"] / 32,
             C = [1, 5, 10, 10, 5, 1];
           for (var k = 1; k <= 5; k++) {
             var pr = C[k] * Math.pow(pc, k) * Math.pow(1 - pc, 5 - k);
@@ -3905,6 +3921,11 @@
               h += pr;
             }
           });
+          if (m.fs) {
+            var ps = m.cnt[m.fs.s] / 32, pt = 0;
+            for (var q = 3; q <= 5; q++) pt += C[q] * Math.pow(ps, q) * Math.pow(1 - ps, 5 - q);
+            r *= 1 + pt * m.fs.n; h += pt;
+          }
           return { rtp: r * 100, hit: h * 100 };
         }
         function buildStrip(counts) {
@@ -3923,11 +3944,11 @@
             mult = 0,
             parts = [],
             c = sy.filter(function (s) {
-              return s === "🍒";
+              return s === (m.ck || "🍒");
             }).length;
           if (c && m.ch[c - 1]) {
             mult += m.ch[c - 1];
-            parts.push(c + " 🍒 ×" + m.ch[c - 1]);
+            parts.push(c + " " + (m.ck || "🍒") + " ×" + m.ch[c - 1]);
           }
           var s0 = sy[0],
             k = 1;
@@ -4030,7 +4051,7 @@
             mStats(m).rtp.toFixed(1) +
             "%</small>";
           b.addEventListener("click", function () {
-            if (!busy) setMachine(m.id);
+            if (!busy && !FS.left) setMachine(m.id);
           });
           $("#machineSel").appendChild(b);
         });
@@ -4082,13 +4103,21 @@
           }
         }
 
+        var FS = { left: 0, bet: 0, cur: 0 }, jpRef = null;
+        function jpInit() {
+          if (!fbDB || jpRef) return;
+          jpRef = fbDB.ref("jackpot/pool");
+          jpRef.on("value", function (sn) { var v = sn.val(); if (v == null) return; $("#jpBox").style.display = "block"; $("#jpAmt").textContent = fmt(v) + " 🪙"; }, function () {});
+        }
+        function jpAdd(bet) { if (jpRef) jpRef.transaction(function (v) { return (v == null ? 1000 : v) + Math.max(1, Math.floor(bet * 0.02)); }).catch(function () {}); }
+        function jpWin(cb) { if (!jpRef) return; var got = 0; jpRef.transaction(function (v) { got = v || 1000; return 1000; }).then(function (r) { if (r.committed && got > 1000) cb(got); }).catch(function () {}); }
         function finishSlots(symbols, bet) {
           pendClear();
           var res = evaluate(symbols),
             win = bet * res.mult;
           setBalance(state.balance + win);
-          recordRound(bet, win);
-          evt("slots", win > bet ? 1 : 0);
+          recordRound(FS.cur ? 0 : bet, win);
+          evt("slots", win > (FS.cur ? 0 : bet) ? 1 : 0);
           if (res.mult >= 1000) badge("jackpot");
           if (res.mult >= 1000)
             setMsg(
@@ -4125,15 +4154,21 @@
               cabinet.classList.remove("flash");
             }, 2200);
           }
-          busy = false;
-          spinSlots.disabled = false;
-          betInput.disabled = false;
-          checkGameOver();
+          var fsm = MACH.fs, sc = fsm ? symbols.filter(function (x) { return x === fsm.s; }).length : 0;
+          if (FS.cur && sc < 3) setMsg(slotMsg, "FREE SPIN: " + (win ? "won " + fmt(win) + " coins!" : "no win") + " (" + FS.left + " left)", win ? "win" : "");
+          if (sc >= 3) {
+            FS.left += fsm.n; if (!FS.cur) FS.bet = bet;
+            setMsg(slotMsg, "⭐ " + sc + " SCATTERS! " + fsm.n + " FREE SPINS!" + (win ? " (+" + fmt(win) + ")" : ""), "win");
+            fanfare("⭐ FREE SPINS!", fsm.n + " free spins at " + fmt(FS.bet) + " each", 2, false);
+          }
+          if (sc === 5) jpWin(function (g) { gift(g); fanfare("🏆 COMMUNITY JACKPOT!", "+" + fmt(g) + " 🪙", 3, true); });
+          if (FS.left > 0) { setTimeout(function () { startSpin(true); }, 2400); return; }
+          FS.cur = 0; busy = false; spinSlots.disabled = false; betInput.disabled = false; checkGameOver();
         }
 
-        function startSpin() {
-          if (busy) return;
-          var bet = readBet();
+        function startSpin(auto) {
+          if (busy && auto !== true) return;
+          var bet = FS.left > 0 ? FS.bet : readBet();
           if (bet < 1) {
             setMsg(slotMsg, "Enter a valid bet.", "lose");
             return;
@@ -4142,7 +4177,7 @@
             setMsg(slotMsg, "Max bet is " + fmt(MACH.max) + " coins.", "lose");
             return;
           }
-          if (bet > state.balance) {
+          if (!FS.left && bet > state.balance) {
             setMsg(slotMsg, "Not enough coins.", "lose");
             return;
           }
@@ -4151,8 +4186,8 @@
           spinSlots.disabled = true;
           betInput.disabled = true;
           betInput.value = bet;
-          setBalance(state.balance - bet);
-          setMsg(slotMsg, "Spinning...");
+          if (FS.left > 0) { FS.left--; FS.cur = 1; } else { FS.cur = 0; setBalance(state.balance - bet); jpAdd(bet); }
+          setMsg(slotMsg, FS.cur ? "FREE SPIN (" + FS.left + " left)..." : "Spinning...");
           SFX.lever();
           SFX.whirStart();
           lever.classList.add("pull");
@@ -4166,7 +4201,7 @@
           var finals = stops.map(function (stop, i) {
             return STRIPS[i][stop];
           });
-          pendSet(bet, bet * evaluate(finals).mult);
+          pendSet(FS.cur ? 0 : bet, bet * evaluate(finals).mult);
 
           var t0 = performance.now(),
             doneCount = 0;
@@ -4464,7 +4499,9 @@
         function bjDeal() {
           if (busy || bjLock || (bj && bj.phase !== "done")) return;
           var bet = readBjBet(),
-            tot = bet * bjSpots;
+            sPP = Math.max(0, Math.floor(Number($("#bjPP").value)) || 0),
+            s213 = Math.max(0, Math.floor(Number($("#bj213").value)) || 0),
+            tot = bet * bjSpots + sPP + s213;
           if (bet < 1) {
             setMsg(bjMsg, "Enter a valid bet.", "lose");
             return;
@@ -4505,6 +4542,7 @@
               sur: false,
               net: undefined,
             });
+          bj.pp = sPP; bj.s3 = s213;
           setMsg(bjMsg, "Dealing...");
           renderBJ();
           updateBJButtons();
@@ -4538,7 +4576,26 @@
               b.className = "bjbanner";
             }, ms);
         }
+        function b213(c) {
+          var ix = { A: 1, J: 11, Q: 12, K: 13 }, v = c.map(function (x) { return ix[x.r] || Number(x.r); }).sort(function (a, b) { return a - b; });
+          var fl = c[0].s === c[1].s && c[1].s === c[2].s, tr = c[0].r === c[1].r && c[1].r === c[2].r,
+            st = (v[1] === v[0] + 1 && v[2] === v[1] + 1) || (v[0] === 1 && v[1] === 12 && v[2] === 13);
+          return tr && fl ? [100, "Suited Trips"] : st && fl ? [40, "Straight Flush"] : tr ? [30, "Three of a Kind"] : st ? [10, "Straight"] : fl ? [5, "Flush"] : [0, ""];
+        }
+        function bjSide() {
+          var h = bj.hands[0].cards, sp = 0, tx = [];
+          function red(x) { return x.s === "♥" || x.s === "♦"; }
+          if (bj.pp > 0 && h[0].r === h[1].r) {
+            var m = h[0].s === h[1].s ? 25 : red(h[0]) === red(h[1]) ? 12 : 5;
+            sp += bj.pp * (m + 1); tx.push("Perfect Pairs ×" + m);
+          }
+          if (bj.s3 > 0) { var r3 = b213([h[0], h[1], bj.dealer[0]]); if (r3[0]) { sp += bj.s3 * (r3[0] + 1); tx.push("21+3 " + r3[1] + " ×" + r3[0]); } }
+          bj.sp = sp;
+          if (sp) toastMsg("🎰 Side bet: " + tx.join(" · ") + " → +" + fmt(sp) + " 🪙 (paid when the hand ends)", "pos");
+          else if (bj.pp > 0 || bj.s3 > 0) toastMsg("Side bets lost", "neg");
+        }
         function afterDeal() {
+          bjSide();
           var nat = [];
           bj.hands.forEach(function (h, i) {
             if (total(h.cards).t === 21) {
@@ -4785,6 +4842,7 @@
             pay += p;
           });
           if (bj.ins && dBJ) pay += bj.ins * 3;
+          pay += bj.sp || 0;
           renderBJ();
           setBalance(state.balance + pay);
           recordRound(bj.wagered, pay);
@@ -7027,6 +7085,9 @@
           wheel7: { e: "🎁", n: "Lucky Streak", d: "Spin the Daily Lucky Wheel 7 times", r: 3000, g: function () { return C("wheel"); }, t: 7 },
           w_videopoker: { e: "🃏", n: "Draw Master", d: "Win 100 Video Poker hands", r: 2500, g: function () { return C("w_videopoker"); }, t: 100 },
           w_war: { e: "⚔️", n: "War Hero", d: "Win 100 rounds of Casino War", r: 2000, g: function () { return C("w_war"); }, t: 100 },
+          free20: { e: "🎁", n: "Freeloader", d: "Claim 20 free coin bonuses", r: 1500, g: function () { return C("free"); }, t: 20 },
+          chest7: { e: "🧰", n: "Chest Hunter", d: "Open 7 Daily Chests", r: 4000, g: function () { return C("chest"); }, t: 7 },
+          dxp150: { e: "🦉", n: "Night Owl", d: "Play 150 rounds during Double XP Hour", r: 3000, g: function () { return C("dxp"); }, t: 150 },
         };
         var bq = 0;
         function badge(id) {
@@ -7051,7 +7112,9 @@
         function award(w, p) {
           var pr = P(),
             old = lvOf(pr.xp);
-          pr.xp += 10 + Math.min(30, Math.floor(w / 10)) + (p > w ? 10 : 0);
+          var xg = 10 + Math.min(30, Math.floor(w / 10)) + (p > w ? 10 : 0);
+          if (dxpOn()) { xg *= 2; cnt("dxp", 1); }
+          pr.xp += xg;
           pr.alive = (pr.alive || 0) + 1;
           var nl = lvOf(pr.xp);
           if (nl > old) {
@@ -7190,6 +7253,10 @@
               );
             }
           });
+          if (d.g.every(function (x) { return x.done; }) && !d.chest) {
+            d.chest = 1; gift(500); cnt("chest", 1);
+            setTimeout(function () { fanfare("🎁 DAILY CHEST!", "All 3 challenges done · +500 🪙", 3, true); }, 1800);
+          }
           save();
         }
         function evt(g, wins) {
@@ -7734,6 +7801,26 @@
             setMsg(lwMsg, "You won " + LWP[k] + " + " + bonus + " streak bonus (day " + pr.wheelStreak + ") = " + fmt(prize) + " coins! 🎉", "win");
             busy = false; $("#lwSpin").disabled = false; save();
           }, 4700);
+        });
+
+        function dxpOn() { var h = new Date().getHours(); return h === 20 || h === 21; }
+        function freeAmt() { return 50 + 10 * lvOf(P().xp); }
+        function paintFree() {
+          if (cur) jpInit();
+          var c = $("#freeChip"), x = $("#dxpChip");
+          if (!cur) { c.style.display = "none"; x.style.display = "none"; return; }
+          var ms = (P().freeAt || 0) - Date.now();
+          c.style.display = "inline-block";
+          c.textContent = ms > 0 ? "🎁 Free coins in " + mmss(ms) : "🎁 Claim " + fmt(freeAmt()) + " free coins!";
+          c.style.background = ms > 0 ? "" : "#1e8449";
+          x.style.display = dxpOn() ? "inline-block" : "none";
+        }
+        setInterval(paintFree, 1000);
+        $("#freeChip").addEventListener("click", function () {
+          var pr = P(), ms = (pr.freeAt || 0) - Date.now();
+          if (ms > 0) { toastMsg("Next free coins in " + mmss(ms), "neg"); return; }
+          var a = freeAmt(); gift(a); pr.freeAt = Date.now() + 20 * 60000; cnt("free", 1);
+          SFX.win(1); confetti(25); toastMsg("🎁 +" + fmt(a) + " free coins! Come back in 20 min.", "pos"); save(); paintFree();
         });
 
         /* ===================== MULTIPLAYER POKER (Firebase) ===================== */
