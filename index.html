@@ -1947,6 +1947,16 @@
       .ack{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.88);display:grid;place-items:center;padding:20px}
       .ack div{max-width:460px;background:#171c24;border:2px solid #ffd45a;border-radius:16px;padding:24px;text-align:center}
       .ack h2{color:#ffd45a;margin:0 0 10px}
+
+      .lwwrap{position:relative;width:280px;margin:26px auto}
+      .lwdisc{position:relative;width:280px;height:280px;border-radius:50%;border:6px solid var(--gold);background:conic-gradient(#c0392b 0 45deg,#2f9e44 45deg 90deg,#3b5bdb 90deg 135deg,#d9a52e 135deg 180deg,#c0392b 180deg 225deg,#2f9e44 225deg 270deg,#3b5bdb 270deg 315deg,#7a3fc0 315deg 360deg);transition:transform 4.5s cubic-bezier(.12,.7,.1,1);box-shadow:0 0 30px rgba(242,193,78,.4)}
+      .lwdisc b{position:absolute;left:50%;top:50%;color:#fff;font-size:1.05rem;text-shadow:0 1px 3px #000}
+      .lwptr{position:absolute;left:50%;top:-16px;transform:translateX(-50%);font-size:2rem;color:var(--gold);z-index:2}
+      .vprow{display:flex;gap:10px;justify-content:center;margin:20px 0;flex-wrap:wrap}
+      .vpc{text-align:center;cursor:pointer}
+      .vpc .pcard{margin-right:0;width:70px;height:100px;transition:transform .15s}
+      .vpc.held .pcard{outline:3px solid var(--gold);transform:translateY(-10px)}
+      .vph{height:20px;color:var(--gold);font-weight:800;font-size:.8rem;margin-top:4px}
 </style>
   </head>
   <body>
@@ -2029,6 +2039,9 @@
             </p>
             <span class="play">Play now →</span>
           </button>
+                  <button class="game-card" data-go="vpoker"><span class="emoji">🃏</span><h3>Video Poker</h3><p>Jacks or Better, 9/6 full-pay table. Hold your best cards and draw. Royal flush pays 800x!</p><span class="play">Play now →</span></button>
+          <button class="game-card" data-go="war"><span class="emoji">⚔️</span><h3>Casino War</h3><p>High card wins. On a tie, go to war or surrender for half your bet back.</p><span class="play">Play now →</span></button>
+          <button class="game-card" data-go="lucky"><span class="emoji">🎁</span><h3>Daily Lucky Wheel</h3><p>One free spin every day. Come back daily to build a streak bonus!</p><span class="play">Spin free →</span></button>
         </div>
         <div class="stats-panel">
           <h3>📊 Your stats</h3>
@@ -2285,6 +2298,39 @@
             line bet stays on the table until the point is decided. Place bets (once a point is set) stay up, win when their number rolls and lose on a 7: 4/10 pay 9:5, 5/9 pay 7:5, 6/8 pay 7:6.
           </p>
         </div>
+      </section>
+
+            <section id="vpoker" class="view">
+        <button class="back" data-go="home">← Back</button>
+        <h2 class="title">Video Poker · Jacks or Better</h2>
+        <div class="paytable"><h3>Pay table (per coin bet)</h3>
+          <ul><li><span>Royal Flush</span><b>800</b></li><li><span>Straight Flush</span><b>50</b></li><li><span>Four of a Kind</span><b>25</b></li><li><span>Full House</span><b>9</b></li><li><span>Flush</span><b>6</b></li><li><span>Straight</span><b>4</b></li><li><span>Three of a Kind</span><b>3</b></li><li><span>Two Pair</span><b>2</b></li><li><span>Jacks or Better</span><b>1</b></li></ul>
+          <p class="rtp-note">Standard 9/6 table, 52-card deck. About 99.5% RTP with perfect strategy. The max-coin royal bonus is not included.</p></div>
+        <div id="vpHand" class="vprow"></div>
+        <p id="vpMsg" class="msg">Set your bet and press DEAL. Tap cards to HOLD them, then DRAW.</p>
+        <div class="bjpanel"><div class="bet-row"><label for="vpBet">Bet</label><input id="vpBet" class="bet-input" type="number" min="1" step="1" value="10" inputmode="numeric" /></div>
+          <div class="controls"><button id="vpGo" class="primary">DEAL</button></div></div>
+      </section>
+
+      <section id="war" class="view">
+        <button class="back" data-go="home">← Back</button>
+        <h2 class="title">Casino War</h2>
+        <div class="felt"><div class="bjlabel">Dealer</div><div class="hand" id="wrD"></div>
+          <div class="bjmid">HIGH CARD WINS 1:1 · ACE HIGH · TIE: SURRENDER (HALF BACK) OR GO TO WAR</div>
+          <div class="bjlabel">You</div><div class="hand" id="wrP"></div></div>
+        <p id="wrMsg" class="msg">Place a bet and press DEAL.</p>
+        <div class="bjpanel"><div class="bet-row"><label for="wrBet">Bet</label><input id="wrBet" class="bet-input" type="number" min="1" step="1" value="10" inputmode="numeric" /></div>
+          <div class="controls"><button id="wrDeal" class="primary">DEAL</button></div>
+          <div class="controls" id="wrChoice" style="display:none"><button id="wrGo" class="primary">GO TO WAR</button><button id="wrSur" class="secondary">Surrender</button></div></div>
+        <div class="paytable"><h3>Rules</h3><p class="rtp-note">One card each, ace high. Higher card wins 1:1. On a tie you may surrender (lose half your bet) or go to war: place an equal extra bet and draw again. If you tie or beat the dealer you win your original bet (the extra bet is returned); otherwise you lose both.</p></div>
+      </section>
+
+      <section id="lucky" class="view">
+        <button class="back" data-go="home">← Back</button>
+        <h2 class="title">Daily Lucky Wheel</h2>
+        <div class="lwwrap"><div class="lwptr">▼</div><div id="lwDisc" class="lwdisc"></div></div>
+        <p id="lwMsg" class="msg">One free spin per day. Each day in a row adds a streak bonus!</p>
+        <div class="controls"><button id="lwSpin" class="primary">SPIN (free)</button></div>
       </section>
 
       <section id="poker" class="view">
@@ -2579,12 +2625,6 @@
         "
       >
         <h2 style="color: var(--gold); text-align: center">🛡 Admin panel</h2>
-        <div class="controls" style="flex-wrap: wrap; margin-bottom: 8px">
-          <input id="admAmt" class="bet-input" type="number" min="1" step="1" placeholder="Coins to give" style="flex: 1 1 130px" />
-          <input id="admUser" class="bet-input" type="text" maxlength="16" placeholder="Username (or press Give on a row)" style="flex: 2 1 190px" />
-          <button id="admGive" class="primary">🎁 Give coins</button>
-        </div>
-        <p id="admMsg" class="msg"></p>
         <div id="admList" class="rtp-note"></div>
         <div class="controls">
           <button id="admClose" class="primary">Close</button>
@@ -6984,6 +7024,9 @@
           w_blackjack600: { e: "🂡", n: "Blackjack Legend", d: "Win 600 blackjack hands", r: 9000, g: function () { return C("w_blackjack"); }, t: 600 },
           w_poker250: { e: "🂮", n: "Poker Legend", d: "Win 250 poker hands", r: 10000, g: function () { return C("w_poker"); }, t: 250 },
           w_baccarat400: { e: "🎴", n: "Baccarat Legend", d: "Win 400 baccarat rounds", r: 9000, g: function () { return C("w_baccarat"); }, t: 400 },
+          wheel7: { e: "🎁", n: "Lucky Streak", d: "Spin the Daily Lucky Wheel 7 times", r: 3000, g: function () { return C("wheel"); }, t: 7 },
+          w_videopoker: { e: "🃏", n: "Draw Master", d: "Win 100 Video Poker hands", r: 2500, g: function () { return C("w_videopoker"); }, t: 100 },
+          w_war: { e: "⚔️", n: "War Hero", d: "Win 100 rounds of Casino War", r: 2000, g: function () { return C("w_war"); }, t: 100 },
         };
         var bq = 0;
         function badge(id) {
@@ -7592,6 +7635,107 @@
         setDie($("#crD1"), 1); setDie($("#crD2"), 1);
         crRender();
 
+        /* ===================== MINES / CRASH / LUCKY WHEEL ===================== */
+        function betOf(el) { var v = Math.floor(Number(el.value)); return isNaN(v) ? 0 : v; }
+        function vpC(c) { var t = { r: pkLab(c.v), s: PKSU[c.s], fresh: !!c.fresh }; c.fresh = false; return t; }
+        var VP = { ph: "bet", deck: [], hand: [], held: [], bet: 0 }, vpMsg = $("#vpMsg"),
+          VPN = ["No win", "Jacks or Better", "Two Pair", "Three of a Kind", "Straight", "Flush", "Full House", "Four of a Kind", "Straight Flush"],
+          VPM = { 2: 2, 3: 3, 4: 4, 5: 6, 6: 9, 7: 25, 8: 50 };
+        function vpRender() {
+          var row = $("#vpHand"); row.innerHTML = "";
+          VP.hand.forEach(function (c, i) {
+            var w = document.createElement("div"), h = document.createElement("div");
+            w.className = "vpc" + (VP.held[i] ? " held" : ""); w.setAttribute("data-i", i);
+            h.className = "vph"; h.textContent = VP.held[i] ? "HELD" : "";
+            w.appendChild(cardEl(vpC(c), false)); w.appendChild(h); row.appendChild(w);
+          });
+        }
+        $("#vpHand").addEventListener("click", function (e) {
+          var w = e.target.closest(".vpc");
+          if (!w || VP.ph !== "hold") return;
+          var i = Number(w.getAttribute("data-i")); VP.held[i] = !VP.held[i]; SFX.click(); vpRender();
+        });
+        $("#vpGo").addEventListener("click", function () {
+          if (VP.ph === "bet") {
+            if (busy) return;
+            var b = betOf($("#vpBet"));
+            if (b < 1) { setMsg(vpMsg, "Enter a valid bet.", "lose"); return; }
+            if (b > state.balance) { setMsg(vpMsg, "Not enough coins.", "lose"); return; }
+            busy = true; VP.bet = b; setBalance(state.balance - b); pendSet(b, 0);
+            VP.deck = pkDeck(); VP.hand = []; VP.held = [false, false, false, false, false];
+            for (var i = 0; i < 5; i++) { var c = VP.deck.pop(); c.fresh = true; VP.hand.push(c); }
+            VP.ph = "hold"; $("#vpBet").disabled = true; $("#vpGo").textContent = "DRAW";
+            SFX.shuffle(); vpRender(); setMsg(vpMsg, "Tap the cards you want to HOLD, then press DRAW.");
+            return;
+          }
+          VP.hand = VP.hand.map(function (c, i) { if (VP.held[i]) return c; var n = VP.deck.pop(); n.fresh = true; return n; });
+          VP.held = [false, false, false, false, false]; VP.ph = "bet"; SFX.card(); vpRender();
+          var r = pkBest(VP.hand), royal = r.cat === 8 && r.tb[0] === 14,
+            m = royal ? 800 : r.cat === 1 ? (r.tb[0] >= 11 ? 1 : 0) : VPM[r.cat] || 0,
+            name = royal ? "Royal Flush" : r.cat === 1 && r.tb[0] < 11 ? "No win" : VPN[r.cat], pay = VP.bet * m;
+          setBalance(state.balance + pay); busy = false; pendClear();
+          recordRound(VP.bet, pay); evt("videopoker", pay > VP.bet ? 1 : 0);
+          if (royal) badge("royal");
+          setMsg(vpMsg, m ? name + "! x" + m + " — won " + signed(pay - VP.bet) + " coins 🎉" : "No winning hand. Lost " + fmt(VP.bet) + " coins.", m > 1 ? "win" : m ? "" : "lose");
+          SFX.result(pay - VP.bet, VP.bet, pay); if (m >= 25) confetti(80);
+          $("#vpBet").disabled = false; $("#vpGo").textContent = "DEAL"; checkGameOver();
+        });
+
+        var WR = { bet: 0, w: 0, p: null, d: null }, wrMsg = $("#wrMsg");
+        function wrCard() { return { v: 2 + Math.floor(Math.random() * 13), s: Math.floor(Math.random() * 4), fresh: true }; }
+        function wrAdd(sel, c) { $(sel).appendChild(cardEl(vpC(c), false)); SFX.card(); }
+        function wrEnd(pay, text) {
+          pendClear(); setBalance(state.balance + pay); recordRound(WR.w, pay); evt("war", pay > WR.w ? 1 : 0);
+          var net = pay - WR.w; setMsg(wrMsg, text + (net > 0 ? " Won " + signed(net) + " coins! 🎉" : net === 0 ? " Push." : " Lost " + fmt(-net) + " coins."), net > 0 ? "win" : net < 0 ? "lose" : "");
+          SFX.result(net, WR.w, pay); busy = false; $("#wrDeal").disabled = false; $("#wrBet").disabled = false; $("#wrChoice").style.display = "none"; checkGameOver();
+        }
+        $("#wrDeal").addEventListener("click", function () {
+          if (busy) return;
+          var b = betOf($("#wrBet"));
+          if (b < 1) { setMsg(wrMsg, "Enter a valid bet.", "lose"); return; }
+          if (b > state.balance) { setMsg(wrMsg, "Not enough coins.", "lose"); return; }
+          busy = true; WR.bet = b; WR.w = b; setBalance(state.balance - b); pendSet(b, 0); SFX.chip();
+          $("#wrDeal").disabled = true; $("#wrBet").disabled = true; $("#wrP").innerHTML = ""; $("#wrD").innerHTML = "";
+          WR.p = wrCard(); WR.d = wrCard(); wrAdd("#wrP", WR.p); wrAdd("#wrD", WR.d);
+          if (WR.p.v > WR.d.v) wrEnd(b * 2, "Your card is higher!");
+          else if (WR.p.v < WR.d.v) wrEnd(0, "Dealer's card is higher.");
+          else { setMsg(wrMsg, "Tie! Go to war (extra " + fmt(b) + ") or surrender for half back?"); $("#wrChoice").style.display = "flex"; $("#wrGo").disabled = state.balance < b; }
+        });
+        $("#wrSur").addEventListener("click", function () { wrEnd(Math.floor(WR.bet / 2), "You surrendered."); });
+        $("#wrGo").addEventListener("click", function () {
+          if (state.balance < WR.bet) return;
+          setBalance(state.balance - WR.bet); WR.w = WR.bet * 2; pendSet(WR.w, 0); $("#wrChoice").style.display = "none";
+          var p = wrCard(), d = wrCard(); wrAdd("#wrP", p); wrAdd("#wrD", d);
+          if (p.v >= d.v) wrEnd(WR.bet * 3, "War won! You keep your extra bet and win the original."); else wrEnd(0, "War lost: dealer wins both bets.");
+        });
+
+        var LW = { rot: 0 }, LWP = [25, 100, 50, 500, 75, 250, 150, 1000], LWW = [24, 14, 22, 3, 18, 6, 12, 1], lwMsg = $("#lwMsg");
+        LWP.forEach(function (v, i) {
+          var b = document.createElement("b"), a = i * 45 + 22.5;
+          b.textContent = v; b.style.transform = "translate(-50%,-50%) rotate(" + a + "deg) translateY(-105px)";
+          $("#lwDisc").appendChild(b);
+        });
+        $("#lwSpin").addEventListener("click", function () {
+          if (busy) return;
+          var pr = P(), today = dayStr(Date.now());
+          if (pr.wheelDay === today) { setMsg(lwMsg, "You already spun today. Come back tomorrow! 🌙", "lose"); return; }
+          pr.wheelStreak = pr.wheelLast === dayStr(Date.now() - 864e5) ? (pr.wheelStreak || 0) + 1 : 1;
+          pr.wheelDay = today; pr.wheelLast = today; save();
+          var tw = 0; LWW.forEach(function (x) { tw += x; });
+          var r = Math.random() * tw, k = 0; while (r >= LWW[k]) { r -= LWW[k]; k++; }
+          var bonus = Math.min(10, pr.wheelStreak) * 20, prize = LWP[k] + bonus;
+          busy = true; $("#lwSpin").disabled = true; SFX.spinStart();
+          var target = ((360 - (k * 45 + 22.5)) % 360), cur0 = ((LW.rot % 360) + 360) % 360;
+          LW.rot += 360 * 5 + ((target - cur0 + 360) % 360);
+          $("#lwDisc").style.transform = "rotate(" + LW.rot + "deg)";
+          setMsg(lwMsg, "Spinning...");
+          setTimeout(function () {
+            gift(prize); cnt("wheel", 1); SFX.win(prize >= 500 ? 3 : 1); confetti(prize >= 500 ? 90 : 35);
+            setMsg(lwMsg, "You won " + LWP[k] + " + " + bonus + " streak bonus (day " + pr.wheelStreak + ") = " + fmt(prize) + " coins! 🎉", "win");
+            busy = false; $("#lwSpin").disabled = false; save();
+          }, 4700);
+        });
+
         /* ===================== MULTIPLAYER POKER (Firebase) ===================== */
         var MP = { tid: null, ref: null, hr: null, T: null, hole: null, G: null, holes: {}, ln: null, tm: null, nt: null, st: false, di: -1, hn: 0, cl: false, lob: {}, cn: -1 },
           mpLob = null;
@@ -8061,7 +8205,6 @@
                   var x = b[k] || {};
                   db.users[k] = {
                     name: String(x.name || k).replace(/[^A-Za-z0-9_]/g, "").slice(0, 16) || k,
-                    lbOff: !!x.hide,
                     data: {
                       balance: x.bal || 0,
                       stats: { peak: x.peak || 0, spins: x.n || 0 },
@@ -8106,12 +8249,7 @@
               bd[i] = 1;
             });
             var up = {};
-            /* write each child separately so pending admin gifts (users/<k>/gifts) are never overwritten */
-            var uc = JSON.parse(JSON.stringify(u));
-            Object.keys(uc).forEach(function (f) {
-              if (f !== "gifts" && f !== "lbOff") up["users/" + k + "/" + f] = uc[f];
-            });
-            if (!("pend" in uc)) up["users/" + k + "/pend"] = null;
+            up["users/" + k] = JSON.parse(JSON.stringify(u));
             up["board/" + k] = JSON.parse(
               JSON.stringify({
                 name: u.name,
@@ -8121,7 +8259,6 @@
                 n: st.spins || 0,
                 bal: d.balance || 0,
                 badges: bd,
-                hide: u.lbOff ? true : undefined,
                 t: Date.now(),
               })
             );
@@ -8307,52 +8444,7 @@
             s <= 1 ? "var(--lose)" : s <= 3 ? "var(--gold)" : "var(--win)";
         });
         var banRef = null,
-          banKey = null,
-          giftRef = null,
-          giftKey = null,
-          lbRef = null;
-        /* coins sent by the admin arrive in users/<name>/gifts; claim each one exactly once */
-        function giftWatch(key) {
-          if (!fbDB || giftKey === key) return;
-          if (giftRef) giftRef.off();
-          giftKey = key;
-          if (lbRef) lbRef.off();
-          lbRef = fbDB.ref("users/" + key + "/lbOff");
-          lbRef.on(
-            "value",
-            function (sn) {
-              if (cur !== key || !db.users[key]) return;
-              var f = !!sn.val();
-              if (f === !!db.users[key].lbOff) return;
-              if (f) db.users[key].lbOff = true;
-              else delete db.users[key].lbOff;
-              dbWrite();
-            },
-            function () {}
-          );
-          giftRef = fbDB.ref("users/" + key + "/gifts");
-          giftRef.on(
-            "child_added",
-            function (sn) {
-              if (cur !== key) return;
-              var v = sn.val() || {},
-                amt = Math.floor(Number(v.amt));
-              if (!(amt >= 1 && amt <= 1000000000) || v.from !== "admin") {
-                sn.ref.remove().catch(function () {});
-                return;
-              }
-              sn.ref
-                .remove()
-                .then(function () {
-                  if (cur !== key) return;
-                  setBalance(state.balance + amt);
-                  toastMsg("🎁 Admin gave you " + fmt(amt) + " coins!", "pos");
-                })
-                .catch(fbFail);
-            },
-            function () {}
-          );
-        }
+          banKey = null;
         function enter(key, remember) {
           cur = key;
           if (fbDB && banKey !== key) {
@@ -8428,7 +8520,6 @@
           pkRecover();
           checkGameOver();
           show("home");
-          giftWatch(key);
         }
         function showRec(code, key, remember) {
           pending = { key: key, remember: remember };
@@ -8599,15 +8690,6 @@
           bcRender();
           var savePromise = dbSave();
           cur = null;
-          if (giftRef) {
-            giftRef.off();
-            giftRef = null;
-            giftKey = null;
-          }
-          if (lbRef) {
-            lbRef.off();
-            lbRef = null;
-          }
           Promise.resolve(savePromise)
             .catch(function () {})
             .then(function () {
@@ -8816,7 +8898,7 @@
             });
         });
         function lbShown(k) {
-          if (k === "admin" || (db.users[k] && db.users[k].lbOff)) return false;
+          if (k === "admin") return false;
           var x = db.users[k],
             sp = k === cur ? state.stats.spins : x.data && x.data.stats && x.data.stats.spins;
           return (sp || 0) > 0;
@@ -8856,7 +8938,6 @@
                       esc(x.name || k) +
                       "</b>" +
                       (bn[k] ? " 🚫" : "") +
-                      (x.hide ? " 🙈 hidden from leaderboard" : "") +
                       " — bal " +
                       fmt(x.bal || 0) +
                       ", peak " +
@@ -8864,11 +8945,7 @@
                       "<br>" +
                       (bn[k]
                         ? "<button class='secondary' data-a='unban' data-k='" + ek + "'>Unban</button>"
-                        : "<button class='secondary' data-a='give' data-k='" + ek + "'>🎁 Give</button> " +
-                          (x.hide
-                            ? "<button class='secondary' data-a='lbon' data-k='" + ek + "'>Show on leaderboard</button> "
-                            : "<button class='secondary' data-a='lboff' data-k='" + ek + "'>🚪 Kick from leaderboard</button> ") +
-                          "<button class='secondary' data-a='reset' data-k='" + ek + "'>Reset coins</button> <button class='secondary' style='color:var(--lose)' data-a='ban' data-k='" + ek + "'>Ban</button>") +
+                        : "<button class='secondary' data-a='reset' data-k='" + ek + "'>Reset coins</button> <button class='secondary' style='color:var(--lose)' data-a='ban' data-k='" + ek + "'>Ban</button>") +
                       "</div>"
                     );
                   })
@@ -8885,76 +8962,15 @@
         $("#admClose").addEventListener("click", function () {
           $("#admOv").classList.remove("show");
         });
-        function admGive(k, amt) {
-          var m = $("#admMsg");
-          k = String(k || "").trim().toLowerCase();
-          amt = Math.floor(Number(amt));
-          if (cur !== "admin") return;
-          if (!(amt >= 1 && amt <= 1000000000)) {
-            setMsg(m, "Enter a whole number of coins from 1 to 1,000,000,000.", "lose");
-            return;
-          }
-          if (!/^[a-z0-9_]{3,16}$/.test(k) || k === "admin") {
-            setMsg(m, "Enter another player's username.", "lose");
-            return;
-          }
-          if (!window.confirm("Give " + fmt(amt) + " coins to " + k + "?")) return;
-          setMsg(m, "Sending...", "");
-          fbDB
-            .ref("board/" + k)
-            .once("value")
-            .then(function (sn) {
-              if (!sn.val()) throw { message: "No player named \"" + k + "\" found." };
-              var id = fbDB.ref("users/" + k + "/gifts").push().key,
-                up = {};
-              up["users/" + k + "/gifts/" + id] = {
-                amt: amt,
-                from: "admin",
-                at: firebase.database.ServerValue.TIMESTAMP,
-              };
-              return fbDB.ref().update(up);
-            })
-            .then(function () {
-              /* keep the leaderboard number in step; the player's own save also refreshes it */
-              fbDB
-                .ref("board/" + k + "/bal")
-                .transaction(function (v) {
-                  return typeof v === "number" ? v + amt : v;
-                })
-                .catch(function () {});
-              setMsg(m, "Sent " + fmt(amt) + " coins to " + k + ". They get them as soon as they are online.", "win");
-              $("#admAmt").value = "";
-              admRender();
-            })
-            .catch(function (e) {
-              if (e && e.code) fbFail(e);
-              setMsg(m, (e && e.message) || "Could not send coins.", "lose");
-            });
-        }
-        $("#admGive").addEventListener("click", function () {
-          admGive($("#admUser").value, $("#admAmt").value);
-        });
         $("#admList").addEventListener("click", function (e) {
           var a = e.target.getAttribute("data-a"),
             k = e.target.getAttribute("data-k"),
             up = {};
           if (cur !== "admin" || !a || !k || k === "admin") return;
-          if (a === "give") {
-            $("#admUser").value = k;
-            admGive(k, $("#admAmt").value);
-            return;
-          }
           if (a === "ban") {
             if (!window.confirm("Ban " + k + " and remove them from the leaderboard?")) return;
             up["banned/" + k] = true;
             up["board/" + k] = null;
-          } else if (a === "lboff") {
-            if (!window.confirm("Remove " + k + " from the leaderboard? They keep their account and coins.")) return;
-            up["users/" + k + "/lbOff"] = true;
-            up["board/" + k + "/hide"] = true;
-          } else if (a === "lbon") {
-            up["users/" + k + "/lbOff"] = null;
-            up["board/" + k + "/hide"] = null;
           } else if (a === "unban") {
             up["banned/" + k] = null;
           } else if (a === "reset") {
