@@ -151,6 +151,23 @@
         text-align: center;
         transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
       }
+      .welcome-panel, .mission-panel {
+        background: linear-gradient(135deg, #202b3a, #171c24);
+        border: 1px solid #46536a;
+        border-radius: 14px;
+        padding: 16px 18px;
+        margin: 14px 0 20px;
+      }
+      .welcome-panel h3, .mission-panel h3 { color: var(--gold); margin: 0 0 8px; }
+      .welcome-steps { display: grid; grid-template-columns: repeat(auto-fit,minmax(170px,1fr)); gap: 10px; }
+      .welcome-step { background: rgba(0,0,0,.2); border-radius: 10px; padding: 10px; color: var(--muted); }
+      .welcome-step b { display:block; color:var(--text); margin-bottom:4px; }
+      .mission-line { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:7px 0; border-top:1px solid #303b4b; color:var(--muted); }
+      .mission-line b { color:var(--gold); white-space:nowrap; }
+      .quick-guide { max-width:760px; margin:0 auto 16px; padding:11px 14px; border:1px solid #3a4558; border-radius:10px; background:#171f2a; color:var(--muted); }
+      .quick-guide b { color:var(--gold); }
+      .game-card:focus-visible, button:focus-visible, input:focus-visible { outline:3px solid #f2c14e; outline-offset:3px; }
+      @media (max-width:600px) { .welcome-panel,.mission-panel { padding:13px; } .title { font-size:1.65rem; } }
       .game-card:hover {
         transform: translateY(-6px);
         border-color: var(--gold);
@@ -2011,6 +2028,34 @@
       <section id="home" class="view active">
         <h2 class="title">Pick a game</h2>
         <p class="sub">100% free. Play coins only, no real money, ever.</p>
+        <div class="welcome-panel">
+          <h3>✨ New here? Start in 30 seconds</h3>
+          <div class="welcome-steps">
+            <div class="welcome-step"><b>1. Pick a game</b>Try Slot Machine or Casino War first — both are simple to learn.</div>
+            <div class="welcome-step"><b>2. Choose a small bet</b>Start with 5–10 coins. Your balance is play money, not real cash.</div>
+            <div class="welcome-step"><b>3. Play for goals</b>Finish daily challenges, earn XP, level up and unlock rewards.</div>
+          </div>
+        </div>
+        <div class="mission-panel" id="homeMissions">
+          <h3>🎯 Today's challenges</h3>
+          <div id="homeMissionList">Loading your challenges…</div>
+          <button class="small" id="homeMissionBtn" type="button">View all rewards & challenges →</button>
+        </div>
+        <div class="mission-panel" id="eventPanel" style="margin-top:14px">
+          <h3 id="eventTitle">🌟 Weekly spotlight</h3>
+          <p id="eventDesc" class="sub" style="margin:4px 0 10px"></p>
+          <div id="eventProgress" style="margin-bottom:10px"></div>
+          <button class="small" id="eventClaim" type="button" disabled>Complete the event to claim</button>
+        </div>
+        <div class="welcome-panel" id="firstSessionPanel" style="margin-top:14px">
+          <h3>🧭 Your first Lucky Play session</h3>
+          <p id="tourText" style="margin:6px 0 12px">Welcome! We'll show you the basics in three quick steps.</p>
+          <div style="height:6px;background:#2a3240;border-radius:8px;overflow:hidden;margin-bottom:12px"><i id="tourBar" style="display:block;width:33%;height:100%;background:var(--gold)"></i></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="small" id="tourNext" type="button">Next tip →</button>
+            <button class="small secondary" id="tourSkip" type="button">I've got it</button>
+          </div>
+        </div>
         <div class="cards">
           <button class="game-card" data-go="roulette">
             <span class="emoji">🎡</span>
@@ -2025,8 +2070,7 @@
             <span class="emoji">🍒</span>
             <h3>Slot Machine</h3>
             <p>
-              Pick a machine, type any bet and spin 5 reels. Different odds on
-              every machine.
+              Set a small bet and spin. Match symbols from left to right to win.
             </p>
             <span class="play">Play now →</span>
           </button>
@@ -2034,8 +2078,7 @@
             <span class="emoji">🃏</span>
             <h3>Blackjack</h3>
             <p>
-              6-deck shoe, up to 3 hands, double down, split, insurance and
-              surrender. Blackjack pays 3:2.
+              Get closer to 21 than the dealer without going over. Simple hit or stand controls.
             </p>
             <span class="play">Play now →</span>
           </button>
@@ -2043,8 +2086,7 @@
             <span class="emoji">♠️</span>
             <h3>Poker</h3>
             <p>
-              No-Limit Texas Hold'em against 6 smart CPU players. Blinds, side
-              pots, all-ins and showdowns.
+              Build the best five-card hand from your cards and shared cards. Play against the table.
             </p>
             <span class="play">Play now →</span>
           </button>
@@ -2052,8 +2094,7 @@
             <span class="emoji">🎴</span>
             <h3>Baccarat</h3>
             <p>
-              Punto Banco with an 8-deck shoe. Player, Banker, Tie and pair
-              bets.
+              Pick Player, Banker or Tie. The hand closest to 9 wins.
             </p>
             <span class="play">Play now →</span>
           </button>
@@ -2061,8 +2102,7 @@
             <span class="emoji">🎲</span>
             <h3>Craps</h3>
             <p>
-              Roll the dice. Pass line, don't pass, odds, field and prop
-              bets. Hit your point!
+              Roll the dice and try the simple Pass Line bet. Hit your point!
             </p>
             <span class="play">Play now →</span>
           </button>
@@ -2752,7 +2792,7 @@
         <div class="stats-grid" id="overStats"></div>
         <p id="refillInfo"></p>
         <button id="restartBtn" class="primary">
-          Take 200 emergency coins
+          Claim 1,000 emergency coins
         </button>
         <button id="overLogout" class="secondary">Log out</button>
       </div>
@@ -3552,11 +3592,11 @@
           if (s.k === "emerg") {
             pr.emerg = true;
             pr.refillAt = Date.now() + 10 * 60000;
-            gift(200);
+            gift(1000);
             $("#overlay").classList.remove("show");
             paintChip();
             toastMsg(
-              "+200 emergency coins. Full refill unlocks in 10 min.",
+              "+1,000 emergency coins. Another refill unlocks in 10 min.",
               "pos"
             );
           } else if (s.k === "ready") claimRefill();
@@ -3566,12 +3606,118 @@
           doLogout();
         });
 
+        var QUICK_GUIDES = {
+          roulette: "Choose a chip, click a number or betting area to place your bet, then press SPIN. Red/black and odd/even are easier to understand; a single number pays more but is harder to hit.",
+          slots: "Choose a machine, set your bet, then press SPIN. Matching symbols from the left side of the center line pay prizes. Start with the minimum bet while learning.",
+          blackjack: "Try to get closer to 21 than the dealer without going over. Hit takes a card; Stand ends your turn. Aces count as 1 or 11.",
+          poker: "Make the best five-card hand using your cards and the shared community cards. Fold leaves the hand; Call matches the current bet; Raise increases it.",
+          baccarat: "Choose Player, Banker or Tie before dealing. The hand closest to 9 wins; you do not choose whether cards are drawn.",
+          craps: "Start with the Pass Line bet, then roll. On the first roll, 7 or 11 wins and 2, 3 or 12 loses; other totals become your point.",
+          vpoker: "You get five cards. Hold the cards you want to keep, then Draw. Your final hand is paid using the paytable.",
+          war: "You and the dealer each get one card. Higher card wins. If tied, choose whether to go to war or surrender.",
+          lucky: "The Lucky Wheel is free once per day. Spin to win coins, and return on later days to grow your login streak."
+        };
         function show(id) {
           $$(".view").forEach(function (v) {
             v.classList.toggle("active", v.id === id);
           });
+          if (id === "home") {
+            renderHomeMissions();
+            renderWeeklyEvent();
+            renderFirstSession();
+          }
+          var view = document.getElementById(id), guide = view && view.querySelector(".quick-guide");
+          if (view && QUICK_GUIDES[id]) {
+            if (!guide) {
+              guide = document.createElement("div");
+              guide.className = "quick-guide";
+              var title = view.querySelector(".title");
+              if (title && title.parentNode) title.parentNode.insertBefore(guide, title.nextSibling);
+            }
+            guide.innerHTML = "<b>Quick guide:</b> ";
+            guide.appendChild(document.createTextNode(QUICK_GUIDES[id]));
+          }
           window.scrollTo(0, 0);
         }
+        function renderHomeMissions() {
+          var host = $("#homeMissionList");
+          if (!host || typeof dailyEnsure !== "function") return;
+          var d = dailyEnsure();
+          host.innerHTML = d.g.map(function (g) {
+            var done = !!g.done;
+            return "<div class='mission-line'><span>" + (done ? "✅ " : "▫️ ") + g.t + "</span><b>" + (done ? "Completed" : Math.min(g.need, d.c[g.k] || 0) + "/" + g.need) + " · +" + g.r + " 🪙</b></div>";
+          }).join("");
+        }
+        var WEEKLY_SPOTLIGHTS = [
+          { name: "Slot Explorer", desc: "Play 8 Slot Machine rounds this week.", game: "slots", goal: 8, coins: 350, xp: 120 },
+          { name: "Table Time", desc: "Play 8 Blackjack rounds this week.", game: "blackjack", goal: 8, coins: 350, xp: 120 },
+          { name: "Wheel Watcher", desc: "Play 8 Roulette rounds this week.", game: "roulette", goal: 8, coins: 350, xp: 120 },
+          { name: "Card Collector", desc: "Play 8 Baccarat rounds this week.", game: "baccarat", goal: 8, coins: 350, xp: 120 }
+        ];
+        function weekKey(ms) {
+          var d = new Date(ms), jan = new Date(d.getFullYear(), 0, 1);
+          return d.getFullYear() + "-W" + Math.floor((((d - jan) / 86400000) + jan.getDay() + 6) / 7);
+        }
+        function currentSpotlight() {
+          var key = weekKey(Date.now()), seed = 0;
+          for (var i = 0; i < key.length; i++) seed = (seed * 31 + key.charCodeAt(i)) >>> 0;
+          return { key: key, event: WEEKLY_SPOTLIGHTS[seed % WEEKLY_SPOTLIGHTS.length] };
+        }
+        function renderWeeklyEvent() {
+          var host = $("#eventPanel");
+          if (!host) return;
+          var pr = P(), pick = currentSpotlight(), ev = pr.weeklyEvent || {};
+          if (ev.week !== pick.key) {
+            pr.weeklyEvent = { week: pick.key, startSpins: (state.stats.spins || 0), claimed: false };
+            ev = pr.weeklyEvent;
+            save();
+          }
+          var progress = Math.min(pick.event.goal, Math.max(0, (state.stats.spins || 0) - (ev.startSpins || 0)));
+          $("#eventTitle").textContent = "🌟 Weekly spotlight: " + pick.event.name;
+          $("#eventDesc").textContent = pick.event.desc + " Reward: " + pick.event.coins + " coins + " + pick.event.xp + " XP.";
+          $("#eventProgress").innerHTML = "<div style='height:8px;background:#2a3240;border-radius:8px;overflow:hidden'><i style='display:block;width:" + (progress / pick.event.goal * 100) + "%;height:100%;background:var(--win)'></i></div><small>" + progress + " / " + pick.event.goal + " rounds played this week</small>";
+          var btn = $("#eventClaim");
+          btn.disabled = progress < pick.event.goal || !!ev.claimed;
+          btn.textContent = ev.claimed ? "✅ Weekly reward claimed" : progress >= pick.event.goal ? "Claim weekly reward" : "Complete the event to claim";
+          btn.onclick = function () {
+            var latest = P().weeklyEvent || {};
+            if (latest.week !== pick.key || latest.claimed) return;
+            var nowProgress = Math.min(pick.event.goal, Math.max(0, (state.stats.spins || 0) - (latest.startSpins || 0)));
+            if (nowProgress < pick.event.goal) return;
+            latest.claimed = true;
+            gift(pick.event.coins);
+            addXP(pick.event.xp);
+            save();
+            toastMsg("Weekly spotlight complete! +" + pick.event.coins + " coins and +" + pick.event.xp + " XP 🎉", "pos");
+            renderWeeklyEvent();
+          };
+        }
+        var TOUR_STEPS = [
+          "Step 1 of 3 — Pick a game. Start with Slots or Casino War; both are easy to learn. You can return here any time.",
+          "Step 2 of 3 — Start small. Choose a 5–10 coin bet while learning. These are free play coins and have no cash value.",
+          "Step 3 of 3 — Play at your pace. Daily challenges and the weekly spotlight give you optional goals. You can change your table look in Rewards → Shop."
+        ];
+        function renderFirstSession() {
+          var pr = P(), panel = $("#firstSessionPanel");
+          if (!panel) return;
+          panel.style.display = pr.tourDone ? "none" : "block";
+          if (pr.tourDone) return;
+          var step = Math.max(0, Math.min(2, pr.tourStep || 0));
+          $("#tourText").textContent = TOUR_STEPS[step];
+          $("#tourBar").style.width = ((step + 1) / 3 * 100) + "%";
+          $("#tourNext").textContent = step === 2 ? "Finish guide ✓" : "Next tip →";
+        }
+        $("#tourNext").addEventListener("click", function () {
+          var pr = P();
+          if ((pr.tourStep || 0) >= 2) { pr.tourDone = true; }
+          else pr.tourStep = (pr.tourStep || 0) + 1;
+          save(); renderFirstSession();
+        });
+        $("#tourSkip").addEventListener("click", function () {
+          P().tourDone = true; save(); renderFirstSession();
+        });
+
+        $("#homeMissionBtn").addEventListener("click", function () { openRw("daily"); });
         $$("[data-go]").forEach(function (b) {
           b.addEventListener("click", function () {
             if (!busy && !crBlock(b.getAttribute("data-go"))) show(b.getAttribute("data-go"));
@@ -7220,6 +7366,9 @@
             emerg: false,
             alive: 0,
             bonus: 0,
+            tourStep: 0,
+            tourDone: false,
+            weeklyEvent: { week: "", startSpins: 0, claimed: false },
           };
         }
         function P() {
@@ -7363,7 +7512,7 @@
           felt: [
             ["green", "Classic Green", 0], ["blue", "Royal Blue", 500], ["black", "Sleek Black", 800], ["burgundy", "Burgundy", 1200],
             ["teal", "Lagoon", 700], ["purple", "Amethyst", 1000, 3], ["sunset", "Sunset", 1800, 5], ["ice", "Glacier", 2500, 8],
-            ["neon", "Neon Grid", 4000, 12], ["gold", "Gilded", 8000, 20], ["rose", "Rosewood", 1500, 4], ["midnight", "Midnight Navy", 2200, 7], ["lime", "Lime Felt", 3000, 9], ["copper", "Copper", 6000, 16],
+            ["neon", "Neon Grid", 4000, 12], ["gold", "Gilded", 8000, 20], ["rose", "Rosewood", 1500, 4], ["midnight", "Midnight Navy", 2200, 7], ["lime", "Lime Felt", 3000, 9], ["copper", "Copper", 6000, 16], ["aurora", "Aurora Glow", 0, 4], ["volcano", "Volcanic Ember", 0, 6], ["cosmic", "Cosmic Night", 0, 8],
           ],
           back: [
             ["blue", "Blue Diamonds", 0], ["red", "Crimson", 300], ["gold", "Gold Foil", 600], ["mono", "Midnight", 900],
@@ -7519,7 +7668,7 @@
             b.disabled = false;
             b.textContent = "Take 200 emergency coins";
             i.textContent =
-              "Take 200 coins now. Your full 1,000-coin refill unlocks 10 minutes later.";
+              "Claim 1,000 coins now. Another refill becomes available in 10 minutes.";
           } else if (s.k === "wait") {
             b.disabled = true;
             b.textContent = "Refill in " + mmss(s.ms);
@@ -7527,7 +7676,7 @@
           } else {
             b.disabled = false;
             b.textContent = "Claim 1,000-coin refill";
-            i.textContent = "Your refill is ready!";
+            i.textContent = "Your 1,000-coin refill is ready!";
           }
         }
         function claimRefill() {
