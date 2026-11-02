@@ -2675,6 +2675,17 @@
           <button id="admGive" class="primary">🎁 Give coins</button>
           <button id="admSelf" class="secondary">🪙 Give coins to myself</button>
         </div>
+        <div class="controls" style="flex-wrap:wrap;margin:8px 0">
+          <input id="admSetCoins" class="bet-input" type="number" min="0" step="1" placeholder="Set my coin balance" style="flex:1 1 160px" />
+          <button id="admApplyCoins" class="secondary">Set my coins</button>
+          <button id="admResetCoins" class="secondary">♻️ Reset my coins to 0</button>
+        </div>
+        <div class="controls" style="flex-wrap:wrap;margin:8px 0">
+          <input id="admXpAmt" class="bet-input" type="number" min="1" step="1" placeholder="XP to add" style="flex:1 1 130px" />
+          <button id="admAddXp" class="secondary">✨ Add XP to myself</button>
+          <input id="admLevel" class="bet-input" type="number" min="1" max="100000" step="1" placeholder="Set my level" style="flex:1 1 130px" />
+          <button id="admSetLevel" class="secondary">👑 Set my level</button>
+        </div>
         <p id="admMsg" class="msg"></p>
         <h3 style="color:var(--gold);margin:16px 0 6px">⚠️ Suspicious activity alerts</h3>
         <div id="admAlerts" class="rtp-note" aria-live="polite">Alerts appear when unusual play patterns are detected. These are review flags, not proof of cheating.</div>
@@ -4269,7 +4280,7 @@
             JP.target = amt;
             if (!JP.ready) { JP.shown = amt; JP.ready = true; jpPaintAmt(); } else jpAnimate();
             jpQual();
-          }, function (e) { jpOffline("Unavailable"); $("#jpSub").textContent = "Ask the admin to allow the jackpot path in the database rules."; });
+          }, function (e) { jpOffline("Unavailable"); $("#jpSub").textContent = "Jackpot access was denied. Check that the supplied Firebase rules were published."; });
           jpLastRef = fbDB.ref("jackpot/last");
           jpLastRef.on("value", function (sn) {
             var v = sn.val(), el = $("#jpLast");
@@ -9448,6 +9459,42 @@
         $("#admSelf").addEventListener("click", function () {
           if (cur !== "admin") return;
           admGive("admin", $("#admAmt").value);
+        });
+        $("#admApplyCoins").addEventListener("click", function () {
+          if (cur !== "admin") return;
+          var n = Number($("#admSetCoins").value), m = $("#admMsg");
+          if (!Number.isSafeInteger(n) || n < 0 || n > 1000000000000) {
+            setMsg(m, "Enter a whole coin balance from 0 to 1,000,000,000,000.", "lose"); return;
+          }
+          if (!window.confirm("Set the administrator's coin balance to " + fmt(n) + "?")) return;
+          setBalance(n); dbSave();
+          setMsg(m, "Your coin balance is now " + fmt(n) + ".", "pos");
+        });
+        $("#admResetCoins").addEventListener("click", function () {
+          if (cur !== "admin" || !window.confirm("Reset the administrator's coin balance to zero?")) return;
+          setBalance(0); dbSave();
+          setMsg($("#admMsg"), "Your coins have been reset to 0.", "pos");
+        });
+        $("#admAddXp").addEventListener("click", function () {
+          if (cur !== "admin") return;
+          var n = Number($("#admXpAmt").value), m = $("#admMsg");
+          if (!Number.isSafeInteger(n) || n < 1 || n > 1000000000000) {
+            setMsg(m, "Enter whole XP from 1 to 1,000,000,000,000.", "lose"); return;
+          }
+          P().xp = Math.min(1000000000000, (Number(P().xp) || 0) + n);
+          dbSave(); renderLevel();
+          setMsg(m, "Added " + fmt(n) + " XP. You are now level " + lvOf(P().xp) + ".", "pos");
+        });
+        $("#admSetLevel").addEventListener("click", function () {
+          if (cur !== "admin") return;
+          var n = Number($("#admLevel").value), m = $("#admMsg");
+          if (!Number.isSafeInteger(n) || n < 1 || n > 100000) {
+            setMsg(m, "Choose a level from 1 to 100,000.", "lose"); return;
+          }
+          if (!window.confirm("Set the administrator to level " + n + "?")) return;
+          P().xp = lvXp(n);
+          dbSave(); renderLevel();
+          setMsg(m, "Your level is now " + n + " (" + fmt(P().xp) + " XP).", "pos");
         });
         $("#admList").addEventListener("click", function (e) {
           var a = e.target.getAttribute("data-a"),
