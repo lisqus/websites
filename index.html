@@ -1943,6 +1943,29 @@
       body[data-dice="emerald"] .die{--dieb:linear-gradient(145deg,#3ddc84,#0a6b3a);--diep:radial-gradient(circle at 35% 30%,#fff,#d8f5e2)}
       body[data-dice="amethyst"] .die{--dieb:linear-gradient(145deg,#b07cf0,#4a1a8a);--diep:radial-gradient(circle at 35% 30%,#fff,#eadcff)}
       body[data-dice="bone"] .die{--dieb:linear-gradient(145deg,#f1e6c8,#cdbd92);--diep:radial-gradient(circle at 35% 30%,#5a4a2a,#1a1204)}
+      .jpsign{position:relative;max-width:760px;margin:10px auto 18px;padding:20px 18px 16px;text-align:center;border-radius:22px;
+        background:radial-gradient(120% 140% at 50% 0%,#5a1424 0%,#2a0a14 55%,#150610 100%);
+        border:3px solid #f5c542;box-shadow:0 0 0 3px #7a1f1f,0 0 34px rgba(245,197,66,.45),inset 0 0 40px rgba(255,59,87,.2);overflow:hidden}
+      .jpsign::before,.jpsign::after{content:"";position:absolute;left:12px;right:12px;height:8px;pointer-events:none;
+        background:radial-gradient(circle,#fff3c4 0 2.5px,transparent 3.5px) 0 50%/20px 8px repeat-x;animation:jpblink 1.1s steps(1) infinite}
+      .jpsign::before{top:5px}.jpsign::after{bottom:5px;animation-delay:.55s}
+      @keyframes jpblink{50%{opacity:.25}}
+      .jphead{font-weight:900;letter-spacing:3px;font-size:clamp(.95rem,3.2vw,1.25rem);color:#ffe9a8;text-shadow:0 0 12px rgba(245,197,66,.8)}
+      .jpamt{font-weight:900;font-size:clamp(2.2rem,9vw,4rem);line-height:1.1;margin:4px 0;font-variant-numeric:tabular-nums;
+        background:linear-gradient(180deg,#fff7d1,#f5c542 55%,#c98a10);-webkit-background-clip:text;background-clip:text;color:transparent;
+        filter:drop-shadow(0 0 14px rgba(245,197,66,.55))}
+      .jpamt small{font-size:.5em;-webkit-text-fill-color:initial}
+      .jpsign.bump .jpamt{animation:jpbump .5s ease}
+      @keyframes jpbump{40%{transform:scale(1.08)}}
+      .jpplus{position:absolute;right:22px;top:46px;font-weight:800;color:#5ee28a;opacity:0;pointer-events:none}
+      .jpplus.go{animation:jpplus 1.2s ease-out}
+      @keyframes jpplus{0%{opacity:1;transform:translateY(6px)}100%{opacity:0;transform:translateY(-22px)}}
+      .jpsub{font-size:.9rem;color:#f1e3c0;margin-top:2px}
+      .jpq{display:inline-block;margin:10px 0 4px;padding:6px 14px;border-radius:999px;font-weight:700;font-size:.88rem;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.4);color:#fff}
+      .jpq.ok{border-color:#5ee28a;color:#b8ffd0;background:rgba(30,132,73,.35)}
+      .jpq.no{border-color:#ffb347;color:#ffe0a8}
+      .jplast{font-size:.85rem;color:#d9cba8;margin-top:6px;min-height:1.2em}
+      .jpsign.off .jpamt{filter:none;background:none;-webkit-text-fill-color:#9aa4b2;color:#9aa4b2;font-size:1.6rem}
       .notice{max-width:640px;margin:6px auto 14px;padding:8px 12px;border:1px dashed #ffd45a;border-radius:10px;color:#ffe9a8;font-size:.78rem;text-align:center;background:rgba(122,31,31,.25)}
       .ack{position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,.88);display:grid;place-items:center;padding:20px}
       .ack div{max-width:460px;background:#171c24;border:2px solid #ffd45a;border-radius:16px;padding:24px;text-align:center}
@@ -2078,7 +2101,15 @@
         <button class="back" data-go="home">← Back</button>
         <h2 class="title">Slot Machine</h2>
         <div class="quick" id="machineSel" style="flex-wrap: wrap"></div>
-        <div id="jpBox" class="notice" style="display:none">🏆 Community Jackpot: <b id="jpAmt"></b> · 2% of every slot bet feeds it · hit 5 ⭐/🔺 scatters to win it!</div>
+        <div id="jpBox" class="jpsign" role="status" aria-live="polite">
+          <div class="jphead">🏆 COMMUNITY JACKPOT 🏆</div>
+          <div class="jpamt"><span id="jpAmt">…</span> <small>🪙</small></div>
+          <span class="jpplus" id="jpPlus"></span>
+          <div class="jpsub" id="jpSub">2% of every slot bet from all players feeds it.</div>
+          <div class="jpq" id="jpQ"></div>
+          <div class="jpsub">Win it with <b>5 scatters</b> (⭐ Dragon's Hoard · 🔺 Pharaoh's Treasure) or a <b>1-in-1,000 mystery drop</b> on any qualifying spin.</div>
+          <div class="jplast" id="jpLast"></div>
+        </div>
         <div class="cabinet" id="cabinet">
           <div class="marquee" id="marquee">★ LUCKY PLAY ★</div>
           <div class="bulbs" id="bulbsTop"></div>
@@ -2629,6 +2660,12 @@
         "
       >
         <h2 style="color: var(--gold); text-align: center">🛡 Admin panel</h2>
+        <div class="controls" style="flex-wrap: wrap; margin-bottom: 8px">
+          <input id="admAmt" class="bet-input" type="number" min="1" step="1" placeholder="Coins to give" style="flex: 1 1 130px" />
+          <input id="admUser" class="bet-input" type="text" maxlength="16" placeholder="Username (or press Give on a row)" style="flex: 2 1 190px" />
+          <button id="admGive" class="primary">🎁 Give coins</button>
+        </div>
+        <p id="admMsg" class="msg"></p>
         <div id="admList" class="rtp-note"></div>
         <div class="controls">
           <button id="admClose" class="primary">Close</button>
@@ -4038,6 +4075,7 @@
             b.classList.toggle("on", b.getAttribute("data-m") === id);
           });
           renderPay();
+          if ($("#jpQ")) jpQual();
         }
         MACHINES.forEach(function (m) {
           var b = document.createElement("button");
@@ -4103,14 +4141,84 @@
           }
         }
 
-        var FS = { left: 0, bet: 0, cur: 0 }, jpRef = null;
-        function jpInit() {
-          if (!fbDB || jpRef) return;
-          jpRef = fbDB.ref("jackpot/pool");
-          jpRef.on("value", function (sn) { var v = sn.val(); if (v == null) return; $("#jpBox").style.display = "block"; $("#jpAmt").textContent = fmt(v) + " 🪙"; }, function () {});
+        var FS = { left: 0, bet: 0, cur: 0 }, jpRef = null, jpLastRef = null;
+        var JP = { min: 100, seed: 1000, shown: 0, target: 0, raf: 0, seen: null, ready: false };
+        function jpPaintAmt() {
+          $("#jpAmt").textContent = fmt(Math.round(JP.shown));
         }
-        function jpAdd(bet) { if (jpRef) jpRef.transaction(function (v) { return (v == null ? 1000 : v) + Math.max(1, Math.floor(bet * 0.02)); }).catch(function () {}); }
-        function jpWin(cb) { if (!jpRef) return; var got = 0; jpRef.transaction(function (v) { got = v || 1000; return 1000; }).then(function (r) { if (r.committed && got > 1000) cb(got); }).catch(function () {}); }
+        function jpAnimate() {
+          if (JP.raf) return;
+          (function step() {
+            var d = JP.target - JP.shown;
+            if (Math.abs(d) < 1) { JP.shown = JP.target; JP.raf = 0; jpPaintAmt(); return; }
+            JP.shown += d * 0.12 + (d > 0 ? 0.5 : -0.5);
+            jpPaintAmt();
+            JP.raf = requestAnimationFrame(step);
+          })();
+        }
+        function jpOffline(msg) {
+          var bx = $("#jpBox");
+          bx.classList.add("off");
+          $("#jpAmt").textContent = msg;
+          $("#jpSub").textContent = "";
+        }
+        function jpQual() {
+          var q = $("#jpQ"), v = Math.floor(Number($("#slotBet").value)) || 0;
+          if (!MACH.fs) { q.className = "jpq no"; q.textContent = "ℹ️ This machine can't win it. Play Dragon's Hoard or Pharaoh's Treasure."; return; }
+          if (v >= JP.min) { q.className = "jpq ok"; q.textContent = "✅ Your bet qualifies for the jackpot"; }
+          else { q.className = "jpq no"; q.textContent = "⚠️ Bet " + fmt(JP.min) + "+ coins to qualify"; }
+        }
+        function jpInit() {
+          if (jpRef) return;
+          if (!fbDB) { jpOffline("Needs internet"); return; }
+          var bx = $("#jpBox");
+          jpRef = fbDB.ref("jackpot/pool");
+          jpRef.on("value", function (sn) {
+            var v = sn.val(), amt = typeof v === "number" ? v : JP.seed;
+            bx.classList.remove("off");
+            $("#jpSub").textContent = "2% of every slot bet from all players feeds it.";
+            if (JP.target && amt > JP.target) { bx.classList.remove("bump"); void bx.offsetWidth; bx.classList.add("bump"); }
+            JP.target = amt;
+            if (!JP.ready) { JP.shown = amt; JP.ready = true; jpPaintAmt(); } else jpAnimate();
+            jpQual();
+          }, function (e) { jpOffline("Unavailable"); $("#jpSub").textContent = "Ask the admin to allow the jackpot path in the database rules."; });
+          jpLastRef = fbDB.ref("jackpot/last");
+          jpLastRef.on("value", function (sn) {
+            var v = sn.val(), el = $("#jpLast");
+            if (!v || !v.amt) { el.textContent = "Nobody has won yet. Be the first!"; JP.seen = 0; return; }
+            var nm = String(v.u || "Someone").replace(/[^A-Za-z0-9_]/g, "").slice(0, 16) || "Someone";
+            el.textContent = "👑 Last winner: " + nm + " won " + fmt(v.amt) + " 🪙" + (v.how ? " (" + v.how + ")" : "");
+            if (JP.seen !== null && v.at && v.at !== JP.seen && v.u !== (cur && db.users[cur] && db.users[cur].name))
+              toastMsg("🏆 " + nm + " just won the community jackpot: " + fmt(v.amt) + " 🪙!", "pos");
+            JP.seen = v.at || 0;
+          }, function () {});
+          jpQual();
+        }
+        function jpAdd(bet) {
+          var x = Math.max(1, Math.floor(bet * 0.02));
+          if (!jpRef) return;
+          var p = $("#jpPlus"); p.textContent = "+" + x; p.classList.remove("go"); void p.offsetWidth; p.classList.add("go");
+          jpRef.transaction(function (v) { return (typeof v === "number" ? v : JP.seed) + x; }).catch(function () {});
+        }
+        /* pays the whole pool exactly once (transaction), resets it to the seed, records the winner */
+        function jpWin(how, cb) {
+          if (!jpRef) return;
+          var got = 0;
+          jpRef.transaction(function (v) { got = typeof v === "number" ? v : JP.seed; return JP.seed; }).then(function (r) {
+            if (!r.committed || got < 1) return;
+            var nm = (cur && db.users[cur] && db.users[cur].name) || "Player";
+            try {
+              fbDB.ref("jackpot/last").set({ u: nm, amt: got, how: how, at: firebase.database.ServerValue.TIMESTAMP }).catch(function () {});
+              fbDB.ref("jackpot/hits").transaction(function (n) { return (n || 0) + 1; }).catch(function () {});
+            } catch (e) {}
+            cb(got);
+          }).catch(function () {});
+        }
+        function jpPaid(how, title) {
+          jpWin(how, function (g) { gift(g); fanfare(title, "+" + fmt(g) + " 🪙", 3, true); coinRain(); });
+        }
+        $("#slotBet").addEventListener("input", jpQual);
+        $$(".qbtn").forEach(function (b) { b.addEventListener("click", function () { setTimeout(jpQual, 0); }); });
         function finishSlots(symbols, bet) {
           pendClear();
           var res = evaluate(symbols),
@@ -4161,7 +4269,10 @@
             setMsg(slotMsg, "⭐ " + sc + " SCATTERS! " + fsm.n + " FREE SPINS!" + (win ? " (+" + fmt(win) + ")" : ""), "win");
             fanfare("⭐ FREE SPINS!", fsm.n + " free spins at " + fmt(FS.bet) + " each", 2, false);
           }
-          if (sc === 5) jpWin(function (g) { gift(g); fanfare("🏆 COMMUNITY JACKPOT!", "+" + fmt(g) + " 🪙", 3, true); });
+          if (sc === 5) {
+            if (bet >= JP.min) jpPaid("5 scatters", "🏆 COMMUNITY JACKPOT!");
+            else fanfare("😬 5 SCATTERS!", "Bet " + fmt(JP.min) + "+ to qualify for the jackpot", 1, false);
+          } else if (fsm && !FS.cur && bet >= JP.min && Math.random() < 0.001) jpPaid("mystery drop", "🎁 MYSTERY JACKPOT!");
           if (FS.left > 0) { setTimeout(function () { startSpin(true); }, 2400); return; }
           FS.cur = 0; busy = false; spinSlots.disabled = false; betInput.disabled = false; checkGameOver();
         }
@@ -7782,26 +7893,64 @@
           b.textContent = v; b.style.transform = "translate(-50%,-50%) rotate(" + a + "deg) translateY(-105px)";
           $("#lwDisc").appendChild(b);
         });
-        $("#lwSpin").addEventListener("click", function () {
-          if (busy) return;
-          var pr = P(), today = dayStr(Date.now());
-          if (pr.wheelDay === today) { setMsg(lwMsg, "You already spun today. Come back tomorrow! 🌙", "lose"); return; }
-          pr.wheelStreak = pr.wheelLast === dayStr(Date.now() - 864e5) ? (pr.wheelStreak || 0) + 1 : 1;
-          pr.wheelDay = today; pr.wheelLast = today; save();
+        /* ---- Daily Lucky Wheel: strictly one spin per calendar day, survives log out / log in ---- */
+        var SRV = { off: 0 };
+        if (fbDB) fbDB.ref(".info/serverTimeOffset").on("value", function (sn) { SRV.off = Number(sn.val()) || 0; }, function () {});
+        function lwNow() { return Date.now() + SRV.off; }
+        function lwKey() { return "lp_wheel_" + cur; }
+        function lwLocal() { try { return localStorage.getItem(lwKey()); } catch (e) { return null; } }
+        function lwMark(day) { try { localStorage.setItem(lwKey(), day); } catch (e) {} }
+        function lwDone(day) { return !!cur && (P().wheelDay === day || lwLocal() === day); }
+        function lwLeft() {
+          var n = new Date(lwNow()), m = new Date(n.getFullYear(), n.getMonth(), n.getDate() + 1);
+          var t = Math.max(0, Math.floor((m - n) / 1000));
+          return ("0" + Math.floor(t / 3600)).slice(-2) + ":" + ("0" + Math.floor((t % 3600) / 60)).slice(-2) + ":" + ("0" + (t % 60)).slice(-2);
+        }
+        function lwPaint(resetMsg) {
+          var btn = $("#lwSpin");
+          if (!btn || LW.spinning) return;
+          if (!cur) { btn.disabled = true; btn.textContent = "Log in to spin"; return; }
+          if (lwDone(dayStr(lwNow()))) {
+            btn.disabled = true; btn.textContent = "Next free spin in " + lwLeft();
+            if (resetMsg) setMsg(lwMsg, "You already spun today. Come back tomorrow! 🌙", "lose");
+          } else {
+            btn.disabled = false; btn.textContent = "SPIN (free)";
+            if (resetMsg) setMsg(lwMsg, "One free spin per day. Each day in a row adds a streak bonus!", "");
+          }
+        }
+        function lwRun(pr, today) {
+          pr.wheelStreak = pr.wheelLast === dayStr(lwNow() - 864e5) ? (pr.wheelStreak || 0) + 1 : 1;
+          pr.wheelDay = today; pr.wheelLast = today; lwMark(today); dbSave();
           var tw = 0; LWW.forEach(function (x) { tw += x; });
           var r = Math.random() * tw, k = 0; while (r >= LWW[k]) { r -= LWW[k]; k++; }
-          var bonus = Math.min(10, pr.wheelStreak) * 20, prize = LWP[k] + bonus;
-          busy = true; $("#lwSpin").disabled = true; SFX.spinStart();
+          var bonus = Math.min(10, pr.wheelStreak) * 20, prize = LWP[k] + bonus, who = cur;
+          busy = true; LW.spinning = true; $("#lwSpin").disabled = true; SFX.spinStart();
           var target = ((360 - (k * 45 + 22.5)) % 360), cur0 = ((LW.rot % 360) + 360) % 360;
           LW.rot += 360 * 5 + ((target - cur0 + 360) % 360);
           $("#lwDisc").style.transform = "rotate(" + LW.rot + "deg)";
           setMsg(lwMsg, "Spinning...");
           setTimeout(function () {
-            gift(prize); cnt("wheel", 1); SFX.win(prize >= 500 ? 3 : 1); confetti(prize >= 500 ? 90 : 35);
-            setMsg(lwMsg, "You won " + LWP[k] + " + " + bonus + " streak bonus (day " + pr.wheelStreak + ") = " + fmt(prize) + " coins! 🎉", "win");
-            busy = false; $("#lwSpin").disabled = false; save();
+            if (cur === who) {
+              gift(prize); cnt("wheel", 1); SFX.win(prize >= 500 ? 3 : 1); confetti(prize >= 500 ? 90 : 35);
+              setMsg(lwMsg, "You won " + LWP[k] + " + " + bonus + " streak bonus (day " + pr.wheelStreak + ") = " + fmt(prize) + " coins! 🎉", "win");
+            }
+            busy = false; LW.spinning = false; save(); lwPaint(false);
           }, 4700);
+        }
+        $("#lwSpin").addEventListener("click", function () {
+          if (busy || LW.spinning || !cur) return;
+          var pr = P(), today = dayStr(lwNow());
+          if (lwDone(today)) { lwPaint(true); return; }
+          LW.spinning = true; $("#lwSpin").disabled = true; setMsg(lwMsg, "Checking...");
+          function go() { LW.spinning = false; lwRun(pr, today); }
+          if (!fbDB) { go(); return; }
+          /* ask the server too, so a stale or reset local copy can never allow a second spin */
+          fbDB.ref("users/" + cur + "/data/prog/wheelDay").once("value").then(function (sn) {
+            if (sn.val() === today) { pr.wheelDay = today; lwMark(today); LW.spinning = false; lwPaint(true); }
+            else go();
+          }).catch(go);
         });
+        setInterval(function () { lwPaint(false); }, 1000);
 
         function dxpOn() { var h = new Date().getHours(); return h === 20 || h === 21; }
         function freeAmt() { return 50 + 10 * lvOf(P().xp); }
@@ -8292,6 +8441,7 @@
                   var x = b[k] || {};
                   db.users[k] = {
                     name: String(x.name || k).replace(/[^A-Za-z0-9_]/g, "").slice(0, 16) || k,
+                    lbOff: !!x.hide,
                     data: {
                       balance: x.bal || 0,
                       stats: { peak: x.peak || 0, spins: x.n || 0 },
@@ -8336,7 +8486,12 @@
               bd[i] = 1;
             });
             var up = {};
-            up["users/" + k] = JSON.parse(JSON.stringify(u));
+            /* write each child separately so pending admin gifts (users/<k>/gifts) are never overwritten */
+            var uc = JSON.parse(JSON.stringify(u));
+            Object.keys(uc).forEach(function (f) {
+              if (f !== "gifts" && f !== "lbOff") up["users/" + k + "/" + f] = uc[f];
+            });
+            if (!("pend" in uc)) up["users/" + k + "/pend"] = null;
             up["board/" + k] = JSON.parse(
               JSON.stringify({
                 name: u.name,
@@ -8346,6 +8501,7 @@
                 n: st.spins || 0,
                 bal: d.balance || 0,
                 badges: bd,
+                hide: u.lbOff ? true : undefined,
                 t: Date.now(),
               })
             );
@@ -8531,7 +8687,52 @@
             s <= 1 ? "var(--lose)" : s <= 3 ? "var(--gold)" : "var(--win)";
         });
         var banRef = null,
-          banKey = null;
+          banKey = null,
+          giftRef = null,
+          giftKey = null,
+          lbRef = null;
+        /* coins sent by the admin arrive in users/<name>/gifts; claim each one exactly once */
+        function giftWatch(key) {
+          if (!fbDB || giftKey === key) return;
+          if (giftRef) giftRef.off();
+          giftKey = key;
+          if (lbRef) lbRef.off();
+          lbRef = fbDB.ref("users/" + key + "/lbOff");
+          lbRef.on(
+            "value",
+            function (sn) {
+              if (cur !== key || !db.users[key]) return;
+              var f = !!sn.val();
+              if (f === !!db.users[key].lbOff) return;
+              if (f) db.users[key].lbOff = true;
+              else delete db.users[key].lbOff;
+              dbWrite();
+            },
+            function () {}
+          );
+          giftRef = fbDB.ref("users/" + key + "/gifts");
+          giftRef.on(
+            "child_added",
+            function (sn) {
+              if (cur !== key) return;
+              var v = sn.val() || {},
+                amt = Math.floor(Number(v.amt));
+              if (!(amt >= 1 && amt <= 1000000000) || v.from !== "admin") {
+                sn.ref.remove().catch(function () {});
+                return;
+              }
+              sn.ref
+                .remove()
+                .then(function () {
+                  if (cur !== key) return;
+                  setBalance(state.balance + amt);
+                  toastMsg("🎁 Admin gave you " + fmt(amt) + " coins!", "pos");
+                })
+                .catch(fbFail);
+            },
+            function () {}
+          );
+        }
         function enter(key, remember) {
           cur = key;
           if (fbDB && banKey !== key) {
@@ -8607,6 +8808,8 @@
           pkRecover();
           checkGameOver();
           show("home");
+          giftWatch(key);
+          if (typeof lwPaint === "function") lwPaint(true);
         }
         function showRec(code, key, remember) {
           pending = { key: key, remember: remember };
@@ -8777,6 +8980,15 @@
           bcRender();
           var savePromise = dbSave();
           cur = null;
+          if (giftRef) {
+            giftRef.off();
+            giftRef = null;
+            giftKey = null;
+          }
+          if (lbRef) {
+            lbRef.off();
+            lbRef = null;
+          }
           Promise.resolve(savePromise)
             .catch(function () {})
             .then(function () {
@@ -8985,7 +9197,7 @@
             });
         });
         function lbShown(k) {
-          if (k === "admin") return false;
+          if (k === "admin" || (db.users[k] && db.users[k].lbOff)) return false;
           var x = db.users[k],
             sp = k === cur ? state.stats.spins : x.data && x.data.stats && x.data.stats.spins;
           return (sp || 0) > 0;
@@ -9025,6 +9237,7 @@
                       esc(x.name || k) +
                       "</b>" +
                       (bn[k] ? " 🚫" : "") +
+                      (x.hide ? " 🙈 hidden from leaderboard" : "") +
                       " — bal " +
                       fmt(x.bal || 0) +
                       ", peak " +
@@ -9032,7 +9245,11 @@
                       "<br>" +
                       (bn[k]
                         ? "<button class='secondary' data-a='unban' data-k='" + ek + "'>Unban</button>"
-                        : "<button class='secondary' data-a='reset' data-k='" + ek + "'>Reset coins</button> <button class='secondary' style='color:var(--lose)' data-a='ban' data-k='" + ek + "'>Ban</button>") +
+                        : "<button class='secondary' data-a='give' data-k='" + ek + "'>🎁 Give</button> " +
+                          (x.hide
+                            ? "<button class='secondary' data-a='lbon' data-k='" + ek + "'>Show on leaderboard</button> "
+                            : "<button class='secondary' data-a='lboff' data-k='" + ek + "'>🚪 Kick from leaderboard</button> ") +
+                          "<button class='secondary' data-a='reset' data-k='" + ek + "'>Reset coins</button> <button class='secondary' style='color:var(--lose)' data-a='ban' data-k='" + ek + "'>Ban</button>") +
                       "</div>"
                     );
                   })
@@ -9049,15 +9266,76 @@
         $("#admClose").addEventListener("click", function () {
           $("#admOv").classList.remove("show");
         });
+        function admGive(k, amt) {
+          var m = $("#admMsg");
+          k = String(k || "").trim().toLowerCase();
+          amt = Math.floor(Number(amt));
+          if (cur !== "admin") return;
+          if (!(amt >= 1 && amt <= 1000000000)) {
+            setMsg(m, "Enter a whole number of coins from 1 to 1,000,000,000.", "lose");
+            return;
+          }
+          if (!/^[a-z0-9_]{3,16}$/.test(k) || k === "admin") {
+            setMsg(m, "Enter another player's username.", "lose");
+            return;
+          }
+          if (!window.confirm("Give " + fmt(amt) + " coins to " + k + "?")) return;
+          setMsg(m, "Sending...", "");
+          fbDB
+            .ref("board/" + k)
+            .once("value")
+            .then(function (sn) {
+              if (!sn.val()) throw { message: "No player named \"" + k + "\" found." };
+              var id = fbDB.ref("users/" + k + "/gifts").push().key,
+                up = {};
+              up["users/" + k + "/gifts/" + id] = {
+                amt: amt,
+                from: "admin",
+                at: firebase.database.ServerValue.TIMESTAMP,
+              };
+              return fbDB.ref().update(up);
+            })
+            .then(function () {
+              /* keep the leaderboard number in step; the player's own save also refreshes it */
+              fbDB
+                .ref("board/" + k + "/bal")
+                .transaction(function (v) {
+                  return typeof v === "number" ? v + amt : v;
+                })
+                .catch(function () {});
+              setMsg(m, "Sent " + fmt(amt) + " coins to " + k + ". They get them as soon as they are online.", "win");
+              $("#admAmt").value = "";
+              admRender();
+            })
+            .catch(function (e) {
+              if (e && e.code) fbFail(e);
+              setMsg(m, (e && e.message) || "Could not send coins.", "lose");
+            });
+        }
+        $("#admGive").addEventListener("click", function () {
+          admGive($("#admUser").value, $("#admAmt").value);
+        });
         $("#admList").addEventListener("click", function (e) {
           var a = e.target.getAttribute("data-a"),
             k = e.target.getAttribute("data-k"),
             up = {};
           if (cur !== "admin" || !a || !k || k === "admin") return;
+          if (a === "give") {
+            $("#admUser").value = k;
+            admGive(k, $("#admAmt").value);
+            return;
+          }
           if (a === "ban") {
             if (!window.confirm("Ban " + k + " and remove them from the leaderboard?")) return;
             up["banned/" + k] = true;
             up["board/" + k] = null;
+          } else if (a === "lboff") {
+            if (!window.confirm("Remove " + k + " from the leaderboard? They keep their account and coins.")) return;
+            up["users/" + k + "/lbOff"] = true;
+            up["board/" + k + "/hide"] = true;
+          } else if (a === "lbon") {
+            up["users/" + k + "/lbOff"] = null;
+            up["board/" + k + "/hide"] = null;
           } else if (a === "unban") {
             up["banned/" + k] = null;
           } else if (a === "reset") {
