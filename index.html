@@ -1985,7 +1985,202 @@
       .vpc.held .pcard{outline:3px solid var(--gold);transform:translateY(-10px)}
       .vph{height:20px;color:var(--gold);font-weight:800;font-size:.8rem;margin-top:4px}
 </style>
-  </head>
+  
+    <style id="lp-discovery-vip-polish">
+      .lp-wheel-feature{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:20px 0 18px;padding:clamp(20px,4vw,38px);min-height:245px;border:1px solid rgba(222,184,96,.55);border-radius:22px;background:radial-gradient(ellipse at 80% 50%,#286044 0%,#123b29 42%,#0b2118 78%);box-shadow:0 18px 48px #0006;overflow:hidden}
+      .lp-wheel-copy{max-width:540px}.lp-eyebrow{color:#e6c778;letter-spacing:.2em;font-size:.7rem;font-weight:900}.lp-wheel-copy h2{font:500 clamp(2rem,4vw,3rem) Georgia,serif;color:#f7e8c5;margin:10px 0}.lp-wheel-copy p{color:#d1d7c8;line-height:1.65;max-width:460px}
+      .lp-gold-button{border:1px solid #f4d990;background:linear-gradient(135deg,#f1d58f,#bd9144);color:#211708;border-radius:999px;padding:13px 22px;font-weight:900;cursor:pointer;box-shadow:0 8px 22px #0005;transition:transform .2s,filter .2s}.lp-gold-button:hover{transform:translateY(-2px);filter:brightness(1.08)}
+      .lp-wheel-art{position:relative;flex:0 0 clamp(150px,22vw,220px);width:clamp(150px,22vw,220px);aspect-ratio:1;border-radius:50%;border:9px ridge #d4b36b;background:repeating-conic-gradient(#9b2428 0deg 30deg,#f0d78f 30deg 60deg,#17613e 60deg 90deg);box-shadow:0 0 0 5px #563d1c,0 0 0 9px #d5b66d,0 16px 35px #0008;cursor:pointer;animation:lpWheelFloat 4s ease-in-out infinite}
+      .lp-wheel-center{position:absolute;inset:31%;display:grid;place-content:center;border-radius:50%;background:radial-gradient(#f6dfa0,#9c7132);color:#261b0b;font:900 1rem Georgia,serif;line-height:1.2;box-shadow:0 0 0 5px #3b2a13;text-align:center}.lp-wheel-pointer{position:absolute;z-index:2;top:-18px;left:50%;transform:translateX(-50%);color:#ffe6a0;font-size:2rem;text-shadow:0 3px 5px #000}
+      .lp-shortcuts{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:15px 0 30px}.lp-shortcuts button{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;padding:14px;border:1px solid rgba(215,181,104,.25);border-radius:14px;background:linear-gradient(145deg,#173829,#0d2118);color:#f2e4c7;cursor:pointer;transition:transform .2s,border-color .2s}.lp-shortcuts button:hover{transform:translateY(-3px);border-color:#d7b568}.lp-shortcuts b{font-size:1.4rem}.lp-shortcuts span{font-weight:800}.lp-shortcuts small{color:#b7b29f;font-size:.72rem}
+      .lp-discover{display:flex;justify-content:space-between;align-items:end;gap:18px;margin:20px 0 14px}.lp-discover .title{margin:0}.lp-discover .sub{margin:5px 0 0}.lp-search{display:flex;align-items:center;gap:9px;width:min(360px,100%);padding:0 13px;border:1px solid rgba(215,181,104,.4);border-radius:999px;background:#0a1c14;color:#e8d6ad}.lp-search input{width:100%;padding:12px 0;border:0;outline:0;background:transparent;color:#fff;font:inherit}.lp-search input::placeholder{color:#a9ad9e}.lp-search kbd{border:1px solid #6f674f;border-radius:5px;padding:1px 6px;color:#bcb297}.lp-no-games{text-align:center;padding:22px;color:#d7c69e}
+      .lp-vip-panel{max-width:850px;margin:30px auto;padding:clamp(22px,5vw,45px);text-align:center;border:1px solid #c6a45d;border-radius:22px;background:radial-gradient(ellipse at top,#244b34,#0a1c14 65%);box-shadow:0 18px 55px #0007}.lp-vip-crown{font-size:3rem;color:#e8ca80}.lp-vip-panel .title{font:500 clamp(2rem,4vw,3rem) Georgia,serif}.lp-vip-gate{margin:18px auto;padding:12px;border:1px solid #9b8149;border-radius:10px;color:#f2d58f;background:#111f17}.lp-vip-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:25px}.lp-vip-link{display:flex;justify-content:space-between;gap:8px;padding:17px;border:1px solid #6d5c37;border-radius:12px;background:#12271b;color:#f2e4c7;font-weight:800;cursor:pointer}.lp-vip-link span{color:#e0c47c}.lp-vip-note{color:#b8b29f;font-size:.8rem;margin-top:20px}
+      #home .game-card[hidden]{display:none!important}.game-card{animation:lpCardIn .45s both;animation-delay:calc(var(--lp-i,0)*35ms)}.lp-wheel-art:hover{filter:brightness(1.12)}@keyframes lpWheelFloat{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-6px) rotate(2deg)}}@keyframes lpCardIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+      .lp-dice span{animation:lpDicePop .35s ease both}@keyframes lpDicePop{from{transform:translateY(-18px) rotate(-12deg);opacity:.5}to{transform:translateY(0) rotate(0);opacity:1}}
+      @media(max-width:760px){.lp-shortcuts{grid-template-columns:repeat(3,minmax(0,1fr))}.lp-wheel-feature{min-height:210px}.lp-discover{align-items:stretch;flex-direction:column}.lp-search{width:auto}}
+      @media(max-width:520px){.lp-wheel-feature{flex-direction:column;text-align:center}.lp-wheel-art{flex-basis:165px;width:165px}.lp-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr))}.lp-vip-links{grid-template-columns:1fr}}
+      @media(prefers-reduced-motion:reduce){.lp-wheel-art,.game-card{animation:none!important}}
+    </style>
+
+    <!-- ===== Casino floor tables (Sic Bo / Keno / High-Low) + VIP lounge styling ===== -->
+    <style id="lp-tables-and-vip">
+      /* ---------- shared casino-table chrome ---------- */
+      .lp-casino-view .lp-table{position:relative;max-width:660px;margin:18px auto;padding:22px;border-radius:22px;overflow:hidden;
+        background:radial-gradient(ellipse at 50% -10%,#1d3b2a,#0a1810 62%,#050b08);
+        border:1px solid rgba(217,174,75,.45);
+        box-shadow:0 20px 55px rgba(0,0,0,.65),inset 0 0 70px rgba(0,0,0,.55)}
+      .lp-casino-view .lp-table::before{content:"";position:absolute;inset:9px;border-radius:15px;border:1px dashed rgba(217,174,75,.22);pointer-events:none}
+
+      .lp-result{position:relative;text-align:center;font-weight:800;font-size:.95rem;color:#e8d9b0;min-height:28px;
+        padding:9px 12px;border-radius:12px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.07);transition:background .25s}
+      .lp-result.win{color:#5ee28a;border-color:rgba(94,226,138,.45);background:rgba(30,132,73,.22);animation:lpResPop .5s ease}
+      .lp-result.lose{color:#ff9b9b;border-color:rgba(255,123,123,.35);background:rgba(140,30,30,.2)}
+      @keyframes lpResPop{40%{transform:scale(1.05)}}
+
+      .lp-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0}
+      .lp-options button{position:relative;padding:14px 12px;border-radius:14px;border:1px solid rgba(217,174,75,.35);
+        background:linear-gradient(160deg,#1d2b22,#0e1a14);color:#f2e4c7;font-weight:800;font-size:.98rem;
+        transition:transform .18s,border-color .18s,box-shadow .18s;text-align:center}
+      .lp-options button small{display:block;font-weight:600;font-size:.7rem;color:#b7b29f;margin-top:4px;line-height:1.3}
+      .lp-options button:hover:not(:disabled){transform:translateY(-3px);border-color:#e2c477}
+      .lp-options button.selected{border-color:#f5d98b;color:#2b1d00;background:linear-gradient(160deg,#f7dc8e,#c99a2e);
+        box-shadow:0 0 0 2px rgba(245,217,139,.35),0 10px 24px rgba(245,217,139,.25)}
+      .lp-options button.selected small{color:#4a3505}
+
+      .lp-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:4px 0 10px}
+      .lp-chip{padding:7px 14px;border-radius:999px;border:1px solid rgba(217,174,75,.4);background:#141f19;color:#e8d6ad;
+        font-weight:800;font-size:.8rem;transition:transform .15s,background .2s,border-color .2s}
+      .lp-chip:hover{background:#1f2f26;border-color:#e2c477;transform:translateY(-2px)}
+
+      .lp-stake{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:8px 0 14px}
+      .lp-stake-label{color:#d7c9a4;font-weight:800;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+      .lp-stake .bet-input{width:120px;font-size:1rem;padding:9px 10px}
+
+      .lp-deal{display:block;margin:6px auto 0;min-width:200px;letter-spacing:.06em}
+      .lp-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+      .lp-actions .lp-deal{margin:0;min-width:170px}
+      .lp-foot{text-align:center;color:#9aa48f;font-size:.76rem;line-height:1.5;margin:14px 0 0}
+
+      /* ---------- Sic Bo ---------- */
+      .sb-stage{display:flex;align-items:center;justify-content:center;gap:20px;margin:4px 0 12px;min-height:110px;flex-wrap:wrap}
+      .sb-dice{gap:16px;margin:0;perspective:700px}
+      .sb-dice .die{width:66px;height:66px;padding:9px;border-radius:13px}
+      .sb-total{font:900 1.9rem/1 Georgia,serif;color:#ffe9a8;text-shadow:0 0 20px rgba(255,200,80,.55);min-width:84px;text-align:center}
+      .sb-total.flash{animation:sbTotal .6s ease}
+      @keyframes sbTotal{0%{transform:scale(.6);opacity:.2}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+
+      /* ---------- Keno ---------- */
+      .lp-keno-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+      .lp-keno-head span{font-weight:800;color:#e8d6ad;font-size:.86rem;letter-spacing:.06em}
+      .lp-keno-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;margin:0 0 14px}
+      .lp-keno-grid button{aspect-ratio:1/1;border-radius:10px;border:1px solid rgba(217,174,75,.28);
+        background:linear-gradient(160deg,#16241c,#0b1410);color:#d9cba8;font-weight:800;font-size:.85rem;
+        transition:transform .15s,background .2s,border-color .2s,color .2s;padding:0}
+      .lp-keno-grid button:hover{transform:translateY(-2px);border-color:#e2c477;color:#fff}
+      .lp-keno-grid button.picked{background:linear-gradient(160deg,#f7dc8e,#c99a2e);color:#2b1d00;border-color:#fff3c4;
+        box-shadow:0 0 14px rgba(245,217,139,.5)}
+      .lp-keno-grid button.drawn{border-color:#ff8a8a;box-shadow:inset 0 0 14px rgba(255,90,90,.35);animation:knDraw .45s ease}
+      .lp-keno-grid button.hit{background:linear-gradient(160deg,#5ee28a,#1e8449);color:#04220f;border-color:#b8ffd0;
+        box-shadow:0 0 18px rgba(94,226,138,.7);animation:knPop .5s ease}
+      @keyframes knDraw{from{transform:scale(.7);opacity:.3}to{transform:scale(1);opacity:1}}
+      @keyframes knPop{0%{transform:scale(.6)}60%{transform:scale(1.18)}100%{transform:scale(1)}}
+      @media(max-width:520px){.lp-keno-grid{grid-template-columns:repeat(5,1fr);gap:5px}
+        .lp-keno-grid button{font-size:.75rem;border-radius:8px}}
+
+      /* ---------- cards (High-Low / Dragon Tiger) ---------- */
+      .hl-card{width:92px;height:134px;border-radius:12px;background:#fff;color:#111;display:flex;flex-direction:column;
+        justify-content:space-between;padding:8px 10px;font-weight:800;box-shadow:0 12px 26px rgba(0,0,0,.55);flex:none}
+      .hl-card b{font-size:1.05rem;line-height:1}
+      .hl-card span{font-size:2.3rem;text-align:center;line-height:1}
+      .hl-card.red{color:#c0392b}
+      .hl-card.back{background:repeating-linear-gradient(45deg,#1d3a8a,#1d3a8a 6px,#2d4db0 6px,#2d4db0 12px);
+        border:3px solid #fff;box-shadow:0 12px 26px rgba(0,0,0,.55)}
+      .hl-card.flip{animation:hlFlip .5s cubic-bezier(.2,.8,.3,1)}
+      @keyframes hlFlip{0%{transform:rotateY(90deg) scale(.85);opacity:.15}100%{transform:none;opacity:1}}
+      body[data-back="red"] .hl-card.back{background:repeating-linear-gradient(45deg,#8a1c2b,#8a1c2b 6px,#c0392b 6px,#c0392b 12px)}
+      body[data-back="gold"] .hl-card.back{background:repeating-linear-gradient(45deg,#a87413,#a87413 6px,#f2c14e 6px,#f2c14e 12px)}
+
+      .hl-stage{display:flex;align-items:center;justify-content:center;gap:18px;margin:4px 0 14px;flex-wrap:wrap}
+      .hl-slot{display:flex;flex-direction:column;align-items:center;gap:7px}
+      .hl-slot .cap{font-size:.66rem;letter-spacing:.16em;color:#b7b29f;text-transform:uppercase;font-weight:800}
+      .hl-mult-box{text-align:center;min-width:104px}
+      .hl-mult-label{font-size:.66rem;letter-spacing:.16em;color:#b7b29f;text-transform:uppercase;font-weight:800}
+      .hl-mult{font:900 1.8rem/1.15 Georgia,serif;color:#f5d98b;text-shadow:0 0 18px rgba(245,217,139,.45);transition:color .2s}
+      .hl-mult.up{animation:hlMult .5s ease}
+      @keyframes hlMult{40%{transform:scale(1.18);color:#fff3c4}}
+      .hl-pot{font-size:.76rem;color:#d9cba8;margin-top:2px;min-height:1em}
+
+      /* ---------- Dragon Tiger ---------- */
+      .dt-stage{display:flex;align-items:center;justify-content:center;gap:16px;margin:4px 0 14px;flex-wrap:wrap}
+      .dt-side{display:flex;flex-direction:column;align-items:center;gap:8px}
+      .dt-label{font-weight:900;letter-spacing:.14em;font-size:.72rem;color:#ffe9a8}
+      .dt-vs{font:900 1.05rem/1 Georgia,serif;color:#d9ae4b;opacity:.85}
+      .dt-side.win .dt-card{box-shadow:0 0 0 3px #5ee28a,0 0 28px rgba(94,226,138,.6)}
+      .dt-side.win .dt-label{color:#5ee28a}
+
+      /* ---------- Mines ---------- */
+      .mn-head{display:flex;justify-content:space-around;gap:10px;flex-wrap:wrap;margin-bottom:14px;text-align:center}
+      .mn-stat span{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#b7b29f;font-weight:800}
+      .mn-stat b{font:900 1.35rem/1.2 Georgia,serif;color:#f5d98b}
+      .mn-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:0 0 14px}
+      .mn-tile{aspect-ratio:1/1;border-radius:12px;border:1px solid rgba(217,174,75,.28);
+        background:linear-gradient(160deg,#1a2a20,#0a130e);font-size:1.35rem;display:grid;place-items:center;
+        transition:transform .15s,background .25s,border-color .25s;padding:0}
+      .mn-tile:hover:not(:disabled){transform:translateY(-3px);border-color:#e2c477}
+      .mn-tile:disabled{opacity:1}
+      .mn-tile.gem{background:linear-gradient(160deg,#1e8449,#0b3d22);border-color:#5ee28a;animation:mnPop .4s ease}
+      .mn-tile.mine{background:linear-gradient(160deg,#8c1f1f,#3a0707);border-color:#ff7b7b;animation:mnBoom .5s ease}
+      @keyframes mnPop{0%{transform:scale(.5) rotate(-12deg)}70%{transform:scale(1.12)}100%{transform:scale(1)}}
+      @keyframes mnBoom{0%{transform:scale(1)}30%{transform:scale(1.25) rotate(6deg)}60%{transform:scale(.95) rotate(-4deg)}100%{transform:scale(1)}}
+
+      /* ---------- VIP lounge ---------- */
+      .vip-hero{position:relative;max-width:900px;margin:0 auto 20px;padding:34px 26px 26px;border-radius:26px;text-align:center;overflow:hidden;
+        background:radial-gradient(ellipse at 50% -30%,rgba(255,225,150,.35),transparent 62%),linear-gradient(160deg,#251a08,#120c04 60%,#070402);
+        border:2px solid #d9ae4b;box-shadow:0 0 0 1px #5a3a00,0 24px 70px rgba(0,0,0,.7),inset 0 0 90px rgba(217,174,75,.14)}
+      .vip-hero::before{content:"";position:absolute;inset:0;pointer-events:none;
+        background:linear-gradient(115deg,transparent 32%,rgba(255,240,200,.14) 46%,transparent 60%);
+        background-size:250% 100%;animation:vipShine 7s linear infinite}
+      @keyframes vipShine{to{background-position:-250% 0}}
+      .vip-crest{font-size:2.6rem;line-height:1;color:#f5d98b;text-shadow:0 0 22px rgba(245,217,139,.7);animation:vipFloat 4s ease-in-out infinite}
+      @keyframes vipFloat{50%{transform:translateY(-6px)}}
+      .vip-title{font:500 clamp(1.9rem,4.4vw,2.8rem) Georgia,serif;margin:6px 0 8px;
+        background:linear-gradient(180deg,#fff7d1,#f5c542 55%,#c98a10);-webkit-background-clip:text;background-clip:text;color:transparent}
+      .vip-hero-sub{max-width:560px;margin:0 auto;color:#d8cba6;line-height:1.6;font-size:.92rem}
+      .vip-member{display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:16px;padding:10px 18px;border-radius:999px;
+        background:rgba(0,0,0,.45);border:1px solid rgba(217,174,75,.45);color:#ffe9a8;font-size:.86rem}
+      .vip-member b{color:#fff}
+      .vip-member .vip-av{font-size:1.4rem}
+      .vip-section-title{max-width:900px;margin:26px auto 12px;color:#f5d98b;font-size:.95rem;letter-spacing:.16em;text-transform:uppercase;text-align:center;font-weight:900}
+      .vip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;max-width:900px;margin:0 auto}
+      .vip-card{position:relative;padding:20px;border-radius:18px;text-align:left;color:#f7e8c5;cursor:pointer;
+        background:linear-gradient(150deg,#1c2a20,#0b1310);border:1px solid rgba(217,174,75,.4);
+        transition:transform .2s,border-color .2s,box-shadow .2s}
+      .vip-card:hover{transform:translateY(-5px);border-color:#f5d98b;box-shadow:0 14px 34px rgba(217,174,75,.22)}
+      .vip-card .vip-emoji{font-size:1.9rem}
+      .vip-card h3{margin:8px 0 4px;font-size:1.05rem;color:#ffe9a8}
+      .vip-card p{margin:0;color:#b7b29f;font-size:.82rem;line-height:1.45}
+      .vip-tag{position:absolute;top:12px;right:12px;font-size:.58rem;letter-spacing:.14em;font-weight:900;color:#2b1d00;
+        background:linear-gradient(#f7dc8e,#c99a2e);padding:3px 8px;border-radius:999px}
+      .vip-boutique{max-width:900px;margin:30px auto 0;padding:22px;border-radius:22px;
+        background:radial-gradient(ellipse at top,#1c2a20,#080f0b 70%);border:1px solid rgba(217,174,75,.35);
+        box-shadow:inset 0 0 60px rgba(0,0,0,.5)}
+      .vip-boutique-sub{text-align:center;color:#b7b29f;font-size:.84rem;margin:0 0 16px;line-height:1.5}
+      .vip-shop-tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+      .vip-tab{background:#16241c;color:#d9cba8;border:1px solid rgba(217,174,75,.3);border-radius:999px;padding:8px 16px;font-weight:800;font-size:.8rem;transition:transform .15s}
+      .vip-tab:hover{transform:translateY(-2px)}
+      .vip-tab.on{background:linear-gradient(#f7dc8e,#c99a2e);color:#2b1d00;border-color:#fff3c4}
+      .vip-shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+      .vip-item{padding:12px;border-radius:14px;background:linear-gradient(160deg,#152019,#0a120e);border:1px solid rgba(217,174,75,.25);text-align:center}
+      .vip-item-name{font-weight:800;color:#f2e4c7;font-size:.84rem;margin-bottom:8px}
+      .vip-buy{background:linear-gradient(#f7dc8e,#c99a2e);color:#2b1d00;border:none;border-radius:9px;padding:7px 14px;font-weight:900;font-size:.78rem}
+      .vip-buy:disabled{filter:grayscale(.6) brightness(.7)}
+      .vip-owned{color:#5ee28a;font-weight:800;font-size:.76rem}
+
+      /* ---------- VIP-exclusive cosmetics ---------- */
+      body[data-felt="obsidian"] .felt{background:radial-gradient(ellipse at top,#2b2b2b,#050505 70%)}
+      body[data-felt="obsidian"] .pkoval{background:radial-gradient(ellipse at 50% 35%,#3a3a3a,#0a0a0a 70%)}
+      body[data-felt="royal"] .felt{background:radial-gradient(ellipse at top,#2b3fa8,#0a1240 70%)}
+      body[data-felt="royal"] .pkoval{background:radial-gradient(ellipse at 50% 35%,#3a56d0,#0a1240 70%)}
+      body[data-felt="jade"] .felt{background:radial-gradient(ellipse at top,#1f9e78,#063226 70%)}
+      body[data-felt="jade"] .pkoval{background:radial-gradient(ellipse at 50% 35%,#28b98c,#063226 70%)}
+      body[data-back="platinum"] .pcard.back,body[data-back="platinum"] .pkc.back,body[data-back="platinum"] .hl-card.back{background:repeating-linear-gradient(45deg,#8d99a6,#8d99a6 6px,#e8eef5 6px,#e8eef5 12px)}
+      body[data-back="crest"] .pcard.back,body[data-back="crest"] .pkc.back,body[data-back="crest"] .hl-card.back{background:repeating-linear-gradient(45deg,#1b1f6b,#1b1f6b 6px,#d9ae4b 6px,#d9ae4b 12px)}
+      body[data-back="midas"] .pcard.back,body[data-back="midas"] .pkc.back,body[data-back="midas"] .hl-card.back{background:linear-gradient(135deg,#f7e08a,#c99a2e 45%,#fff3c4 55%,#b9861c);background-size:200% 100%;animation:midasShift 4s linear infinite}
+      @keyframes midasShift{to{background-position:200% 0}}
+      body[data-dice="platinum"] .die{--dieb:linear-gradient(145deg,#f2f6fa,#a9b6c4);--diep:radial-gradient(circle at 35% 30%,#333c48,#0b0f14)}
+      body[data-dice="obsidian"] .die{--dieb:linear-gradient(145deg,#3a3a3a,#0a0a0a);--diep:radial-gradient(circle at 35% 30%,#ffe08a,#c8952a)}
+
+      @media(max-width:520px){
+        .lp-casino-view .lp-table{padding:16px;border-radius:18px}
+        .hl-card{width:78px;height:114px}
+        .hl-card span{font-size:1.9rem}
+        .sb-dice .die{width:54px;height:54px;padding:7px}
+        .sb-total{font-size:1.5rem}
+      }
+    </style>
+
+<meta name="lucky-play-build" content="casino-discovery-v2">
+</head>
   <body>
     <div id="errorBanner"></div>
     <header class="topbar">
@@ -2000,7 +2195,7 @@
           class="net"
           style="display: none; cursor: pointer"
         ></span
-        ><span id="freeChip" class="net" style="display:none;cursor:pointer"></span><span id="dxpChip" class="net" style="display:none;color:#ffd45a">⚡ Double XP Hour!</span><button id="rwBtn" class="small">🎁 Rewards</button>
+        ><span id="freeChip" class="net" style="display:none;cursor:pointer"></span><span id="dxpChip" class="net" style="display:none;color:#ffd45a">⚡ Double XP Hour!</span>
         <span id="userChip" class="net"></span
         ><button id="logoutBtn" class="small">Log out</button
         ><button id="muteBtn" class="small" title="Sound on/off">🔊</button>
@@ -2011,6 +2206,31 @@
       <section id="home" class="view active">
         <h2 class="title">Pick a game</h2>
         <p class="sub">100% free. Play coins only, no real money, ever.</p>
+
+        <section class="lp-wheel-feature">
+          <div class="lp-wheel-copy">
+            <span class="lp-eyebrow">YOUR DAILY BONUS</span>
+            <h2>The Lucky Wheel</h2>
+            <p>One free spin every day. Tap in, spin the wheel and collect your play-coin reward.</p>
+            <button class="lp-gold-button" data-go="lucky">🎁 SPIN YOUR FREE WHEEL</button>
+          </div>
+          <button class="lp-wheel-art" data-go="lucky" aria-label="Open the Daily Lucky Wheel">
+            <span class="lp-wheel-pointer">▼</span><span class="lp-wheel-center">LUCKY<br>PLAY</span>
+          </button>
+        </section>
+        <nav class="lp-shortcuts" aria-label="Casino features">
+          <button data-rw-tab="daily"><b>🎯</b><span>Daily Rewards</span><small>Claim bonuses</small></button>
+          <button data-rw-tab="shop"><b>🛍️</b><span>Casino Shop</span><small>Customize your table</small></button>
+          <button data-rw-tab="badges"><b>🏅</b><span>Badges</span><small>View achievements</small></button>
+          <button data-rw-tab="board"><b>🏆</b><span>Leaderboard</span><small>See top players</small></button>
+          <button data-go="vip"><b>👑</b><span>VIP Lounge</span><small>Level 5 required</small></button>
+        </nav>
+        <div class="lp-discover">
+          <div><h2 class="title">Find your game</h2><p class="sub">Search the casino floor by name or game type.</p></div>
+          <label class="lp-search"><span>⌕</span><input id="lpGameSearch" type="search" placeholder="Search roulette, cards, dice..." autocomplete="off"><kbd>/</kbd></label>
+        </div>
+        <p id="lpNoGames" class="lp-no-games" hidden>No games match that search. Try another name.</p>
+
         <div class="cards">
           <button class="game-card" data-go="roulette">
             <span class="emoji">🎡</span>
@@ -2068,12 +2288,53 @@
           </button>
                   <button class="game-card" data-go="vpoker"><span class="emoji">🃏</span><h3>Video Poker</h3><p>Jacks or Better, 9/6 full-pay table. Hold your best cards and draw. Royal flush pays 800x!</p><span class="play">Play now →</span></button>
           <button class="game-card" data-go="war"><span class="emoji">⚔️</span><h3>Casino War</h3><p>High card wins. On a tie, go to war or surrender for half your bet back.</p><span class="play">Play now →</span></button>
-          <button class="game-card" data-go="lucky"><span class="emoji">🎁</span><h3>Daily Lucky Wheel</h3><p>One free spin every day. Come back daily to build a streak bonus!</p><span class="play">Spin free →</span></button>
+
+          <button class="game-card" data-go="sicbo"><span class="emoji">🎲</span><h3>Sic Bo</h3><p>Roll three dice. Call Big, Small or a triple.</p><span class="play">Play now →</span></button>
+          <button class="game-card" data-go="keno"><span class="emoji">🔢</span><h3>Keno</h3><p>Pick five numbers and watch the draw.</p><span class="play">Play now →</span></button>
+          <button class="game-card" data-go="hilo"><span class="emoji">🂡</span><h3>High-Low</h3><p>Predict whether the next card is higher or lower.</p><span class="play">Play now →</span></button>
+
         </div>
-        <div class="stats-panel">
+<div class="stats-panel">
           <h3>📊 Your stats</h3>
           <div class="stats-grid" id="statsGrid"></div>
         </div>
+      </section>
+
+
+      <section id="vip" class="view">
+        <button class="back" data-go="home">← Casino floor</button>
+        <div class="vip-hero">
+          <div class="vip-crest">♛</div>
+          <p class="lp-eyebrow">LUCKY PLAY · PRIVATE CLUB</p>
+          <h2 class="title vip-title">The VIP Lounge</h2>
+          <p class="vip-hero-sub">Velvet-rope access. Members-only tables, a private boutique and stakes you won't find on the casino floor.</p>
+          <div id="vipGateMessage" class="lp-vip-gate"></div>
+          <div id="vipMember" class="vip-member"></div>
+        </div>
+
+        <h3 class="vip-section-title">🎲 Members-only tables</h3>
+        <div class="vip-grid">
+          <button class="vip-card" data-go="dragontiger"><span class="vip-tag">VIP</span><div class="vip-emoji">🐉</div><h3>Dragon Tiger</h3><p>One card each. Dragon or Tiger — the fastest table in the house.</p></button>
+          <button class="vip-card" data-go="mines"><span class="vip-tag">VIP</span><div class="vip-emoji">💎</div><h3>Mines</h3><p>Reveal gems, dodge the mines, cash out before your luck runs out.</p></button>
+          <button class="vip-card" data-go="blackjack"><span class="vip-tag">SALON</span><div class="vip-emoji">♠</div><h3>Blackjack Salon</h3><p>Private table with the same 3:2 blackjack rules.</p></button>
+          <button class="vip-card" data-go="baccarat"><span class="vip-tag">SALON</span><div class="vip-emoji">♦</div><h3>Baccarat Salon</h3><p>Punto Banco behind the velvet rope.</p></button>
+          <button class="vip-card" data-go="roulette"><span class="vip-tag">SALON</span><div class="vip-emoji">◎</div><h3>Roulette Salon</h3><p>The wheel, reserved for members.</p></button>
+          <button class="vip-card" data-go="poker"><span class="vip-tag">SALON</span><div class="vip-emoji">♣</div><h3>Poker Salon</h3><p>No-limit Hold'em at the private table.</p></button>
+        </div>
+
+        <div class="vip-boutique">
+          <h3 class="vip-section-title" style="margin-top:0">💎 The Boutique</h3>
+          <p class="vip-boutique-sub">Exclusive cosmetics reserved for members. None of these items appear in the casino floor shop.</p>
+          <div class="vip-shop-tabs" id="vipShopTabs">
+            <button class="vip-tab on" data-vt="felt">Table felt</button>
+            <button class="vip-tab" data-vt="back">Card backs</button>
+            <button class="vip-tab" data-vt="dice">Dice</button>
+            <button class="vip-tab" data-vt="avatar">Avatars</button>
+          </div>
+          <div class="vip-shop-grid" id="vipShopGrid"></div>
+          <p id="vipShopMsg" class="msg"></p>
+        </div>
+        <p class="lp-vip-note" style="text-align:center;max-width:700px;margin:20px auto 0">VIP access is earned through normal play XP. Play coins have no cash value and cannot be exchanged for money or prizes.</p>
       </section>
 
       <section id="roulette" class="view">
@@ -2498,6 +2759,182 @@
               <button id="mpLeave" class="secondary">Leave table</button>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section id="sicbo" class="view lp-casino-view">
+        <button class="back" data-go="home">← Casino floor</button>
+        <h2 class="title">Sic Bo</h2>
+        <p class="sub">Three dice, one throw. Call Small, Big or any Triple.</p>
+        <div class="lp-table">
+          <div class="sb-stage">
+            <div class="crdice sb-dice" id="sbDice">
+              <div class="die" id="sbD1"></div>
+              <div class="die" id="sbD2"></div>
+              <div class="die" id="sbD3"></div>
+            </div>
+            <div class="sb-total" id="sbTotal">—</div>
+          </div>
+          <div id="sbResult" class="lp-result">Place your call</div>
+          <div class="lp-options" id="sbOptions">
+            <button data-call="small" class="selected">Small<small>Total 4–10 · pays 1:1</small></button>
+            <button data-call="big">Big<small>Total 11–17 · pays 1:1</small></button>
+            <button data-call="triple">Any Triple<small>Three of a kind · pays 30:1</small></button>
+          </div>
+          <div class="lp-chips" id="sbChips">
+            <button class="lp-chip" data-v="10">10</button>
+            <button class="lp-chip" data-v="25">25</button>
+            <button class="lp-chip" data-v="50">50</button>
+            <button class="lp-chip" data-v="100">100</button>
+            <button class="lp-chip" data-v="max">Max</button>
+          </div>
+          <div class="lp-stake">
+            <span class="lp-stake-label">Stake</span>
+            <input id="sbBet" class="bet-input" type="number" min="1" max="5000" value="25" inputmode="numeric" />
+          </div>
+          <button class="primary lp-deal" id="sbRoll">ROLL THE DICE</button>
+        </div>
+      </section>
+
+      <section id="keno" class="view lp-casino-view">
+        <button class="back" data-go="home">← Casino floor</button>
+        <h2 class="title">Keno</h2>
+        <p class="sub">Pick five numbers. Ten are drawn from the field of 1–40.</p>
+        <div class="lp-table">
+          <div class="lp-keno-head">
+            <span id="knCount">0 / 5 picked</span>
+            <span>
+              <button class="lp-chip" id="knQuick" type="button">Quick pick</button>
+              <button class="lp-chip" id="knClear" type="button">Clear</button>
+            </span>
+          </div>
+          <div class="lp-keno-grid" id="knGrid"></div>
+          <div id="knResult" class="lp-result">Select five numbers</div>
+          <div class="lp-chips" id="knChips">
+            <button class="lp-chip" data-v="10">10</button>
+            <button class="lp-chip" data-v="25">25</button>
+            <button class="lp-chip" data-v="50">50</button>
+            <button class="lp-chip" data-v="100">100</button>
+            <button class="lp-chip" data-v="max">Max</button>
+          </div>
+          <div class="lp-stake">
+            <span class="lp-stake-label">Stake</span>
+            <input id="knBet" class="bet-input" type="number" min="1" max="5000" value="20" inputmode="numeric" />
+          </div>
+          <button class="primary lp-deal" id="knDraw">DRAW NUMBERS</button>
+          <p class="lp-foot">2 hits returns your stake · 3 hits pays 4× · 4 hits pays 25× · 5 hits pays 300×.</p>
+        </div>
+      </section>
+
+      <section id="hilo" class="view lp-casino-view">
+        <button class="back" data-go="home">← Casino floor</button>
+        <h2 class="title">High-Low</h2>
+        <p class="sub">Call the next card. Every correct call grows your multiplier — cash out before you miss.</p>
+        <div class="lp-table">
+          <div class="hl-stage">
+            <div class="hl-slot">
+              <div class="cap">Current</div>
+              <div class="hl-card back" id="hlCard"></div>
+            </div>
+            <div class="hl-mult-box">
+              <div class="hl-mult-label">Multiplier</div>
+              <div class="hl-mult" id="hlMult">1.00×</div>
+              <div class="hl-pot" id="hlPot">—</div>
+            </div>
+            <div class="hl-slot">
+              <div class="cap">Next</div>
+              <div class="hl-card back" id="hlNext"></div>
+            </div>
+          </div>
+          <div id="hlResult" class="lp-result">Set a stake and deal to begin</div>
+          <div class="lp-options" id="hlOptions">
+            <button id="hlHigher" disabled>Higher ↑<small>Next card ranks higher</small></button>
+            <button id="hlLower" disabled>Lower ↓<small>Next card ranks lower</small></button>
+          </div>
+          <div class="lp-chips" id="hlChips">
+            <button class="lp-chip" data-v="10">10</button>
+            <button class="lp-chip" data-v="25">25</button>
+            <button class="lp-chip" data-v="50">50</button>
+            <button class="lp-chip" data-v="100">100</button>
+            <button class="lp-chip" data-v="max">Max</button>
+          </div>
+          <div class="lp-stake">
+            <span class="lp-stake-label">Stake</span>
+            <input id="hlBet" class="bet-input" type="number" min="1" max="5000" value="25" inputmode="numeric" />
+          </div>
+          <div class="lp-actions">
+            <button class="primary lp-deal" id="hlDeal">DEAL</button>
+            <button class="secondary lp-deal" id="hlCash" disabled>CASH OUT</button>
+          </div>
+          <p class="lp-foot">A correct call returns 1.9× the stake each time. A tie changes nothing. Ace is high — you can't call higher on an Ace.</p>
+        </div>
+      </section>
+
+      <section id="dragontiger" class="view lp-casino-view">
+        <button class="back" data-go="vip">← VIP Lounge</button>
+        <h2 class="title">Dragon Tiger</h2>
+        <p class="sub">One card each. Dragon or Tiger — the fastest table in the house.</p>
+        <div class="lp-table">
+          <div class="dt-stage">
+            <div class="dt-side" id="dtDragonSide">
+              <div class="dt-label">🐉 DRAGON</div>
+              <div class="hl-card back dt-card" id="dtDragon"></div>
+            </div>
+            <div class="dt-vs">VS</div>
+            <div class="dt-side" id="dtTigerSide">
+              <div class="dt-label">🐯 TIGER</div>
+              <div class="hl-card back dt-card" id="dtTiger"></div>
+            </div>
+          </div>
+          <div id="dtResult" class="lp-result">Pick a side and deal</div>
+          <div class="lp-options" id="dtOptions">
+            <button data-side="D" class="selected">🐉 Dragon<small>Pays 1:1</small></button>
+            <button data-side="T">🐯 Tiger<small>Pays 1:1</small></button>
+            <button data-side="TIE">Tie<small>Pays 8:1</small></button>
+          </div>
+          <div class="lp-chips" id="dtChips">
+            <button class="lp-chip" data-v="25">25</button>
+            <button class="lp-chip" data-v="50">50</button>
+            <button class="lp-chip" data-v="100">100</button>
+            <button class="lp-chip" data-v="250">250</button>
+            <button class="lp-chip" data-v="max">Max</button>
+          </div>
+          <div class="lp-stake">
+            <span class="lp-stake-label">Stake</span>
+            <input id="dtBet" class="bet-input" type="number" min="1" max="5000" value="50" inputmode="numeric" />
+          </div>
+          <button class="primary lp-deal" id="dtDeal">DEAL</button>
+          <p class="lp-foot">Ace is high. Dragon and Tiger bets push on a tie; the Tie bet pays 8:1.</p>
+        </div>
+      </section>
+
+      <section id="mines" class="view lp-casino-view">
+        <button class="back" data-go="vip">← VIP Lounge</button>
+        <h2 class="title">Mines</h2>
+        <p class="sub">Three mines hide among twenty-five tiles. Reveal gems, then cash out.</p>
+        <div class="lp-table">
+          <div class="mn-head">
+            <div class="mn-stat"><span>Multiplier</span><b id="mnMult">1.00×</b></div>
+            <div class="mn-stat"><span>Cash out</span><b id="mnValue">—</b></div>
+          </div>
+          <div class="mn-grid" id="mnGrid"></div>
+          <div id="mnResult" class="lp-result">Set a stake and start</div>
+          <div class="lp-chips" id="mnChips">
+            <button class="lp-chip" data-v="25">25</button>
+            <button class="lp-chip" data-v="50">50</button>
+            <button class="lp-chip" data-v="100">100</button>
+            <button class="lp-chip" data-v="250">250</button>
+            <button class="lp-chip" data-v="max">Max</button>
+          </div>
+          <div class="lp-stake">
+            <span class="lp-stake-label">Stake</span>
+            <input id="mnBet" class="bet-input" type="number" min="1" max="5000" value="50" inputmode="numeric" />
+          </div>
+          <div class="lp-actions">
+            <button class="primary lp-deal" id="mnStart">START</button>
+            <button class="secondary lp-deal" id="mnCash" disabled>CASH OUT</button>
+          </div>
+          <p class="lp-foot">Each gem you uncover raises the multiplier. Hit a mine and the stake is gone.</p>
         </div>
       </section>
     </main>
@@ -3566,10 +4003,16 @@
           doLogout();
         });
 
+        var VIP_ONLY = { vip: 1, dragontiger: 1, mines: 1 };
         function show(id) {
+          if (VIP_ONLY[id] && lvl() < 5) {
+            toastMsg("VIP Lounge unlocks at Level 5. You are Level " + lvl() + ".", "neg");
+            id = "home";
+          }
           $$(".view").forEach(function (v) {
             v.classList.toggle("active", v.id === id);
           });
+          if (id === "vip") vipRender();
           window.scrollTo(0, 0);
         }
         $$("[data-go]").forEach(function (b) {
@@ -7381,6 +7824,91 @@
             ["🐉", "Dragon", 2500, 10], ["🦄", "Unicorn", 3500, 12], ["🌟", "Star", 5000, 15], ["🔱", "Trident", 10000, 25], ["🪐", "Planet", 15000, 30], ["🐙", "Octopus", 800, 3], ["🦉", "Owl", 1000, 4], ["🦅", "Eagle", 1600, 6], ["🧛", "Vampire", 2200, 8], ["🧞", "Genie", 3000, 11], ["🎩", "Top Hat", 4000, 13], ["🏴‍☠️", "Pirate", 6000, 18], ["🎭", "Masks", 8000, 22],
           ],
         };
+
+        /* ---------- VIP boutique: exclusive items, never shown in the casino floor shop ---------- */
+        var VIPSHOP = {
+          felt: [
+            ["obsidian", "Obsidian & Gold", 25000, 15],
+            ["royal", "Royal Velvet", 40000, 20],
+            ["jade", "Imperial Jade", 60000, 25],
+          ],
+          back: [
+            ["platinum", "Platinum", 20000, 15],
+            ["crest", "Royal Crest", 35000, 20],
+            ["midas", "Midas Touch", 75000, 30],
+          ],
+          dice: [
+            ["platinum", "Platinum Dice", 30000, 15],
+            ["obsidian", "Obsidian Dice", 50000, 22],
+          ],
+          avatar: [
+            ["🦚", "Peacock", 25000, 18],
+            ["💠", "Diamond", 50000, 24],
+            ["🪙", "Coin King", 80000, 30],
+            ["🏆", "Champion", 120000, 35],
+          ],
+        };
+        var vipTab = "felt";
+        function vipRender() {
+          if (!cur) return;
+          var pr = P(), L = lvOf(pr.xp);
+          var g = $("#vipGateMessage");
+          if (g) g.textContent = "WELCOME, " + lvTitle(L).toUpperCase() + " · LEVEL " + L + " VIP ACCESS";
+          var m = $("#vipMember");
+          if (m) m.innerHTML =
+            '<span class="vip-av">' + pr.sel.avatar + "</span>" +
+            "<b>" + esc(db.users[cur].name) + "</b>" +
+            "<span>Level " + L + " · " + lvTitle(L) + "</span>" +
+            "<span>" + fmt(state.balance) + " 🪙</span>";
+          $$("#vipShopTabs .vip-tab").forEach(function (b) {
+            b.classList.toggle("on", b.getAttribute("data-vt") === vipTab);
+          });
+          var grid = $("#vipShopGrid");
+          if (!grid) return;
+          grid.innerHTML = VIPSHOP[vipTab].map(function (it) {
+            var owned = pr.own[vipTab].indexOf(it[0]) >= 0,
+              on = pr.sel[vipTab] === it[0],
+              locked = L < it[3];
+            var btn = on
+              ? '<span class="vip-owned">Equipped</span>'
+              : owned
+              ? '<button class="vip-buy" data-vt="' + vipTab + '" data-vi="' + esc(it[0]) + '">Equip</button>'
+              : '<button class="vip-buy" data-vt="' + vipTab + '" data-vi="' + esc(it[0]) + '" data-vc="' + it[2] + '" data-vl="' + it[3] + '"' + (locked ? " disabled" : "") + ">" + (locked ? "🔒 Lv " + it[3] : fmt(it[2]) + " 🪙") + "</button>";
+            return '<div class="vip-item"><div class="vip-item-name">' + (vipTab === "avatar" ? it[0] + " " : "") + esc(it[1]) + "</div>" + btn + "</div>";
+          }).join("");
+        }
+        $$("#vipShopTabs .vip-tab").forEach(function (b) {
+          b.addEventListener("click", function () {
+            vipTab = b.getAttribute("data-vt");
+            vipRender();
+            SFX.click();
+          });
+        });
+        $("#vipShopGrid").addEventListener("click", function (e) {
+          var b = e.target.closest(".vip-buy");
+          if (!b || !cur) return;
+          var t = b.getAttribute("data-vt"),
+            id = b.getAttribute("data-vi"),
+            pr = P();
+          if (b.hasAttribute("data-vc")) {
+            var cost = Number(b.getAttribute("data-vc")),
+              need = Number(b.getAttribute("data-vl") || 1),
+              name = (VIPSHOP[t].filter(function (q) { return q[0] === id; })[0] || ["", "Item"])[1];
+            if (lvOf(pr.xp) < need) { toastMsg("Reach level " + need + " first.", "neg"); return; }
+            if (state.balance < cost) { toastMsg("Not enough coins.", "neg"); return; }
+            gift(-cost);
+            pr.own[t].push(id);
+            SFX.chip();
+            toastMsg("💎 " + name + " unlocked!", "pos");
+            confetti(35);
+          }
+          pr.sel[t] = id;
+          applyCos();
+          save();
+          vipRender();
+          chk();
+        });
+
         function applyCos() {
           var pr = P();
           document.body.setAttribute("data-felt", pr.sel.felt);
@@ -7636,6 +8164,7 @@
               });
               h += "<br>";
             });
+            h += "<p class='rtp-note'>Looking for the exclusive VIP cosmetics? They live in the <b>VIP Lounge boutique</b>.</p>";
           } else if (rwTab === "badges") {
             var ks = Object.keys(BADGES), got0 = ks.filter(function (k) { return pr.badges[k]; }).length;
             h = "<b>" + got0 + " / " + ks.length + " unlocked</b><br><br>";
@@ -7698,9 +8227,13 @@
           rwRender();
           $("#rwOv").classList.add("show");
         }
-        $("#rwBtn").addEventListener("click", function () {
-          openRw("daily");
-        });
+        window.lpOpenRewards = openRw;
+        var rwBtnEl = $("#rwBtn");
+        if (rwBtnEl) {
+          rwBtnEl.addEventListener("click", function () {
+            openRw("daily");
+          });
+        }
         $("#lvlChip").addEventListener("click", function () {
           openRw("daily");
         });
@@ -7912,7 +8445,7 @@
         setDie($("#crD1"), 1); setDie($("#crD2"), 1);
         crRender();
 
-        /* ===================== MINES / CRASH / LUCKY WHEEL ===================== */
+        /* ===================== VIDEO POKER / WAR / LUCKY WHEEL ===================== */
         function betOf(el) { var v = Math.floor(Number(el.value)); return isNaN(v) ? 0 : v; }
         function vpC(c) { var t = { r: pkLab(c.v), s: PKSU[c.s], fresh: !!c.fresh }; c.fresh = false; return t; }
         var VP = { ph: "bet", deck: [], hand: [], held: [], bet: 0 }, vpMsg = $("#vpMsg"),
@@ -9528,6 +10061,546 @@
           } else return;
           fbDB.ref().update(up).then(admRender).catch(fbFail);
         });
+
+        /* ===================== CASINO FLOOR TABLES: Sic Bo · Keno · High-Low ===================== */
+        (function () {
+          var $ = function (s, el) { return (el || document).querySelector(s); };
+          var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
+          var SUITS = ["♠", "♥", "♦", "♣"];
+
+          function cLabel(v) {
+            return v === 14 ? "A" : v === 13 ? "K" : v === 12 ? "Q" : v === 11 ? "J" : String(v);
+          }
+          function dealCard() { return { v: 2 + Math.floor(Math.random() * 13), s: Math.floor(Math.random() * 4) }; }
+          function paintCard(el, c, flip) {
+            el.className = "hl-card" + (c.s === 1 || c.s === 2 ? " red" : "") + (flip ? " flip" : "");
+            el.innerHTML = "<b>" + cLabel(c.v) + "</b><span>" + SUITS[c.s] + "</span>";
+          }
+          function paintBack(el) { el.className = "hl-card back"; el.innerHTML = ""; }
+          function stakeOf(sel, cap) {
+            var el = $(sel), n = Math.floor(Number(el.value)), top = Math.min(cap || 5000, 5000);
+            if (!Number.isFinite(n) || n < 1) { toastMsg("Enter a stake of at least 1 coin.", "neg"); return 0; }
+            if (n > top) { toastMsg("Maximum stake is " + fmt(top) + " coins.", "neg"); return 0; }
+            if (n > state.balance) { toastMsg("Not enough coins for that stake.", "neg"); return 0; }
+            return n;
+          }
+          function bindChips(wrap, input) {
+            $$(wrap + " .lp-chip").forEach(function (b) {
+              b.addEventListener("click", function () {
+                var v = b.getAttribute("data-v");
+                $(input).value = v === "max" ? Math.max(1, Math.min(5000, state.balance)) : v;
+                SFX.click();
+              });
+            });
+          }
+          function rnd(n) { return 1 + Math.floor(Math.random() * n); }
+
+          /* ---------- Sic Bo ---------- */
+          (function sicbo() {
+            var d1 = $("#sbD1"), d2 = $("#sbD2"), d3 = $("#sbD3"),
+              call = "small", rolling = false;
+            if (!d1) return;
+            function paint(a, b, c) { setDie(d1, a); setDie(d2, b); setDie(d3, c); }
+            paint(1, 1, 1);
+            bindChips("#sbChips", "#sbBet");
+            $$("#sbOptions button").forEach(function (b) {
+              b.addEventListener("click", function () {
+                if (rolling) return;
+                call = b.getAttribute("data-call");
+                $$("#sbOptions button").forEach(function (x) { x.classList.toggle("selected", x === b); });
+                SFX.click();
+              });
+            });
+            function settle(a, b, c, bet) {
+              var sum = a + b + c, triple = a === b && b === c, win = false, mult = 2;
+              if (call === "small") win = !triple && sum >= 4 && sum <= 10;
+              else if (call === "big") win = !triple && sum >= 11 && sum <= 17;
+              else { win = triple; mult = 31; }
+              var pay = win ? bet * mult : 0;
+              setBalance(state.balance + pay);
+              recordRound(bet, pay);
+              var net = pay - bet, r = $("#sbResult"), tot = $("#sbTotal");
+              tot.textContent = sum + (triple ? " ⚡" : "");
+              tot.classList.remove("flash");
+              void tot.offsetWidth;
+              tot.classList.add("flash");
+              r.className = "lp-result " + (net > 0 ? "win" : net < 0 ? "lose" : "");
+              r.textContent = "Total " + sum + (triple ? " · TRIPLE!" : "") + " · " +
+                (win ? "You won " + fmt(pay) + " coins!" : "No win — lost " + fmt(bet) + " coins.");
+              if (net > 0) {
+                SFX.result(net, bet, pay);
+                if (mult >= 31) { confetti(90); coinRain(); }
+                else if (mult === 2 && bet * 3 <= pay) confetti(25);
+              } else SFX.lose();
+              rolling = false;
+              $("#sbRoll").disabled = false;
+              checkGameOver();
+            }
+            $("#sbRoll").addEventListener("click", function () {
+              if (rolling) return;
+              var bet = stakeOf("#sbBet", 5000);
+              if (!bet) return;
+              rolling = true;
+              $("#sbRoll").disabled = true;
+              setBalance(state.balance - bet);
+              $("#sbTotal").textContent = "—";
+              $("#sbResult").className = "lp-result";
+              $("#sbResult").textContent = "Rolling...";
+              SFX.chips(3);
+              var dc = $("#sbDice");
+              dc.classList.remove("land");
+              dc.classList.add("roll");
+              SFX.rattle();
+              var n = 0;
+              (function tick() {
+                if (n++ < 12) {
+                  paint(rnd(6), rnd(6), rnd(6));
+                  if (n % 3 === 0) SFX.tick(0.5);
+                  setTimeout(tick, 62 + n * 8);
+                } else {
+                  var a = rnd(6), b = rnd(6), c = rnd(6);
+                  paint(a, b, c);
+                  dc.classList.remove("roll");
+                  void dc.offsetWidth;
+                  dc.classList.add("land");
+                  SFX.thud();
+                  setTimeout(function () { settle(a, b, c, bet); }, 620);
+                }
+              })();
+            });
+          })();
+
+          /* ---------- Keno ---------- */
+          (function keno() {
+            var picks = [], grid = $("#knGrid"), drawing = false;
+            if (!grid) return;
+            for (var n = 1; n <= 40; n++) {
+              (function (num) {
+                var b = document.createElement("button");
+                b.type = "button";
+                b.textContent = num;
+                b.setAttribute("data-n", num);
+                b.addEventListener("click", function () {
+                  if (drawing) return;
+                  var i = picks.indexOf(num);
+                  if (i >= 0) picks.splice(i, 1);
+                  else if (picks.length < 5) picks.push(num);
+                  else { toastMsg("You can pick only 5 numbers.", "neg"); return; }
+                  b.classList.toggle("picked", picks.indexOf(num) >= 0);
+                  SFX.click();
+                  count();
+                });
+                grid.appendChild(b);
+              })(n);
+            }
+            function count() {
+              $("#knCount").textContent = picks.length + " / 5 picked";
+            }
+            function resetMarks() {
+              $$("#knGrid button").forEach(function (b) { b.classList.remove("drawn", "hit"); });
+            }
+            bindChips("#knChips", "#knBet");
+            count();
+            $("#knQuick").addEventListener("click", function () {
+              if (drawing) return;
+              picks = [];
+              var pool = [];
+              for (var i = 1; i <= 40; i++) pool.push(i);
+              for (var k = 0; k < 5; k++) picks.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+              $$("#knGrid button").forEach(function (b) {
+                b.classList.toggle("picked", picks.indexOf(Number(b.getAttribute("data-n"))) >= 0);
+              });
+              count();
+              SFX.click();
+            });
+            $("#knClear").addEventListener("click", function () {
+              if (drawing) return;
+              picks = [];
+              $$("#knGrid button").forEach(function (b) { b.classList.remove("picked"); });
+              count();
+              SFX.click();
+            });
+            function settle(draw, bet) {
+              var hits = picks.filter(function (n) { return draw.indexOf(n) >= 0; }).length;
+              var mult = [0, 0, 1, 4, 25, 300][hits] || 0;
+              var pay = Math.floor(bet * mult);
+              setBalance(state.balance + pay);
+              recordRound(bet, pay);
+              var net = pay - bet, r = $("#knResult");
+              r.className = "lp-result " + (net > 0 ? "win" : net < 0 ? "lose" : "");
+              r.textContent = hits + " hit" + (hits === 1 ? "" : "s") + " · " +
+                (mult === 0 ? "No win — lost " + fmt(bet) + " coins."
+                  : mult === 1 ? "Stake returned."
+                  : "You won " + fmt(pay) + " coins!");
+              if (net > 0) { SFX.result(net, bet, pay); if (hits >= 4) { confetti(80); coinRain(); } }
+              else SFX.lose();
+              drawing = false;
+              $("#knDraw").disabled = false;
+              checkGameOver();
+            }
+            $("#knDraw").addEventListener("click", function () {
+              if (drawing) return;
+              if (picks.length !== 5) { toastMsg("Pick exactly 5 numbers (or use Quick pick).", "neg"); return; }
+              var bet = stakeOf("#knBet", 5000);
+              if (!bet) return;
+              drawing = true;
+              $("#knDraw").disabled = true;
+              setBalance(state.balance - bet);
+              resetMarks();
+              var pool = [];
+              for (var i = 1; i <= 40; i++) pool.push(i);
+              for (var j = pool.length - 1; j > 0; j--) {
+                var t = pool[j], r = Math.floor(Math.random() * (j + 1));
+                pool[j] = pool[r]; pool[r] = t;
+              }
+              var draw = pool.slice(0, 10).sort(function (a, b) { return a - b; });
+              $("#knResult").className = "lp-result";
+              $("#knResult").textContent = "Drawing...";
+              SFX.spinStart();
+              var k = 0;
+              (function step() {
+                if (k < draw.length) {
+                  var num = draw[k++];
+                  var btn = grid.querySelector('[data-n="' + num + '"]');
+                  if (btn) {
+                    btn.classList.add("drawn");
+                    if (picks.indexOf(num) >= 0) { btn.classList.add("hit"); SFX.chip(); }
+                    else SFX.tick(0.55);
+                  }
+                  setTimeout(step, 135);
+                } else {
+                  setTimeout(function () { settle(draw, bet); }, 260);
+                }
+              })();
+            });
+          })();
+
+          /* ---------- High-Low ---------- */
+          (function hilo() {
+            var HL = { active: false, bet: 0, mult: 1, card: null, busy: false };
+            var cardEl = $("#hlCard"), nextEl = $("#hlNext");
+            if (!cardEl) return;
+            function paintMult(up) {
+              $("#hlMult").textContent = HL.mult.toFixed(2) + "×";
+              $("#hlPot").textContent = HL.active ? fmt(Math.floor(HL.bet * HL.mult)) + " 🪙" : "—";
+              if (up) {
+                var m = $("#hlMult");
+                m.classList.remove("up");
+                void m.offsetWidth;
+                m.classList.add("up");
+              }
+            }
+            function setRes(t, c) {
+              var r = $("#hlResult");
+              r.className = "lp-result " + (c || "");
+              r.textContent = t;
+            }
+            function enable() {
+              var hi = $("#hlHigher"), lo = $("#hlLower");
+              if (!HL.active) { hi.disabled = true; lo.disabled = true; return; }
+              hi.disabled = HL.card.v >= 14;
+              lo.disabled = HL.card.v <= 2;
+            }
+            function finishRound(pay, msg, cls) {
+              HL.active = false;
+              HL.busy = false;
+              if (pay) setBalance(state.balance + pay);
+              recordRound(HL.bet, pay || 0);
+              $("#hlCash").disabled = true;
+              $("#hlDeal").disabled = false;
+              $("#hlBet").disabled = false;
+              setRes(msg, cls);
+              enable();
+              paintMult(false);
+              checkGameOver();
+            }
+            paintMult(false);
+            bindChips("#hlChips", "#hlBet");
+            $("#hlDeal").addEventListener("click", function () {
+              if (HL.active || HL.busy) return;
+              var bet = stakeOf("#hlBet", 5000);
+              if (!bet) return;
+              HL.active = true;
+              HL.busy = false;
+              HL.bet = bet;
+              HL.mult = 1;
+              setBalance(state.balance - bet);
+              $("#hlDeal").disabled = true;
+              $("#hlBet").disabled = true;
+              $("#hlCash").disabled = false;
+              HL.card = dealCard();
+              paintCard(cardEl, HL.card, true);
+              paintBack(nextEl);
+              setRes("Higher or lower than " + cLabel(HL.card.v) + "?", "");
+              paintMult(false);
+              enable();
+              SFX.card();
+            });
+            function guess(dir) {
+              if (!HL.active || HL.busy) return;
+              HL.busy = true;
+              $("#hlHigher").disabled = true;
+              $("#hlLower").disabled = true;
+              var next = dealCard();
+              paintCard(nextEl, next, true);
+              SFX.flip();
+              setTimeout(function () {
+                var tie = next.v === HL.card.v,
+                  win = !tie && (dir === "higher" ? next.v > HL.card.v : next.v < HL.card.v);
+                if (tie) {
+                  setRes("Tie — the multiplier is unchanged. Call again.", "");
+                  SFX.click();
+                  HL.busy = false;
+                  enable();
+                  setTimeout(function () { if (!HL.busy && HL.active) paintBack(nextEl); }, 900);
+                  return;
+                }
+                if (win) {
+                  HL.mult *= 1.9;
+                  HL.card = next;
+                  paintCard(cardEl, HL.card, true);
+                  paintBack(nextEl);
+                  paintMult(true);
+                  setRes("Correct! Multiplier is now " + HL.mult.toFixed(2) + "× — cash out or push your luck.", "win");
+                  SFX.win(1);
+                  HL.busy = false;
+                  enable();
+                } else {
+                  paintCard(cardEl, next, true);
+                  paintCard(nextEl, next, false);
+                  SFX.lose();
+                  finishRound(0, "Wrong call — you lost " + fmt(HL.bet) + " coins.", "lose");
+                  setTimeout(function () { if (!HL.active) paintBack(nextEl); }, 1200);
+                }
+              }, 420);
+            }
+            $("#hlHigher").addEventListener("click", function () { guess("higher"); });
+            $("#hlLower").addEventListener("click", function () { guess("lower"); });
+            $("#hlCash").addEventListener("click", function () {
+              if (!HL.active || HL.busy) return;
+              var pay = Math.floor(HL.bet * HL.mult),
+                net = pay - HL.bet;
+              SFX.result(net, HL.bet, pay);
+              if (net > 0 && HL.mult >= 5) { confetti(60); }
+              finishRound(pay, "Cashed out " + fmt(pay) + " coins at " + HL.mult.toFixed(2) + "×!", net > 0 ? "win" : "");
+            });
+          })();
+        })();
+
+        /* ===================== VIP TABLES: Dragon Tiger · Mines ===================== */
+        (function () {
+          var $ = function (s, el) { return (el || document).querySelector(s); };
+          var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
+          var SUITS = ["♠", "♥", "♦", "♣"];
+
+          function cLabel(v) {
+            return v === 14 ? "A" : v === 13 ? "K" : v === 12 ? "Q" : v === 11 ? "J" : String(v);
+          }
+          function dealCard() { return { v: 2 + Math.floor(Math.random() * 13), s: Math.floor(Math.random() * 4) }; }
+          function paintCard(el, c, flip) {
+            el.className = "hl-card" + (c.s === 1 || c.s === 2 ? " red" : "") + (flip ? " flip" : "");
+            el.innerHTML = "<b>" + cLabel(c.v) + "</b><span>" + SUITS[c.s] + "</span>";
+          }
+          function paintBack(el) { el.className = "hl-card back"; el.innerHTML = ""; }
+          function stakeOf(sel, cap) {
+            var el = $(sel), n = Math.floor(Number(el.value)), top = Math.min(cap || 5000, 5000);
+            if (!Number.isFinite(n) || n < 1) { toastMsg("Enter a stake of at least 1 coin.", "neg"); return 0; }
+            if (n > top) { toastMsg("Maximum stake is " + fmt(top) + " coins.", "neg"); return 0; }
+            if (n > state.balance) { toastMsg("Not enough coins for that stake.", "neg"); return 0; }
+            return n;
+          }
+          function bindChips(wrap, input) {
+            $$(wrap + " .lp-chip").forEach(function (b) {
+              b.addEventListener("click", function () {
+                var v = b.getAttribute("data-v");
+                $(input).value = v === "max" ? Math.max(1, Math.min(5000, state.balance)) : v;
+                SFX.click();
+              });
+            });
+          }
+
+          /* ---------- Dragon Tiger ---------- */
+          (function dragonTiger() {
+            var DT = { side: "D", busy: false };
+            var dEl = $("#dtDragon"), tEl = $("#dtTiger");
+            if (!dEl || !tEl) return;
+            bindChips("#dtChips", "#dtBet");
+            $$("#dtOptions button").forEach(function (b) {
+              b.addEventListener("click", function () {
+                if (DT.busy) return;
+                DT.side = b.getAttribute("data-side");
+                $$("#dtOptions button").forEach(function (x) { x.classList.toggle("selected", x === b); });
+                SFX.click();
+              });
+            });
+            function settle(d, t, bet) {
+              var tie = d.v === t.v, win = false, mult = 2;
+              if (tie) {
+                win = DT.side === "TIE";
+                mult = 9;
+              } else if (DT.side === "D") win = d.v > t.v;
+              else if (DT.side === "T") win = t.v > d.v;
+              var pay = tie && DT.side !== "TIE" ? bet : win ? bet * mult : 0;
+              setBalance(state.balance + pay);
+              recordRound(bet, pay);
+              var net = pay - bet, r = $("#dtResult");
+              $("#dtDragonSide").classList.toggle("win", !tie && d.v > t.v);
+              $("#dtTigerSide").classList.toggle("win", !tie && t.v > d.v);
+              r.className = "lp-result " + (net > 0 ? "win" : net < 0 ? "lose" : "");
+              r.textContent = (tie ? "Tie!" : (d.v > t.v ? "Dragon" : "Tiger") + " wins") + " · " +
+                (net > 0 ? "You won " + fmt(pay) + " coins!" : net === 0 ? "Your bet is returned." : "You lost " + fmt(bet) + " coins.");
+              if (net > 0) {
+                SFX.result(net, bet, pay);
+                if (mult >= 9) { confetti(90); coinRain(); }
+                else confetti(20);
+              } else if (net === 0) SFX.click();
+              else SFX.lose();
+              DT.busy = false;
+              $("#dtDeal").disabled = false;
+              checkGameOver();
+            }
+            $("#dtDeal").addEventListener("click", function () {
+              if (DT.busy) return;
+              var bet = stakeOf("#dtBet", 5000);
+              if (!bet) return;
+              DT.busy = true;
+              $("#dtDeal").disabled = true;
+              setBalance(state.balance - bet);
+              paintBack(dEl);
+              paintBack(tEl);
+              $("#dtDragonSide").classList.remove("win");
+              $("#dtTigerSide").classList.remove("win");
+              $("#dtResult").className = "lp-result";
+              $("#dtResult").textContent = "Dealing...";
+              SFX.card();
+              setTimeout(function () {
+                var d = dealCard();
+                paintCard(dEl, d, true);
+                SFX.card();
+                setTimeout(function () {
+                  var t = dealCard();
+                  paintCard(tEl, t, true);
+                  SFX.card();
+                  setTimeout(function () { settle(d, t, bet); }, 520);
+                }, 420);
+              }, 240);
+            });
+          })();
+
+          /* ---------- Mines ---------- */
+          (function mines() {
+            var MINES = 3, TILES = 25;
+            var MN = { active: false, bet: 0, safe: 0, mines: [], busy: false };
+            var grid = $("#mnGrid");
+            if (!grid) return;
+            for (var i = 0; i < TILES; i++) {
+              (function (idx) {
+                var b = document.createElement("button");
+                b.type = "button";
+                b.className = "mn-tile";
+                b.setAttribute("data-i", idx);
+                b.addEventListener("click", function () { pick(idx, b); });
+                grid.appendChild(b);
+              })(i);
+            }
+            function multFor(k) {
+              if (!k) return 1;
+              var m = 1;
+              for (var i = 0; i < k; i++) m *= (TILES - i) / (TILES - MINES - i);
+              return m * 0.97;
+            }
+            function paint() {
+              $("#mnMult").textContent = multFor(MN.safe).toFixed(2) + "×";
+              $("#mnValue").textContent = MN.active && MN.safe ? fmt(Math.floor(MN.bet * multFor(MN.safe))) : "—";
+              $("#mnCash").disabled = !MN.active || MN.safe === 0;
+            }
+            function tiles() { return $$(".mn-tile"); }
+            bindChips("#mnChips", "#mnBet");
+            paint();
+            $("#mnStart").addEventListener("click", function () {
+              if (MN.active) return;
+              var bet = stakeOf("#mnBet", 5000);
+              if (!bet) return;
+              setBalance(state.balance - bet);
+              MN.active = true;
+              MN.bet = bet;
+              MN.safe = 0;
+              MN.busy = false;
+              var pool = [];
+              for (var i = 0; i < TILES; i++) pool.push(i);
+              MN.mines = [];
+              for (var k = 0; k < MINES; k++) {
+                MN.mines.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+              }
+              tiles().forEach(function (t) {
+                t.className = "mn-tile";
+                t.disabled = false;
+                t.textContent = "";
+              });
+              $("#mnStart").disabled = true;
+              $("#mnResult").className = "lp-result";
+              $("#mnResult").textContent = "Reveal a tile — three of them are mines.";
+              paint();
+              SFX.chips(3);
+            });
+            function pick(idx, el) {
+              if (!MN.active || MN.busy) return;
+              MN.busy = true;
+              el.disabled = true;
+              if (MN.mines.indexOf(idx) >= 0) {
+                el.classList.add("mine");
+                el.textContent = "💥";
+                SFX.bust();
+                MN.active = false;
+                MN.busy = false;
+                MN.mines.forEach(function (m) {
+                  var t = grid.querySelector('[data-i="' + m + '"]');
+                  if (t && !t.classList.contains("mine")) {
+                    t.classList.add("mine");
+                    t.textContent = "💣";
+                  }
+                });
+                recordRound(MN.bet, 0);
+                $("#mnResult").className = "lp-result lose";
+                $("#mnResult").textContent = "Boom! You hit a mine and lost " + fmt(MN.bet) + " coins.";
+                $("#mnStart").disabled = false;
+                paint();
+                checkGameOver();
+                return;
+              }
+              el.classList.add("gem");
+              el.textContent = "💎";
+              MN.safe++;
+              SFX.chip();
+              paint();
+              MN.busy = false;
+              if (MN.safe === TILES - MINES) { cashOut(); return; }
+              $("#mnResult").className = "lp-result";
+              $("#mnResult").textContent =
+                MN.safe + " gem" + (MN.safe === 1 ? "" : "s") + " found · " +
+                multFor(MN.safe).toFixed(2) + "× · cash out for " +
+                fmt(Math.floor(MN.bet * multFor(MN.safe))) + " coins";
+            }
+            function cashOut() {
+              if (!MN.active || !MN.safe) return;
+              var pay = Math.floor(MN.bet * multFor(MN.safe));
+              MN.active = false;
+              setBalance(state.balance + pay);
+              recordRound(MN.bet, pay);
+              tiles().forEach(function (t) { t.disabled = true; });
+              $("#mnResult").className = "lp-result win";
+              $("#mnResult").textContent = "Cashed out " + fmt(pay) + " coins at " + multFor(MN.safe).toFixed(2) + "×!";
+              $("#mnStart").disabled = false;
+              $("#mnCash").disabled = true;
+              SFX.result(pay - MN.bet, MN.bet, pay);
+              if (pay >= MN.bet * 3) { confetti(70); if (pay >= MN.bet * 10) coinRain(); }
+              paint();
+              checkGameOver();
+            }
+            $("#mnCash").addEventListener("click", cashOut);
+          })();
+        })();
+
         window.addEventListener("pagehide", function () {
           stopLobbyMusic();
           dbSave((rouFly ? 0 : totalBets()) + bcTotalBets());
@@ -9552,6 +10625,8 @@
           });
       })();
 
+
+
       (function () {
         var T = "⚠️ NOT A CASINO. This is a free game with play coins that have no real-world value and can never be cashed out. Do not treat it as real gambling.";
         document.querySelectorAll("main .view").forEach(function (v) {
@@ -9571,5 +10646,26 @@
         }
       })();
     </script>
-  </body>
+  
+    <script id="lp-discovery-vip-behavior">
+    (function(){
+      var input=document.getElementById("lpGameSearch"), cards=Array.prototype.slice.call(document.querySelectorAll("#home .cards .game-card")), empty=document.getElementById("lpNoGames");
+      cards.forEach(function(c,i){c.style.setProperty("--lp-i",i);});
+      if(input) input.addEventListener("input",function(){
+        var q=input.value.trim().toLowerCase(), shown=0;
+        cards.forEach(function(c){var match=c.textContent.toLowerCase().indexOf(q)!==-1;c.hidden=!match;if(match)shown++;});
+        if(empty)empty.hidden=shown!==0;
+      });
+      document.querySelectorAll("[data-rw-tab]").forEach(function(b){
+        b.addEventListener("click",function(){
+          var t=b.getAttribute("data-rw-tab");
+          if(window.lpOpenRewards) window.lpOpenRewards(t);
+          var tab=document.querySelector('#rwTabs [data-t="'+t+'"]');
+          if(tab)tab.classList.add("on");
+        });
+      });
+    })();
+    </script>
+
+</body>
 </html>
