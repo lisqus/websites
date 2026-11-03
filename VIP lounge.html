@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Lucky Play — VIP Lounge (New Update)</title>
+<style>
+*{box-sizing:border-box}
+:root{--bg:#0e1116;--panel:#171c24;--gold:#f2c14e;--red:#c0392b;--green:#1e8449;--text:#f1f1f1;--muted:#9aa4b2;--win:#5ee28a;--lose:#ff7b7b}
+body{margin:0;font-family:"Segoe UI",system-ui,sans-serif;background:radial-gradient(circle at top,#1b2433,var(--bg) 60%);background-color:var(--bg);color:var(--text);min-height:100vh}
+button{font-family:inherit;cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}
+main{max-width:900px;margin:0 auto;padding:20px}
+.balance{display:flex;justify-content:flex-end;align-items:center;gap:12px;padding:14px 20px;background:rgba(0,0,0,.35);border-bottom:1px solid #2a3240}
+.balance strong{color:var(--gold);font-size:1.2rem}
+.small{background:#2a3240;color:var(--text);border:none;border-radius:6px;padding:6px 10px}
+.title{text-align:center;font-size:2rem;margin:10px 0}
+.msg{text-align:center;min-height:24px;color:var(--muted);margin:10px 0}
+.msg.win{color:var(--win);font-weight:700}
+.msg.lose{color:var(--lose)}
+.back{background:none;border:none;color:var(--muted);font-size:1rem;margin-bottom:4px}
+.back:hover{color:var(--gold)}
+.primary{background:linear-gradient(#f7d070,#d9a52e);color:#2b1d00;border:none;border-radius:10px;padding:12px 34px;font-size:1.1rem;font-weight:800}
+.primary:hover:not(:disabled){filter:brightness(1.08)}
+.secondary{background:#2a3240;color:var(--text);border:none;border-radius:10px;padding:12px 18px}
+.controls{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin:16px 0}
+.bet-input{width:120px;padding:10px 12px;font-size:1rem;font-weight:700;text-align:center;background:#10151c;color:var(--gold);border:2px solid #3a4558;border-radius:10px}
+.bet-input:focus{outline:none;border-color:var(--gold)}
+.view{display:none}
+.view.active{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* VIP HERO */
+.vip-hero{position:relative;max-width:900px;margin:0 auto 20px;padding:34px 26px 26px;border-radius:26px;text-align:center;overflow:hidden;background:radial-gradient(ellipse at 50% -30%,rgba(255,225,150,.35),transparent 62%),linear-gradient(160deg,#251a08,#120c04 60%,#070402);border:2px solid #d9ae4b;box-shadow:0 0 0 1px #5a3a00,0 24px 70px rgba(0,0,0,.7),inset 0 0 90px rgba(217,174,75,.14)}
+.vip-hero::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 32%,rgba(255,240,200,.14) 46%,transparent 60%);background-size:250% 100%;animation:vipShine 7s linear infinite}
+@keyframes vipShine{to{background-position:-250% 0}}
+.vip-crest{font-size:2.6rem;line-height:1;color:#f5d98b;text-shadow:0 0 22px rgba(245,217,139,.7);animation:vipFloat 4s ease-in-out infinite}
+@keyframes vipFloat{50%{transform:translateY(-6px)}}
+.vip-title{font:500 clamp(1.9rem,4.4vw,2.8rem) Georgia,serif;margin:6px 0 8px;background:linear-gradient(180deg,#fff7d1,#f5c542 55%,#c98a10);-webkit-background-clip:text;background-clip:text;color:transparent}
+.vip-hero-sub{max-width:560px;margin:0 auto;color:#d8cba6;line-height:1.6;font-size:.92rem}
+.lp-eyebrow{color:#e6c778;letter-spacing:.2em;font-size:.7rem;font-weight:900}
+.lp-vip-gate{margin:18px auto;padding:12px;border:1px solid #9b8149;border-radius:10px;color:#f2d58f;background:#111f17;max-width:500px}
+.vip-member{display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:16px;padding:10px 18px;border-radius:999px;background:rgba(0,0,0,.45);border:1px solid rgba(217,174,75,.45);color:#ffe9a8;font-size:.86rem}
+.vip-member b{color:#fff}
+.vip-section-title{max-width:900px;margin:26px auto 12px;color:#f5d98b;font-size:.95rem;letter-spacing:.16em;text-transform:uppercase;text-align:center;font-weight:900}
+
+/* VIP CARDS */
+.vip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;max-width:900px;margin:0 auto}
+.vip-card{position:relative;padding:20px;border-radius:18px;text-align:left;color:#f7e8c5;cursor:pointer;background:linear-gradient(150deg,#1c2a20,#0b1310);border:1px solid rgba(217,174,75,.4);transition:transform .2s,border-color .2s,box-shadow .2s}
+.vip-card:hover{transform:translateY(-5px);border-color:#f5d98b;box-shadow:0 14px 34px rgba(217,174,75,.22)}
+.vip-card .vip-emoji{font-size:1.9rem}
+.vip-card h3{margin:8px 0 4px;font-size:1.05rem;color:#ffe9a8}
+.vip-card p{margin:0;color:#b7b29f;font-size:.82rem;line-height:1.45}
+.vip-tag{position:absolute;top:12px;right:12px;font-size:.58rem;letter-spacing:.14em;font-weight:900;color:#2b1d00;background:linear-gradient(#f7dc8e,#c99a2e);padding:3px 8px;border-radius:999px}
+
+/* BOUTIQUE */
+.vip-boutique{max-width:900px;margin:30px auto 0;padding:22px;border-radius:22px;background:radial-gradient(ellipse at top,#1c2a20,#080f0b 70%);border:1px solid rgba(217,174,75,.35);box-shadow:inset 0 0 60px rgba(0,0,0,.5)}
+.vip-boutique-sub{text-align:center;color:#b7b29f;font-size:.84rem;margin:0 0 16px;line-height:1.5}
+.vip-shop-tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:16px}
+.vip-tab{background:#16241c;color:#d9cba8;border:1px solid rgba(217,174,75,.3);border-radius:999px;padding:8px 16px;font-weight:800;font-size:.8rem;transition:transform .15s}
+.vip-tab:hover{transform:translateY(-2px)}
+.vip-tab.on{background:linear-gradient(#f7dc8e,#c99a2e);color:#2b1d00;border-color:#fff3c4}
+.vip-shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.vip-item{padding:12px;border-radius:14px;background:linear-gradient(160deg,#152019,#0a120e);border:1px solid rgba(217,174,75,.25);text-align:center}
+.vip-item-name{font-weight:800;color:#f2e4c7;font-size:.84rem;margin-bottom:8px}
+.vip-buy{background:linear-gradient(#f7dc8e,#c99a2e);color:#2b1d00;border:none;border-radius:9px;padding:7px 14px;font-weight:900;font-size:.78rem}
+.vip-buy:disabled{filter:grayscale(.6) brightness(.7)}
+.vip-owned{color:#5ee28a;font-weight:800;font-size:.76rem}
+
+/* TABLE / GAME */
+.lp-table{position:relative;max-width:660px;margin:18px auto;padding:22px;border-radius:22px;overflow:hidden;background:radial-gradient(ellipse at 50% -10%,#1d3b2a,#0a1810 62%,#050b08);border:1px solid rgba(217,174,75,.45);box-shadow:0 20px 55px rgba(0,0,0,.65),inset 0 0 70px rgba(0,0,0,.55)}
+.lp-table::before{content:"";position:absolute;inset:9px;border-radius:15px;border:1px dashed rgba(217,174,75,.22);pointer-events:none}
+.lp-result{position:relative;text-align:center;font-weight:800;font-size:.95rem;color:#e8d9b0;min-height:28px;padding:9px 12px;border-radius:12px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.07);transition:background .25s}
+.lp-result.win{color:#5ee28a;border-color:rgba(94,226,138,.45);background:rgba(30,132,73,.22);animation:lpResPop .5s ease}
+.lp-result.lose{color:#ff9b9b;border-color:rgba(255,123,123,.35);background:rgba(140,30,30,.2)}
+@keyframes lpResPop{40%{transform:scale(1.05)}}
+.lp-stake{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:8px 0 14px}
+.lp-stake-label{color:#d7c9a4;font-weight:800;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.lp-deal{display:block;margin:6px auto 0;min-width:200px;letter-spacing:.06em}
+.lp-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.lp-actions .lp-deal{margin:0;min-width:170px}
+.lp-foot{text-align:center;color:#9aa48f;font-size:.76rem;line-height:1.5;margin:14px 0 0}
+.hl-card{width:92px;height:134px;border-radius:12px;background:#fff;color:#111;display:flex;flex-direction:column;justify-content:space-between;padding:8px 10px;font-weight:800;box-shadow:0 12px 26px rgba(0,0,0,.55);flex:none}
+.hl-card b{font-size:1.05rem;line-height:1}
+.hl-card span{font-size:2.3rem;text-align:center;line-height:1}
+.hl-card.red{color:#c0392b}
+.hl-card.back{background:repeating-linear-gradient(45deg,#1d3a8a,#1d3a8a 6px,#2d4db0 6px,#2d4db0 12px);border:3px solid #fff;box-shadow:0 12px 26px rgba(0,0,0,.55)}
+.hl-card.flip{animation:hlFlip .5s cubic-bezier(.2,.8,.3,1)}
+@keyframes hlFlip{0%{transform:rotateY(90deg) scale(.85);opacity:.15}100%{transform:none;opacity:1}}
+.dt-label{font-weight:900;letter-spacing:.14em;font-size:.72rem;color:#ffe9a8;display:block;margin-bottom:6px}
+.paytable{max-width:560px;margin:16px auto 0;background:var(--panel);border-radius:12px;padding:14px 20px}
+.paytable h3{margin:0 0 8px;color:var(--gold)}
+.paytable ul{list-style:none;margin:0;padding:0}
+.paytable li{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #2a3240}
+.paytable li b{color:var(--gold);font-weight:700}
+.rtp-note{color:var(--muted);font-size:.8rem;margin:12px 0 0;line-height:1.4}
+footer{text-align:center;color:var(--muted);font-size:.8rem;padding:18px}
+.notice{max-width:640px;margin:6px auto 14px;padding:8px 12px;border:1px dashed #ffd45a;border-radius:10px;color:#ffe9a8;font-size:.78rem;text-align:center;background:rgba(122,31,31,.25)}
+</style>
+</head>
+<body>
+
+<div class="balance">
+  <span>🪙 <strong id="balance">1000</strong> play coins</span>
+  <span style="color:var(--muted)">· Level <strong id="lvl" style="color:var(--gold)">15</strong></span>
+  <button class="small" id="resetBtn">Reset</button>
+</div>
+
+<main>
+  <div class="notice">⚠️ NOT A CASINO. Free game with play coins that have no real-world value.</div>
+
+  <!-- VIP HUB -->
+  <section id="vipHub" class="view active">
+    <div class="vip-hero">
+      <div class="vip-crest">♛</div>
+      <p class="lp-eyebrow">LUCKY PLAY · PRIVATE CLUB · LEVEL 15+</p>
+      <h2 class="title vip-title">The VIP Lounge</h2>
+      <p class="vip-hero-sub">Velvet-rope access reserved for Level 15+ members. Four exclusive casino tables you won't find anywhere else on the floor, plus a private boutique.</p>
+      <div class="lp-vip-gate" id="gateMsg"></div>
+      <div class="vip-member" id="vipMember"></div>
+    </div>
+
+    <h3 class="vip-section-title">🎩 Members-only tables</h3>
+    <div class="vip-grid">
+      <button class="vip-card" onclick="go('tcp')"><span class="vip-tag">EXCLUSIVE</span><div class="vip-emoji">🃏</div><h3>Three Card Poker</h3><p>Ante + Play with a Pair Plus side bet. Dealer qualifies on Queen-high.</p></button>
+      <button class="vip-card" onclick="go('cs')"><span class="vip-tag">EXCLUSIVE</span><div class="vip-emoji">🎴</div><h3>Caribbean Stud</h3><p>Five cards against the dealer. Ante + 2× Raise. Dealer must qualify A-K.</p></button>
+      <button class="vip-card" onclick="go('rd')"><span class="vip-tag">EXCLUSIVE</span><div class="vip-emoji">🐕</div><h3>Red Dog</h3><p>Two cards, one bet. Win if the third card lands between them.</p></button>
+      <button class="vip-card" onclick="go('lit')"><span class="vip-tag">EXCLUSIVE</span><div class="vip-emoji">🎰</div><h3>Let It Ride</h3><p>Three bets, three cards. Pull back or let it ride — payouts from 10-high pairs.</p></button>
+    </div>
+
+    <div class="vip-boutique">
+      <h3 class="vip-section-title" style="margin-top:0">💎 The Boutique</h3>
+      <p class="vip-boutique-sub">Exclusive cosmetics reserved for Level 15+ members. None of these items appear in the casino floor shop.</p>
+      <div class="vip-shop-tabs" id="shopTabs">
+        <button class="vip-tab on" data-vt="felt">Table felt</button>
+        <button class="vip-tab" data-vt="back">Card backs</button>
+        <button class="vip-tab" data-vt="dice">Dice</button>
+        <button class="vip-tab" data-vt="avatar">Avatars</button>
+      </div>
+      <div class="vip-shop-grid" id="shopGrid"></div>
+      <p id="shopMsg" class="msg"></p>
+    </div>
+  </section>
+
+  <!-- THREE CARD POKER -->
+  <section id="tcpView" class="view">
+    <button class="back" onclick="go('vipHub')">← VIP Lounge</button>
+    <h2 class="title">Three Card Poker</h2>
+    <p class="msg" style="margin-top:-10px">Ante + Play against the dealer. Queen-high or better qualifies.</p>
+    <div class="lp-table">
+      <div style="text-align:center;margin:6px 0 10px">
+        <span class="dt-label">DEALER · <span id="tcpDVal">—</span></span>
+        <div style="display:flex;gap:8px;justify-content:center;min-height:134px;align-items:center" id="tcpDCards"></div>
+      </div>
+      <div id="tcpResult" class="lp-result">Place your Ante and press DEAL.</div>
+      <div style="text-align:center;margin:14px 0 6px">
+        <span class="dt-label">YOUR HAND · <span id="tcpPVal">—</span></span>
+        <div style="display:flex;gap:8px;justify-content:center;min-height:134px;align-items:center" id="tcpPCards"></div>
+      </div>
+      <div class="lp-stake" style="flex-wrap:wrap;gap:10px">
+        <span class="lp-stake-label">Ante</span>
+        <input id="tcpAnte" class="bet-input" type="number" min="1" max="5000" value="50"/>
+        <span class="lp-stake-label">Pair Plus</span>
+        <input id="tcpPP" class="bet-input" type="number" min="0" max="5000" value="0" style="width:100px"/>
+      </div>
+      <div class="lp-actions">
+        <button class="primary lp-deal" id="tcpDeal">DEAL</button>
+        <button class="secondary lp-deal" id="tcpPlay" disabled>PLAY (2×)</button>
+        <button class="secondary lp-deal" id="tcpFold" disabled>FOLD</button>
+      </div>
+      <div class="paytable">
+        <h3>Payouts</h3>
+        <ul>
+          <li><span>Ante bonus (straight+)</span><b>straight 1:1 · trips 4:1 · SF 5:1</b></li>
+          <li><span>Pair Plus side bet</span><b>pair 1:1 · flush 5:1 · straight 6:1 · trips 30:1 · SF 40:1</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARIBBEAN STUD -->
+  <section id="csView" class="view">
+    <button class="back" onclick="go('vipHub')">← VIP Lounge</button>
+    <h2 class="title">Caribbean Stud Poker</h2>
+    <p class="msg" style="margin-top:-10px">Five cards against the dealer. Ante + 2× Raise. Dealer qualifies A-K.</p>
+    <div class="lp-table">
+      <div style="text-align:center;margin:6px 0 10px">
+        <span class="dt-label">DEALER · <span id="csDVal">—</span></span>
+        <div style="display:flex;gap:8px;justify-content:center;min-height:134px;align-items:center" id="csDCards"></div>
+      </div>
+      <div id="csResult" class="lp-result">Place your Ante and press DEAL.</div>
+      <div style="text-align:center;margin:14px 0 6px">
+        <span class="dt-label">YOUR HAND · <span id="csPVal">—</span></span>
+        <div style="display:flex;gap:8px;justify-content:center;min-height:134px;align-items:center" id="csPCards"></div>
+      </div>
+      <div class="lp-stake">
+        <span class="lp-stake-label">Ante</span>
+        <input id="csAnte" class="bet-input" type="number" min="1" max="5000" value="100"/>
+      </div>
+      <div class="lp-actions">
+        <button class="primary lp-deal" id="csDeal">DEAL</button>
+        <button class="secondary lp-deal" id="csRaise" disabled>RAISE (2×)</button>
+        <button class="secondary lp-deal" id="csFold" disabled>FOLD</button>
+      </div>
+      <div class="paytable">
+        <h3>Payouts</h3>
+        <ul>
+          <li><span>Ante + Call (dealer qualifies)</span><b>1:1 / 1:1</b></li>
+          <li><span>Dealer doesn't qualify</span><b>Ante 1:1, Raise pushes</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- RED DOG -->
+  <section id="rdView" class="view">
+    <button class="back" onclick="go('vipHub')">← VIP Lounge</button>
+    <h2 class="title">Red Dog</h2>
+    <p class="msg" style="margin-top:-10px">Two cards. One bet. The third card decides.</p>
+    <div class="lp-table">
+      <div style="display:flex;justify-content:center;gap:14px;margin:6px 0 12px;flex-wrap:wrap">
+        <div style="text-align:center"><span class="dt-label">FIRST</span><div class="hl-card back" id="rdC1"></div></div>
+        <div style="text-align:center"><span class="dt-label">SECOND</span><div class="hl-card back" id="rdC2"></div></div>
+        <div style="text-align:center"><span class="dt-label">THIRD</span><div class="hl-card back" id="rdC3"></div></div>
+      </div>
+      <div id="rdResult" class="lp-result">Set a stake and deal to begin.</div>
+      <div class="lp-stake">
+        <span class="lp-stake-label">Stake</span>
+        <input id="rdBet" class="bet-input" type="number" min="1" max="5000" value="100"/>
+      </div>
+      <div class="lp-actions">
+        <button class="primary lp-deal" id="rdDeal">DEAL</button>
+        <button class="secondary lp-deal" id="rdDouble" disabled>DOUBLE</button>
+      </div>
+      <div class="paytable">
+        <h3>Payouts</h3>
+        <ul>
+          <li><span>Spread 1 (consecutive)</span><b>Push</b></li>
+          <li><span>Spread 2</span><b>5:1</b></li>
+          <li><span>Spread 3</span><b>4:1</b></li>
+          <li><span>Spread 4+</span><b>1:1</b></li>
+          <li><span>Pair (both cards equal)</span><b>11:1 on third-card match</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- LET IT RIDE -->
+  <section id="litView" class="view">
+    <button class="back" onclick="go('vipHub')">← VIP Lounge</button>
+    <h2 class="title">Let It Ride</h2>
+    <p class="msg" style="margin-top:-10px">Three bets, three cards. Pull back or let it ride.</p>
+    <div class="lp-table">
+      <div style="text-align:center;margin:6px 0 10px">
+        <span class="dt-label">DEALER · <span id="litDVal">—</span></span>
+        <div style="display:flex;gap:8px;justify-content:center;min-height:134px;align-items:center" id="litDCards"></div>
+      </div>
+      <div id="litResult" class="lp-result">Set a stake (3 equal bets) and press DEAL.</div>
+      <div style="text-align:center;margin:14px 0 6px">
+        <span class="dt-label">YOUR HAND · <span id="litPVal">—</span></span>
+        <div style="display:flex;gap:8px;justify-content:center;min-height:134px;align-items:center" id="litPCards"></div>
+      </div>
+      <div class="lp-stake">
+        <span class="lp-stake-label">Bet (×3)</span>
+        <input id="litBet" class="bet-input" type="number" min="1" max="1666" value="100"/>
+      </div>
+      <div class="lp-actions">
+        <button class="primary lp-deal" id="litDeal">DEAL</button>
+        <button class="secondary lp-deal" id="litPull1" disabled>PULL BACK 1</button>
+        <button class="secondary lp-deal" id="litPull2" disabled>PULL BACK 2</button>
+      </div>
+      <div class="paytable">
+        <h3>Payouts</h3>
+        <ul>
+          <li><span>Pair of 10s or better</span><b>1:1</b></li>
+          <li><span>Two pair</span><b>2:1</b></li>
+          <li><span>Three of a kind</span><b>3:1</b></li>
+          <li><span>Straight</span><b>5:1</b></li>
+          <li><span>Flush</span><b>8:1</b></li>
+          <li><span>Full house</span><b>11:1</b></li>
+          <li><span>Four of a kind</span><b>50:1</b></li>
+          <li><span>Straight flush</span><b>200:1</b></li>
+          <li><span>Royal flush</span><b>1000:1</b></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <b>For entertainment only.</b> Free social game. Play coins have no cash value and cannot be cashed out. 18+.
+</footer>
+
+<script>
+/* ===================== STATE ===================== */
+var ST = JSON.parse(localStorage.getItem("lp-vip-demo") || '{"bal":50000,"lvl":15,"own":{"felt":["green"],"back":["blue"],"dice":["ivory"],"avatar":["🙂"]},"sel":{"felt":"green","back":"blue","dice":"ivory","avatar":"🙂"}}');
+function save(){localStorage.setItem("lp-vip-demo",JSON.stringify(ST))}
+function fmt(n){return Number(n).toLocaleString()}
+function signed(n){return (n>0?"+":"")+fmt(n)}
+function setBal(v){ST.bal=v;if(v>100000){ST.bal=100000};save();paintBal()}
+function paintBal(){document.getElementById("balance").textContent=fmt(ST.bal);document.getElementById("lvl").textContent=ST.lvl}
+paintBal();
+document.getElementById("resetBtn").onclick=function(){if(confirm("Reset demo?")){localStorage.removeItem("lp-vip-demo");location.reload()}};
+
+/* ===================== VIEWS ===================== */
+function go(id){
+  var map={vipHub:"vipHub",tcp:"tcpView",cs:"csView",rd:"rdView",lit:"litView"};
+  document.querySelectorAll(".view").forEach(function(v){v.classList.remove("active")});
+  var el=document.getElementById(map[id]||"vipHub");
+  if(el)el.classList.add("active");
+  window.scrollTo(0,0);
+  if(id==="vipHub")paintVip();
+}
+
+/* ===================== CARD HELPERS ===================== */
+var SUITS=["♠","♥","♦","♣"];
+function lbl(v){return v===14?"A":v===13?"K":v===12?"Q":v===11?"J":String(v)}
+function newDeck(){var d=[];for(var s=0;s<4;s++)for(var v=2;v<=14;v++)d.push({v:v,s:s});for(var i=d.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=d[i];d[i]=d[j];d[j]=t}return d}
+function cardHTML(c,faceUp){
+  if(!faceUp)return '<div class="hl-card back"></div>';
+  var red=c.s===1||c.s===2;
+  return '<div class="hl-card'+(red?" red":"")+'"><b>'+lbl(c.v)+'</b><span>'+SUITS[c.s]+'</span></div>';
+}
+function eval3(cards){
+  var vals=cards.map(function(c){return c.v}).sort(function(a,b){return b-a});
+  var flush=cards[0].s===cards[1].s&&cards[1].s===cards[2].s;
+  var straight=(vals[0]-vals[1]===1&&vals[1]-vals[2]===1)||(vals[0]===14&&vals[1]===3&&vals[2]===2);
+  var trips=vals[0]===vals[1]&&vals[1]===vals[2];
+  var pair=!trips&&(vals[0]===vals[1]||vals[1]===vals[2]||vals[0]===vals[2]);
+  var cat=0,name="High Card";
+  if(straight&&flush){cat=5;name="Straight Flush"}
+  else if(trips){cat=4;name="Three of a Kind"}
+  else if(straight){cat=3;name="Straight"}
+  else if(flush){cat=2;name="Flush"}
+  else if(pair){cat=1;name="Pair"}
+  else{name=lbl(vals[0])+"-high"}
+  // Score: cat*1e6 + vals sequence weighted
+  var tb=vals.slice();
+  if(pair&&!trips){
+    var pv=vals[0]===vals[1]?vals[0]:vals[1]===vals[2]?vals[1]:vals[0];
+    tb=[pv,vals[0]===pv&&vals[1]===pv?vals[2]:vals[0]===pv?vals[1]:vals[0]];
+    tb=tb.slice(0,3);
+  }
+  var score=cat*1e6;
+  for(var i=0;i<3;i++)score=score*15+(tb[i]||0);
+  return{cat:cat,name:name,score:score,tb:tb};
+}
+function eval5(cards){
+  var vals=cards.map(function(c){return c.v}).sort(function(a,b){return b-a});
+  var flush=cards.every(function(c){return c.s===cards[0].s});
+  var uniq=[];vals.forEach(function(v){if(uniq.indexOf(v)<0)uniq.push(v)});
+  var straight=false;
+  if(uniq.length===5){if(vals[0]-vals[4]===4)straight=true;else if(vals[0]===14&&vals[1]===5)straight=true}
+  var cnt={};vals.forEach(function(v){cnt[v]=(cnt[v]||0)+1});
+  var groups=Object.keys(cnt).map(Number).sort(function(a,b){return cnt[b]-cnt[a]||b-a});
+  var counts=groups.map(function(v){return cnt[v]});
+  var cat=0,name="High Card";
+  if(straight&&flush){cat=8;name=vals[0]===14?"Royal Flush":"Straight Flush"}
+  else if(counts[0]===4){cat=7;name="Four of a Kind"}
+  else if(counts[0]===3&&counts[1]===2){cat=6;name="Full House"}
+  else if(flush){cat=5;name="Flush"}
+  else if(straight){cat=4;name="Straight"}
+  else if(counts[0]===3){cat=3;name="Three of a Kind"}
+  else if(counts[0]===2&&counts[1]===2){cat=2;name="Two Pair"}
+  else if(counts[0]===2){cat=1;name="Pair"}
+  var tb=groups.slice(0,5);
+  var score=cat*Math.pow(15,5);
+  for(var i=0;i<5;i++)score=score*15+(tb[i]||0);
+  return{cat:cat,name:name,score:score,tb:tb};
+}
+function stake(id,cap){
+  var n=Math.floor(Number(document.getElementById(id).value));
+  if(!Number.isFinite(n)||n<1){toast("Enter a stake ≥ 1","neg");return 0}
+  if(n>(cap||5000)){toast("Max "+fmt(cap||5000),"neg");return 0}
+  if(n>ST.bal){toast("Not enough coins","neg");return 0}
+  return n;
+}
+function toast(t,cls){var el=document.getElementById("shopMsg");if(el){el.textContent=t;el.className="msg "+(cls||"")}setTimeout(function(){if(el){el.textContent="";el.className="msg"}},2500)}
+
+/* ===================== THREE CARD POKER ===================== */
+(function(){
+  var deck=[],player=[],dealer=[],ante=0,pp=0,st="idle";
+  var dealBtn=document.getElementById("tcpDeal"),playBtn=document.getElementById("tcpPlay"),foldBtn=document.getElementById("tcpFold");
+  dealBtn.onclick=function(){
+    if(st!=="idle")return;
+    var a=stake("tcpAnte",5000);if(!a)return;
+    var ppv=Math.max(0,Math.floor(Number(document.getElementById("tcpPP").value))||0);
+    if(ppv>ST.bal-a){toast("Not enough for pair plus","neg");return}
+    ante=a;pp=ppv;deck=newDeck();
+    player=[deck.pop(),deck.pop(),deck.pop()];
+    dealer=[deck.pop(),deck.pop(),deck.pop()];
+    setBal(ST.bal-a-pp);
+    document.getElementById("tcpDCards").innerHTML=cardHTML(dealer[0],false)+cardHTML(dealer[1],false)+cardHTML(dealer[2],false);
+    document.getElementById("tcpPCards").innerHTML=player.map(function(c){return cardHTML(c,true)}).join("");
+    document.getElementById("tcpDVal").textContent="Hidden";
+    document.getElementById("tcpPVal").textContent=eval3(player).name;
+    document.getElementById("tcpResult").className="lp-result";
+    document.getElementById("tcpResult").textContent="Play (2× ante) or Fold?";
+    dealBtn.disabled=true;playBtn.disabled=false;foldBtn.disabled=false;
+    st="decision";
+  };
+  foldBtn.onclick=function(){
+    if(st!=="decision")return;
+    document.getElementById("tcpDCards").innerHTML=dealer.map(function(c){return cardHTML(c,true)}).join("");
+    document.getElementById("tcpDVal").textContent=eval3(dealer).name;
+    document.getElementById("tcpResult").className="lp-result lose";
+    document.getElementById("tcpResult").textContent="Folded. Lost "+fmt(ante+pp)+" coins.";
+    st="idle";dealBtn.disabled=false;playBtn.disabled=true;foldBtn.disabled=true;
+  };
+  playBtn.onclick=function(){
+    if(st!=="decision")return;
+    if(ST.bal<ante){toast("Not enough to play","neg");return}
+    setBal(ST.bal-ante);
+    var dEval=eval3(dealer),pEval=eval3(player);
+    var dQual=dEval.cat>=1||dEval.tb[0]>=12;
+    var pay=0,text="";
+    var ppPay=0;
+    if(pp>0){
+      if(pEval.cat===5)ppPay=pp*41;
+      else if(pEval.cat===4)ppPay=pp*31;
+      else if(pEval.cat===3)ppPay=pp*7;
+      else if(pEval.cat===2)ppPay=pp*6;
+      else if(pEval.cat===1)ppPay=pp*2;
+    }
+    if(!dQual){pay=ante*2+ante;text="Dealer doesn't qualify. Ante 1:1, Play pushes. "}
+    else if(pEval.score>dEval.score){
+      pay=ante*2+ante*2;
+      var bonus=pEval.cat===5?ante*6:pEval.cat===4?ante*5:pEval.cat===3?ante*2:0;
+      pay+=bonus;
+      text="You win! ("+pEval.name+" beats "+dEval.name+"). ";
+    }
+    else if(pEval.score===dEval.score){pay=ante+ante;text="Push. "}
+    else{text="Dealer wins ("+dEval.name+" beats "+pEval.name+"). "}
+    if(pp>0){pay+=ppPay;text+=ppPay>0?"Pair Plus: "+pEval.name+" +"+fmt(ppPay)+". ":"Pair Plus lost. "}
+    setBal(ST.bal+pay);
+    var net=pay-(ante*2+pp);
+    document.getElementById("tcpDCards").innerHTML=dealer.map(function(c){return cardHTML(c,true)}).join("");
+    document.getElementById("tcpDVal").textContent=dEval.name;
+    document.getElementById("tcpResult").className="lp-result "+(net>0?"win":net<0?"lose":"");
+    document.getElementById("tcpResult").textContent=text+(net>0?"Won "+fmt(net)+" coins.":net===0?"Broke even.":"Lost "+fmt(-net)+" coins.");
+    st="idle";dealBtn.disabled=false;playBtn.disabled=true;foldBtn.disabled=true;
+  };
+})();
+
+/* ===================== CARIBBEAN STUD ===================== */
+(function(){
+  var deck=[],player=[],dealer=[],ante=0,st="idle";
+  var dealBtn=document.getElementById("csDeal"),raiseBtn=document.getElementById("csRaise"),foldBtn=document.getElementById("csFold");
+  dealBtn.onclick=function(){
+    if(st!=="idle")return;
+    var a=stake("csAnte",5000);if(!a)return;
+    ante=a;deck=newDeck();
+    player=[deck.pop(),deck.pop(),deck.pop(),deck.pop(),deck.pop()];
+    dealer=[deck.pop(),deck.pop(),deck.pop(),deck.pop(),deck.pop()];
+    setBal(ST.bal-a);
+    document.getElementById("csDCards").innerHTML=cardHTML(dealer[0],true)+cardHTML(dealer[1],false)+cardHTML(dealer[2],false)+cardHTML(dealer[3],false)+cardHTML(dealer[4],false);
+    document.getElementById("csPCards").innerHTML=player.map(function(c){return cardHTML(c,true)}).join("");
+    document.getElementById("csDVal").textContent="1 of 5";
+    document.getElementById("csPVal").textContent=eval5(player).name;
+    document.getElementById("csResult").className="lp-result";
+    document.getElementById("csResult").textContent="Raise (2× ante) or Fold?";
+    dealBtn.disabled=true;raiseBtn.disabled=false;foldBtn.disabled=false;
+    st="decision";
+  };
+  foldBtn.onclick=function(){
+    if(st!=="decision")return;
+    document.getElementById("csDCards").innerHTML=dealer.map(function(c){return cardHTML(c,true)}).join("");
+    document.getElementById("csDVal").textContent=eval5(dealer).name;
+    document.getElementById("csResult").className="lp-result lose";
+    document.getElementById("csResult").textContent="Folded. Lost "+fmt(ante)+" coins.";
+    st="idle";dealBtn.disabled=false;raiseBtn.disabled=true;foldBtn.disabled=true;
+  };
+  raiseBtn.onclick=function(){
+    if(st!=="decision")return;
+    if(ST.bal<ante*2){toast("Not enough to raise","neg");return}
+    setBal(ST.bal-ante*2);
+    var pEval=eval5(player),dEval=eval5(dealer);
+    var wager=ante*3;
+    var dQual=dEval.cat>=1||dEval.tb[0]>=14||(dEval.tb[0]===13&&dEval.tb[1]>=14);
+    var pay=0,text="";
+    if(!dQual){pay=ante*4;text="Dealer doesn't qualify ("+dEval.name+"). Ante 1:1, Raise pushes. "}
+    else if(pEval.score>dEval.score){pay=ante*2+ante*4;text="You win! ("+pEval.name+" beats "+dEval.name+"). "}
+    else if(pEval.score===dEval.score){pay=ante*3;text="Push. "}
+    else{text="Dealer wins ("+dEval.name+" beats "+pEval.name+"). "}
+    setBal(ST.bal+pay);
+    var net=pay-wager;
+    document.getElementById("csDCards").innerHTML=dealer.map(function(c){return cardHTML(c,true)}).join("");
+    document.getElementById("csDVal").textContent=dEval.name;
+    document.getElementById("csResult").className="lp-result "+(net>0?"win":net<0?"lose":"");
+    document.getElementById("csResult").textContent=text+(net>0?"Won "+fmt(net)+" coins.":net===0?"Broke even.":"Lost "+fmt(-net)+" coins.");
+    st="idle";dealBtn.disabled=false;raiseBtn.disabled=true;foldBtn.disabled=true;
+  };
+})();
+
+/* ===================== RED DOG ===================== */
+(function(){
+  var deck=[],c1=null,c2=null,c3=null,bet=0,st="idle";
+  var dealBtn=document.getElementById("rdDeal"),dblBtn=document.getElementById("rdDouble");
+  var el1=document.getElementById("rdC1"),el2=document.getElementById("rdC2"),el3=document.getElementById("rdC3");
+  dealBtn.onclick=function(){
+    if(st!=="idle")return;
+    var b=stake("rdBet",5000);if(!b)return;
+    bet=b;deck=newDeck();
+    c1=deck.pop();c2=deck.pop();
+    setBal(ST.bal-bet);
+    el1.className="hl-card"+(c1.s===1||c1.s===2?" red":"")+" flip";
+    el1.innerHTML="<b>"+lbl(c1.v)+"</b><span>"+SUITS[c1.s]+"</span>";
+    el2.className="hl-card"+(c2.s===1||c2.s===2?" red":"")+" flip";
+    el2.innerHTML="<b>"+lbl(c2.v)+"</b><span>"+SUITS[c2.s]+"</span>";
+    el3.className="hl-card back";el3.innerHTML="";
+    var hi=Math.max(c1.v,c2.v),lo=Math.min(c1.v,c2.v),spread=hi-lo-1;
+    dealBtn.disabled=true;
+    if(c1.v===c2.v){
+      document.getElementById("rdResult").className="lp-result";
+      document.getElementById("rdResult").textContent="Pair of "+lbl(c1.v)+"s! Third card must match to pay 11:1.";
+      dblBtn.disabled=false;
+      st="resolution";
+    } else if(spread===0){
+      document.getElementById("rdResult").className="lp-result";
+      document.getElementById("rdResult").textContent="Consecutive — push. Double to double the push.";
+      dblBtn.disabled=false;
+      st="resolution";
+    } else {
+      document.getElementById("rdResult").className="lp-result";
+      document.getElementById("rdResult").textContent="Spread "+spread+" — dealing third card...";
+      setTimeout(function(){resolveThird(lo,hi,spread)},500);
+      st="resolution";
+    }
+  };
+  dblBtn.onclick=function(){
+    if(st!=="resolution"||!c1)return;
+    if(ST.bal<bet){toast("Not enough to double","neg");return}
+    setBal(ST.bal-bet);bet*=2;dblBtn.disabled=true;
+    resolveThird(Math.min(c1.v,c2.v),Math.max(c1.v,c2.v),Math.abs(c1.v-c2.v)-1);
+  };
+  function resolveThird(lo,hi,spread){
+    if(c3){/*already resolved*/}
+    c3=deck.pop();
+    el3.className="hl-card"+(c3.s===1||c3.s===2?" red":"")+" flip";
+    el3.innerHTML="<b>"+lbl(c3.v)+"</b><span>"+SUITS[c3.s]+"</span>";
+    setTimeout(function(){
+      var mult=0,text="";
+      if(lo===hi){
+        if(c3.v===lo){mult=12;text="Triple match! "}
+        else{mult=0;text="Third card didn't match. "}
+      } else if(spread===0){
+        text="Push. ";mult=1;
+      } else if(c3.v>lo&&c3.v<hi){
+        if(spread===1)mult=6;
+        else if(spread===2)mult=5;
+        else mult=2;
+        text="Inside spread! ";
+      } else{text="Third card outside spread. "}
+      var pay=bet*mult;
+      setBal(ST.bal+pay);
+      var net=pay-bet;
+      document.getElementById("rdResult").className="lp-result "+(net>0?"win":net<0?"lose":"");
+      document.getElementById("rdResult").textContent=text+(net>0?"Won "+fmt(net)+" coins!":net===0?"Push.":"Lost "+fmt(-net)+" coins.");
+      dealBtn.disabled=false;dblBtn.disabled=true;
+      st="idle";c3=null;
+    },400);
+  }
+})();
+
+/* ===================== LET IT RIDE ===================== */
+(function(){
+  var deck=[],player=[],dealer=[],perBet=0,betsActive=0,st="idle";
+  var dealBtn=document.getElementById("litDeal"),p1=document.getElementById("litPull1"),p2=document.getElementById("litPull2");
+  dealBtn.onclick=function(){
+    if(st!=="idle")return;
+    var b=stake("litBet",1666);if(!b)return;
+    if(ST.bal<b*3){toast("Need 3× bet in balance","neg");return}
+    perBet=b;betsActive=3;
+    setBal(ST.bal-b*3);
+    deck=newDeck();
+    player=[deck.pop(),deck.pop(),deck.pop()];
+    dealer=[deck.pop(),deck.pop()];
+    document.getElementById("litPCards").innerHTML=player.map(function(c){return cardHTML(c,true)}).join("");
+    document.getElementById("litDCards").innerHTML=cardHTML(dealer[0],true)+cardHTML(dealer[1],false);
+    document.getElementById("litDVal").textContent="1 of 2";
+    document.getElementById("litPVal").textContent=eval5(player.concat([dealer[0]])).name+" (partial)";
+    document.getElementById("litResult").className="lp-result";
+    document.getElementById("litResult").textContent="Pull back 1 or 2, or wait for dealer card.";
+    p1.disabled=false;p2.disabled=false;
+    dealBtn.disabled=true;
+    st="stage1";
+    setTimeout(function(){
+      if(st==="stage1")revealSecond(true);
+    },4000);
+  };
+  p1.onclick=function(){
+    if(st!=="stage1")return;
+    setBal(ST.bal+perBet);betsActive=2;
+    p1.disabled=true;p2.disabled=true;
+    document.getElementById("litResult").className="lp-result";
+    document.getElementById("litResult").textContent="Pulled back 1. Revealing dealer card...";
+    revealSecond(false);
+  };
+  p2.onclick=function(){
+    if(st!=="stage1")return;
+    setBal(ST.bal+perBet*2);betsActive=1;
+    p1.disabled=true;p2.disabled=true;
+    revealSecond(false);
+  };
+  function revealSecond(auto){
+    st="stage2";
+    document.getElementById("litDCards").innerHTML=cardHTML(dealer[0],true)+cardHTML(dealer[1],true);
+    document.getElementById("litDVal").textContent=eval5(dealer.concat([])).name;
+    var hand=eval5(player.concat(dealer));
+    document.getElementById("litPVal").textContent=hand.name;
+    if(auto){
+      settle();
+      return;
+    }
+    // Give option for pull back 2 if still 3 bets
+    if(betsActive===3){
+      document.getElementById("litResult").className="lp-result";
+      document.getElementById("litResult").textContent="Hand: "+hand.name+". Option: pull back one more or let it ride.";
+      p2.disabled=false;
+      setTimeout(function(){if(st==="stage2"&&betsActive===3)settle();},4000);
+    } else {
+      settle();
+    }
+  }
+  // Allow p2 click in stage2 to pull back one
+  var origP2=p2.onclick;
+  p2.onclick=function(){
+    if(st==="stage2"&&betsActive===3){
+      setBal(ST.bal+perBet);betsActive=2;
+      p2.disabled=true;
+      settle();
+      return;
+    }
+    if(st==="stage1"){origP2();}
+  };
+  function settle(){
+    if(st==="resolved")return;
+    st="resolved";
+    var hand=eval5(player.concat(dealer));
+    var mult=0;
+    if(hand.cat===8)mult=hand.tb[0]===14?1000:200;
+    else if(hand.cat===7)mult=50;
+    else if(hand.cat===6)mult=11;
+    else if(hand.cat===5)mult=8;
+    else if(hand.cat===4)mult=5;
+    else if(hand.cat===3)mult=3;
+    else if(hand.cat===2)mult=2;
+    else if(hand.cat===1&&hand.tb[0]>=10)mult=1;
+    var totalBet=perBet*betsActive;
+    var pay=totalBet+totalBet*mult;
+    setBal(ST.bal+pay);
+    var net=pay-totalBet;
+    document.getElementById("litResult").className="lp-result "+(net>0?"win":net<0?"lose":"");
+    document.getElementById("litResult").textContent="Hand: "+hand.name+". "+(net>0?"Won "+fmt(net)+" coins!":net===0?"No win (returned "+fmt(pay)+").":"Lost "+fmt(totalBet)+" coins.");
+    dealBtn.disabled=false;p1.disabled=true;p2.disabled=true;
+    setTimeout(function(){st="idle"},500);
+  }
+})();
+
+/* ===================== VIP BOUTIQUE ===================== */
+var VIPSHOP={
+  felt:[
+    ["obsidian","Obsidian & Gold",25000,15],
+    ["royal","Royal Velvet",40000,16],
+    ["jade","Imperial Jade",60000,18],
+    ["crimson","Crimson Velvet",80000,20],
+    ["dragon","Dragon Scale",110000,24],
+    ["nebula","Cosmic Nebula",150000,30]
+  ],
+  back:[
+    ["platinum","Platinum",20000,15],
+    ["crest","Royal Crest",35000,16],
+    ["midas","Midas Touch",75000,20],
+    ["blackdiamond","Black Diamond",100000,25],
+    ["goldbar","Gold Bar",140000,30],
+    ["sunburst","Sunburst",180000,35]
+  ],
+  dice:[
+    ["platinum","Platinum Dice",30000,15],
+    ["obsidian","Obsidian Dice",50000,20],
+    ["rubygold","Ruby & Gold",90000,26],
+    ["diamond","Diamond Dice",130000,32]
+  ],
+  avatar:[
+    ["🦚","Peacock",25000,15],
+    ["💠","Diamond",50000,18],
+    ["🪙","Coin King",80000,22],
+    ["🏆","Champion",120000,26],
+    ["👑","Crown Prince",180000,30],
+    ["🎩","High Roller",250000,36],
+    ["🐲","Dragon Lord",400000,42],
+    ["🦅","Emperor",600000,50]
+  ]
+};
+var curVipTab="felt";
+
+function paintVip(){
+  document.getElementById("gateMsg").textContent="WELCOME · LEVEL "+ST.lvl+" VIP ACCESS";
+  document.getElementById("vipMember").innerHTML=
+    '<span style="font-size:1.4rem">'+ST.sel.avatar+'</span>'+
+    '<b>Demo Player</b>'+
+    '<span>Level '+ST.lvl+' · VIP Member</span>'+
+    '<span>'+fmt(ST.bal)+' 🪙</span>';
+  paintShop();
+}
+
+function paintShop(){
+  document.querySelectorAll("#shopTabs .vip-tab").forEach(function(b){
+    b.classList.toggle("on",b.dataset.vt===curVipTab);
+  });
+  var grid=document.getElementById("shopGrid");
+  grid.innerHTML=VIPSHOP[curVipTab].map(function(it){
+    var owned=ST.own[curVipTab].indexOf(it[0])>=0;
+    var on=ST.sel[curVipTab]===it[0];
+    var locked=ST.lvl<it[3];
+    var btn=on?'<span class="vip-owned">Equipped</span>':
+      owned?'<button class="vip-buy" data-tab="'+curVipTab+'" data-id="'+it[0]+'">Equip</button>':
+      '<button class="vip-buy" data-tab="'+curVipTab+'" data-id="'+it[0]+'" data-cost="'+it[2]+'" data-lvl="'+it[3]+'"'+(locked?' disabled':'')+'>'+(locked?'🔒 Lv '+it[3]:fmt(it[2])+' 🪙')+'</button>';
+    return '<div class="vip-item"><div class="vip-item-name">'+(curVipTab==="avatar"?it[0]+" ":"")+it[1]+'</div>'+btn+'</div>';
+  }).join("");
+}
+
+document.getElementById("shopTabs").addEventListener("click",function(e){
+  var b=e.target.closest(".vip-tab");
+  if(!b)return;
+  curVipTab=b.dataset.vt;
+  paintShop();
+});
+
+document.getElementById("shopGrid").addEventListener("click",function(e){
+  var b=e.target.closest(".vip-buy");
+  if(!b)return;
+  var t=b.dataset.tab,id=b.dataset.id;
+  if(b.hasAttribute("data-cost")){
+    var cost=Number(b.dataset.cost),lvlReq=Number(b.dataset.lvl);
+    var name=(VIPSHOP[t].filter(function(q){return q[0]===id})[0]||["","Item"])[1];
+    if(ST.lvl<lvlReq){toast("Reach level "+lvlReq+" first","neg");return}
+    if(ST.bal<cost){toast("Not enough coins","neg");return}
+    if(!confirm("Buy "+name+" for "+fmt(cost)+" coins?"))return;
+    setBal(ST.bal-cost);
+    ST.own[t].push(id);
+    save();
+  }
+  ST.sel[t]=id;
+  save();
+  paintVip();
+  toast("Equipped!","win");
+});
+
+paintVip();
+go("vipHub");
+</script>
+</body>
+</html>
