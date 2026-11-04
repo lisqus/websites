@@ -3409,74 +3409,64 @@
           notes.forEach(function (n, i) {
             bell(n, (d0 || 0) + i * step, vol);
           });
-         }
-              function mel(notes, step, vol, d0) {
-          notes.forEach(function (n, i) {
-            bell(n, (d0 || 0) + i * step, vol);
+        }
+        // Warm, laid-back jazz lounge loop: swung piano chords, walking bass and a soft ride pulse.
+        var lobbyMusicOn = false, lobbyMusicTimer = null, lobbyMusicStep = 0;
+        var jazzChords = [
+          [261.63, 329.63, 392.00, 493.88], // Cmaj7
+          [220.00, 261.63, 329.63, 392.00], // Am7
+          [174.61, 207.65, 261.63, 349.23], // Fmaj7
+          [196.00, 246.94, 293.66, 349.23]  // G7
+        ];
+        var jazzBass = [
+          [65.41, 82.41, 98.00, 110.00],
+          [55.00, 69.30, 82.41, 98.00],
+          [43.65, 55.00, 65.41, 73.42],
+          [49.00, 61.74, 73.42, 87.31]
+        ];
+        var jazzMelody = [
+          523.25, 587.33, 659.25, 587.33, 493.88, 440.00, 392.00, 440.00,
+          523.25, 659.25, 587.33, 523.25, 493.88, 392.00, 440.00, 493.88
+        ];
+        function jazzPianoChord(chord, delay) {
+          chord.forEach(function (f, i) {
+            tone(f, 0.48, "triangle", 0.018, delay + i * 0.012, f * 0.997, 0.22);
           });
         }
-
-        // --- SAFE MP3 PLAYER (Runs completely in the background) ---
-        var lobbyAudio = null;
-        var playlist = [
-          "https://githubusercontent.com",
-          "https://githubusercontent.com",
-          "https://githubusercontent.com"
-        ];
-
-        function playRandomLobbyTrack() {
-          if (typeof muted !== "undefined" && muted) return;
-          var randomTrack = playlist[Math.floor(Math.random() * playlist.length)];
-          if (!lobbyAudio) { lobbyAudio = new Audio(); }
-          lobbyAudio.src = randomTrack;
-          lobbyAudio.onended = function() { playRandomLobbyTrack(); };
-          lobbyAudio.play().catch(function(e) { console.log("MP3 blocked: ", e); });
+        function jazzRide(delay) {
+          // Quiet filtered-noise tick for a brushed ride-cymbal feel.
+          noise(0.055, 0.012, delay, 8200, 6100, 0.7, 0.12);
         }
-
-        // --- ORIGINAL GAME TRACK TIMERS (Safely protected against missing variables) ---
         function lobbyMusicTick() {
-          if (typeof muted !== "undefined" && muted) return;
-          if (typeof AC !== "undefined" && AC.state !== "running") return;
+          if (muted || !lobbyMusicOn || !AC || AC.state !== "running") return;
           if (document.querySelector("#home.view.active")) {
             var beat = lobbyMusicStep % 16;
-            var bar = Math.floor(lobbyMusicStep / 16) % (typeof jazzChords !== "undefined" ? jazzChords.length : 1);
-            
-            // Safe guards to play synthesis only if arrays exist
-            if (typeof jazzChords !== "undefined" && (beat === 0 || beat === 8)) jazzPianoChord(jazzChords[bar], 0);
-            if (typeof jazzBass !== "undefined" && beat % 2 === 0) {
+            var bar = Math.floor(lobbyMusicStep / 16) % jazzChords.length;
+            var chord = jazzChords[bar];
+            if (beat === 0 || beat === 8) jazzPianoChord(chord, 0);
+            if (beat % 2 === 0) {
               var bassIndex = (beat / 2) % 4;
               tone(jazzBass[bar][bassIndex], 0.52, "triangle", 0.045, 0, null, 0.12);
             }
-            if (typeof jazzMelody !== "undefined" && beat % 2 === 0) {
+            if (beat % 2 === 0) {
               var note = jazzMelody[(lobbyMusicStep / 2 | 0) % jazzMelody.length];
               tone(note, 0.28, "sine", 0.018, 0.025, note * 0.995, 0.18);
             }
-            if (beat % 2 === 1 && typeof jazzRide !== "undefined") jazzRide(0);
+            if (beat % 2 === 1) jazzRide(0);
             lobbyMusicStep++;
           }
+          // Alternating short/long eighth notes create a gentle swing.
           lobbyMusicTimer = setTimeout(lobbyMusicTick, lobbyMusicStep % 2 ? 390 : 210);
         }
-
         function startLobbyMusic() {
-          // Plays your custom MP3s safely without checking the broken toggle variable
-          if (!lobbyAudio || lobbyAudio.paused) { playRandomLobbyTrack(); }
-          
-          if (typeof muted !== "undefined" && muted) return;
-          if (typeof lobbyMusicTimer !== "undefined" && lobbyMusicTimer) return;
-          
-          var a = typeof ac !== "undefined" ? ac() : null;
+          if (!lobbyMusicOn || muted || lobbyMusicTimer) return;
+          var a = ac();
           if (a) lobbyMusicTick();
         }
-
         function stopLobbyMusic() {
-          if (lobbyAudio) { lobbyAudio.pause(); }
-          if (typeof lobbyMusicTimer !== "undefined" && lobbyMusicTimer) {
-            clearTimeout(lobbyMusicTimer);
-          }
+          if (lobbyMusicTimer) clearTimeout(lobbyMusicTimer);
           lobbyMusicTimer = null;
         }
-
-
         function coin(d) {
           fm(2400 + Math.random() * 700, 1.41, 0.9, 0.3, 0.07, d, 0.35);
           noise(0.03, 0.03, d, 7000, null, 2);
