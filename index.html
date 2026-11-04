@@ -3419,13 +3419,13 @@
         // --- SAFE MP3 PLAYER (Runs completely in the background) ---
         var lobbyAudio = null;
         var playlist = [
-         "https://githubusercontent.com",
+          "https://githubusercontent.com",
           "https://githubusercontent.com",
           "https://githubusercontent.com"
         ];
 
         function playRandomLobbyTrack() {
-          if (muted) return;
+          if (typeof muted !== "undefined" && muted) return;
           var randomTrack = playlist[Math.floor(Math.random() * playlist.length)];
           if (!lobbyAudio) { lobbyAudio = new Audio(); }
           lobbyAudio.src = randomTrack;
@@ -3433,42 +3433,49 @@
           lobbyAudio.play().catch(function(e) { console.log("MP3 blocked: ", e); });
         }
 
-        // --- ORIGINAL GAME TRACK TIMERS (Restored so your casino functions don't crash) ---
+        // --- ORIGINAL GAME TRACK TIMERS (Safely protected against missing variables) ---
         function lobbyMusicTick() {
-          if (muted || !lobbyMusicOn || !AC || AC.state !== "running") return;
+          if (typeof muted !== "undefined" && muted) return;
+          if (typeof AC !== "undefined" && AC.state !== "running") return;
           if (document.querySelector("#home.view.active")) {
             var beat = lobbyMusicStep % 16;
-            var bar = Math.floor(lobbyMusicStep / 16) % jazzChords.length;
-            var chord = jazzChords[bar];
-            if (beat === 0 || beat === 8) jazzPianoChord(chord, 0);
-            if (beat % 2 === 0) {
+            var bar = Math.floor(lobbyMusicStep / 16) % (typeof jazzChords !== "undefined" ? jazzChords.length : 1);
+            
+            // Safe guards to play synthesis only if arrays exist
+            if (typeof jazzChords !== "undefined" && (beat === 0 || beat === 8)) jazzPianoChord(jazzChords[bar], 0);
+            if (typeof jazzBass !== "undefined" && beat % 2 === 0) {
               var bassIndex = (beat / 2) % 4;
               tone(jazzBass[bar][bassIndex], 0.52, "triangle", 0.045, 0, null, 0.12);
             }
-            if (beat % 2 === 0) {
+            if (typeof jazzMelody !== "undefined" && beat % 2 === 0) {
               var note = jazzMelody[(lobbyMusicStep / 2 | 0) % jazzMelody.length];
               tone(note, 0.28, "sine", 0.018, 0.025, note * 0.995, 0.18);
             }
-            if (beat % 2 === 1) jazzRide(0);
+            if (beat % 2 === 1 && typeof jazzRide !== "undefined") jazzRide(0);
             lobbyMusicStep++;
           }
           lobbyMusicTimer = setTimeout(lobbyMusicTick, lobbyMusicStep % 2 ? 390 : 210);
         }
 
         function startLobbyMusic() {
-          // Play your custom MP3s alongside the logic
+          // Plays your custom MP3s safely without checking the broken toggle variable
           if (!lobbyAudio || lobbyAudio.paused) { playRandomLobbyTrack(); }
           
-          if (!lobbyMusicOn || muted || lobbyMusicTimer) return;
-          var a = ac();
+          if (typeof muted !== "undefined" && muted) return;
+          if (typeof lobbyMusicTimer !== "undefined" && lobbyMusicTimer) return;
+          
+          var a = typeof ac !== "undefined" ? ac() : null;
           if (a) lobbyMusicTick();
         }
 
         function stopLobbyMusic() {
           if (lobbyAudio) { lobbyAudio.pause(); }
-          if (lobbyMusicTimer) clearTimeout(lobbyMusicTimer);
+          if (typeof lobbyMusicTimer !== "undefined" && lobbyMusicTimer) {
+            clearTimeout(lobbyMusicTimer);
+          }
           lobbyMusicTimer = null;
         }
+
 
         function coin(d) {
           fm(2400 + Math.random() * 700, 1.41, 0.9, 0.3, 0.07, d, 0.35);
