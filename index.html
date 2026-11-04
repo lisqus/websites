@@ -2197,7 +2197,8 @@
         ></span
         ><span id="freeChip" class="net" style="display:none;cursor:pointer"></span><span id="dxpChip" class="net" style="display:none;color:#ffd45a">⚡ Double XP Hour!</span>
         <span id="userChip" class="net"></span
-        ><button id="logoutBtn" class="small">Log out</button
+        ><button id="vipNavBtn" class="small" data-go="vip">♛ VIP Lounge</button>
+        <button id="logoutBtn" class="small">Log out</button
         ><button id="muteBtn" class="small" title="Sound on/off">🔊</button>
         <button id="resetBtn" class="small">Reset stats</button>
       </div>
@@ -2287,10 +2288,6 @@
             <span class="play">Play now →</span>
           </button>
                   <button class="game-card" data-go="vpoker"><span class="emoji">🃏</span><h3>Video Poker</h3><p>Jacks or Better, 9/6 full-pay table. Hold your best cards and draw. Royal flush pays 800x!</p><span class="play">Play now →</span></button>
-          <button class="game-card" data-go="war"><span class="emoji">⚔️</span><h3>Casino War</h3><p>High card wins. On a tie, go to war or surrender for half your bet back.</p><span class="play">Play now →</span></button>
-
-          <button class="game-card" data-go="sicbo"><span class="emoji">🎲</span><h3>Sic Bo</h3><p>Roll three dice. Call Big, Small or a triple.</p><span class="play">Play now →</span></button>
-          <button class="game-card" data-go="keno"><span class="emoji">🔢</span><h3>Keno</h3><p>Pick five numbers and watch the draw.</p><span class="play">Play now →</span></button>
           <button class="game-card" data-go="hilo"><span class="emoji">🂡</span><h3>High-Low</h3><p>Predict whether the next card is higher or lower.</p><span class="play">Play now →</span></button>
 
         </div>
@@ -2307,19 +2304,18 @@
           <div class="vip-crest">♛</div>
           <p class="lp-eyebrow">LUCKY PLAY · PRIVATE CLUB</p>
           <h2 class="title vip-title">The VIP Lounge</h2>
-          <p class="vip-hero-sub">Velvet-rope access. Members-only tables, a private boutique and stakes you won't find on the casino floor.</p>
+          <p class="vip-hero-sub">A quieter room for serious play. Exclusive tables, private draws and a members-only boutique.</p>
           <div id="vipGateMessage" class="lp-vip-gate"></div>
           <div id="vipMember" class="vip-member"></div>
         </div>
 
-        <h3 class="vip-section-title">🎲 Members-only tables</h3>
+        <h3 class="vip-section-title">🎲 The Private Tables</h3>
         <div class="vip-grid">
           <button class="vip-card" data-go="dragontiger"><span class="vip-tag">VIP</span><div class="vip-emoji">🐉</div><h3>Dragon Tiger</h3><p>One card each. Dragon or Tiger — the fastest table in the house.</p></button>
           <button class="vip-card" data-go="mines"><span class="vip-tag">VIP</span><div class="vip-emoji">💎</div><h3>Mines</h3><p>Reveal gems, dodge the mines, cash out before your luck runs out.</p></button>
-          <button class="vip-card" data-go="blackjack"><span class="vip-tag">SALON</span><div class="vip-emoji">♠</div><h3>Blackjack Salon</h3><p>Private table with the same 3:2 blackjack rules.</p></button>
-          <button class="vip-card" data-go="baccarat"><span class="vip-tag">SALON</span><div class="vip-emoji">♦</div><h3>Baccarat Salon</h3><p>Punto Banco behind the velvet rope.</p></button>
-          <button class="vip-card" data-go="roulette"><span class="vip-tag">SALON</span><div class="vip-emoji">◎</div><h3>Roulette Salon</h3><p>The wheel, reserved for members.</p></button>
-          <button class="vip-card" data-go="poker"><span class="vip-tag">SALON</span><div class="vip-emoji">♣</div><h3>Poker Salon</h3><p>No-limit Hold'em at the private table.</p></button>
+          <button class="vip-card" data-go="war"><span class="vip-tag">PRIVATE TABLE</span><div class="vip-emoji">⚔️</div><h3>Casino War</h3><p>Head-to-head card battle. Go to war on ties or protect half your stake.</p></button>
+          <button class="vip-card" data-go="sicbo"><span class="vip-tag">HIGH ROLLER</span><div class="vip-emoji">🎲</div><h3>Sic Bo</h3><p>Three-dice table with Big, Small and triple calls.</p></button>
+          <button class="vip-card" data-go="keno"><span class="vip-tag">PRIVATE DRAW</span><div class="vip-emoji">🔢</div><h3>Keno</h3><p>Choose your numbers and take a shot at the private draw.</p></button>
         </div>
 
         <div class="vip-boutique">
@@ -2351,7 +2347,10 @@
           ><button class="chip active" data-v="5">5</button
           ><button class="chip" data-v="10">10</button
           ><button class="chip" data-v="25">25</button
-          ><button class="chip" data-v="100">100</button>
+          ><button class="chip" data-v="100">100</button
+          ><button class="chip" data-v="1000">1K</button
+          ><button class="chip" data-v="100000">100K</button
+          ><button class="chip" data-v="1000000">1M</button>
         </div>
         <div id="board" class="board"></div>
         <div class="controls">
@@ -2408,7 +2407,7 @@
                 id="slotBet"
                 class="bet-input"
                 type="number"
-                min="1"
+                min="10"
                 step="1"
                 value="10"
                 inputmode="numeric"
@@ -2860,13 +2859,13 @@
           </div>
           <div class="lp-stake">
             <span class="lp-stake-label">Stake</span>
-            <input id="hlBet" class="bet-input" type="number" min="1" max="5000" value="25" inputmode="numeric" />
+            <input id="hlBet" class="bet-input" type="number" min="1" max="9007199254740991" value="25" inputmode="numeric" />
           </div>
           <div class="lp-actions">
             <button class="primary lp-deal" id="hlDeal">DEAL</button>
             <button class="secondary lp-deal" id="hlCash" disabled>CASH OUT</button>
           </div>
-          <p class="lp-foot">A correct call returns 1.9× the stake each time. A tie changes nothing. Ace is high — you can't call higher on an Ace.</p>
+          <p class="lp-foot">Payouts are 8% below fair odds on every correct call. A tie or wrong call loses the full stake. Ace is high.</p>
         </div>
       </section>
 
@@ -3412,7 +3411,7 @@
           });
         }
         // Warm, laid-back jazz lounge loop: swung piano chords, walking bass and a soft ride pulse.
-        var lobbyMusicOn = true, lobbyMusicTimer = null, lobbyMusicStep = 0;
+        var lobbyMusicOn = false, lobbyMusicTimer = null, lobbyMusicStep = 0;
         var jazzChords = [
           [261.63, 329.63, 392.00, 493.88], // Cmaj7
           [220.00, 261.63, 329.63, 392.00], // Am7
@@ -4653,8 +4652,8 @@
             var cur = readBet() || 1,
               q = b.getAttribute("data-q"),
               v = cur;
-            if (q === "min") v = 1;
-            if (q === "half") v = Math.max(1, Math.floor(cur / 2));
+            if (q === "min") v = 10;
+            if (q === "half") v = Math.max(10, Math.floor(cur / 2));
             if (q === "double")
               v = Math.max(1, Math.min(cur * 2, state.balance, MACH.max));
             if (q === "max") v = Math.max(1, Math.min(state.balance, MACH.max));
@@ -4822,8 +4821,8 @@
         function startSpin(auto) {
           if (busy && auto !== true) return;
           var bet = FS.left > 0 ? FS.bet : readBet();
-          if (bet < 1) {
-            setMsg(slotMsg, "Enter a valid bet.", "lose");
+          if (bet < 10) {
+            setMsg(slotMsg, "Minimum slot bet is 10 coins.", "lose");
             return;
           }
           if (bet > MACH.max) {
@@ -10078,17 +10077,17 @@
           }
           function paintBack(el) { el.className = "hl-card back"; el.innerHTML = ""; }
           function stakeOf(sel, cap) {
-            var el = $(sel), n = Math.floor(Number(el.value)), top = Math.min(cap || 5000, 5000);
+            var el = $(sel), n = Math.floor(Number(el.value)), top = Math.min(cap || 5000, Number.MAX_SAFE_INTEGER);
             if (!Number.isFinite(n) || n < 1) { toastMsg("Enter a stake of at least 1 coin.", "neg"); return 0; }
             if (n > top) { toastMsg("Maximum stake is " + fmt(top) + " coins.", "neg"); return 0; }
             if (n > state.balance) { toastMsg("Not enough coins for that stake.", "neg"); return 0; }
             return n;
           }
-          function bindChips(wrap, input) {
+          function bindChips(wrap, input, maxCap) {
             $$(wrap + " .lp-chip").forEach(function (b) {
               b.addEventListener("click", function () {
                 var v = b.getAttribute("data-v");
-                $(input).value = v === "max" ? Math.max(1, Math.min(5000, state.balance)) : v;
+                $(input).value = v === "max" ? Math.max(1, Math.min(maxCap || 5000, state.balance)) : v;
                 SFX.click();
               });
             });
@@ -10315,10 +10314,10 @@
               checkGameOver();
             }
             paintMult(false);
-            bindChips("#hlChips", "#hlBet");
+            bindChips("#hlChips", "#hlBet", Number.MAX_SAFE_INTEGER);
             $("#hlDeal").addEventListener("click", function () {
               if (HL.active || HL.busy) return;
-              var bet = stakeOf("#hlBet", 5000);
+              var bet = stakeOf("#hlBet", Number.MAX_SAFE_INTEGER);
               if (!bet) return;
               HL.active = true;
               HL.busy = false;
@@ -10348,20 +10347,22 @@
                 var tie = next.v === HL.card.v,
                   win = !tie && (dir === "higher" ? next.v > HL.card.v : next.v < HL.card.v);
                 if (tie) {
-                  setRes("Tie — the multiplier is unchanged. Call again.", "");
-                  SFX.click();
-                  HL.busy = false;
-                  enable();
-                  setTimeout(function () { if (!HL.busy && HL.active) paintBack(nextEl); }, 900);
+                  paintCard(cardEl, next, true);
+                  paintCard(nextEl, next, false);
+                  SFX.lose();
+                  finishRound(0, "Tie — the house wins. Your full " + fmt(HL.bet) + "-coin stake is lost.", "lose");
+                  setTimeout(function () { if (!HL.active) paintBack(nextEl); }, 1200);
                   return;
                 }
                 if (win) {
-                  HL.mult *= 1.9;
+                  var favorable = dir === "higher" ? (14 - HL.card.v) : (HL.card.v - 2);
+                  var fairMultiplier = 13 / favorable;
+                  HL.mult *= fairMultiplier * 0.92;
                   HL.card = next;
                   paintCard(cardEl, HL.card, true);
                   paintBack(nextEl);
                   paintMult(true);
-                  setRes("Correct! Multiplier is now " + HL.mult.toFixed(2) + "× — cash out or push your luck.", "win");
+                  setRes("Correct — payout is 8% below fair odds. Multiplier is now " + HL.mult.toFixed(2) + "×.", "win");
                   SFX.win(1);
                   HL.busy = false;
                   enable();
@@ -10403,7 +10404,7 @@
           }
           function paintBack(el) { el.className = "hl-card back"; el.innerHTML = ""; }
           function stakeOf(sel, cap) {
-            var el = $(sel), n = Math.floor(Number(el.value)), top = Math.min(cap || 5000, 5000);
+            var el = $(sel), n = Math.floor(Number(el.value)), top = Math.min(cap == null ? state.balance : cap, state.balance);
             if (!Number.isFinite(n) || n < 1) { toastMsg("Enter a stake of at least 1 coin.", "neg"); return 0; }
             if (n > top) { toastMsg("Maximum stake is " + fmt(top) + " coins.", "neg"); return 0; }
             if (n > state.balance) { toastMsg("Not enough coins for that stake.", "neg"); return 0; }
@@ -10413,7 +10414,7 @@
             $$(wrap + " .lp-chip").forEach(function (b) {
               b.addEventListener("click", function () {
                 var v = b.getAttribute("data-v");
-                $(input).value = v === "max" ? Math.max(1, Math.min(5000, state.balance)) : v;
+                $(input).value = v === "max" ? Math.max(1, state.balance) : v;
                 SFX.click();
               });
             });
@@ -10461,7 +10462,7 @@
             }
             $("#dtDeal").addEventListener("click", function () {
               if (DT.busy) return;
-              var bet = stakeOf("#dtBet", 5000);
+              var bet = stakeOf("#dtBet", state.balance);
               if (!bet) return;
               DT.busy = true;
               $("#dtDeal").disabled = true;
@@ -10519,7 +10520,7 @@
             paint();
             $("#mnStart").addEventListener("click", function () {
               if (MN.active) return;
-              var bet = stakeOf("#mnBet", 5000);
+              var bet = stakeOf("#mnBet", state.balance);
               if (!bet) return;
               setBalance(state.balance - bet);
               MN.active = true;
@@ -10666,6 +10667,69 @@
       });
     })();
     </script>
+
+
+
+  <audio id="lobbyMusic" preload="auto"></audio>
+  <script id="lp-embedded-music">
+  (function () {
+    "use strict";
+    var player = document.getElementById("lobbyMusic");
+    if (!player) return;
+    var tracks = [
+      "music/lobby-track-1.mp3",
+      "music/lobby-track-2.mp3",
+      "music/lobby-track-3.mp3"
+    ];
+    var index = 0, unlocked = false, muted = false;
+    player.volume = 0.32;
+    player.src = tracks[index];
+    function viewAllowsMusic() {
+      return !!document.querySelector("#home.view.active, #vip.view.active");
+    }
+    function readMute() {
+      try { return localStorage.getItem("luckyplay-mute") === "1"; }
+      catch (e) { return false; }
+    }
+    function sync() {
+      muted = readMute();
+      player.muted = muted;
+      if (unlocked && viewAllowsMusic() && !muted) {
+        var p = player.play();
+        if (p && p.catch) p.catch(function () {});
+      } else {
+        player.pause();
+      }
+    }
+    function unlockFromGesture() {
+      if (!viewAllowsMusic()) return;
+      unlocked = true;
+      sync();
+    }
+    player.addEventListener("ended", function () {
+      index = (index + 1) % tracks.length;
+      player.src = tracks[index];
+      if (unlocked && viewAllowsMusic() && !readMute()) {
+        var p = player.play();
+        if (p && p.catch) p.catch(function () {});
+      }
+    });
+    document.addEventListener("pointerdown", unlockFromGesture, true);
+    document.addEventListener("keydown", unlockFromGesture, true);
+    var muteButton = document.getElementById("muteBtn");
+    if (muteButton) muteButton.addEventListener("click", function () { setTimeout(sync, 0); });
+    var observer = new MutationObserver(sync);
+    document.querySelectorAll(".view").forEach(function (view) {
+      observer.observe(view, { attributes: true, attributeFilter: ["class"] });
+    });
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) player.pause();
+      else sync();
+    });
+    window.addEventListener("pagehide", function () { player.pause(); });
+    sync();
+  })();
+  </script>
 
 </body>
 </html>
