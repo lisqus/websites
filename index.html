@@ -3409,8 +3409,8 @@
           notes.forEach(function (n, i) {
             bell(n, (d0 || 0) + i * step, vol);
           });
-        }
-             var lobbyAudio = null;
+         }
+        var lobbyAudio = null;
         var playlist = [
           "music/lobby-track-1.mp3",
           "music/lobby-track-2.mp3",
@@ -3420,7 +3420,6 @@
         function playRandomLobbyTrack() {
           if (!lobbyMusicOn || muted) return;
 
-          // Pick a random track from the playlist
           var randomTrack = playlist[Math.floor(Math.random() * playlist.length)];
           
           if (!lobbyAudio) {
@@ -3429,7 +3428,6 @@
           
           lobbyAudio.src = randomTrack;
           
-          // When this song ends, automatically trigger the next random song
           lobbyAudio.onended = function() {
             playRandomLobbyTrack();
           };
@@ -3442,7 +3440,6 @@
         function startLobbyMusic() {
           if (!lobbyMusicOn || muted) return;
           
-          // Only start a track if nothing is playing yet
           if (!lobbyAudio || lobbyAudio.paused) {
             playRandomLobbyTrack();
           }
@@ -3454,10 +3451,8 @@
           }
         }
 
-        // Leave this empty since we are streaming real MP3s now
         function lobbyMusicTick() {}
 
-        }
         function coin(d) {
           fm(2400 + Math.random() * 700, 1.41, 0.9, 0.3, 0.07, d, 0.35);
           noise(0.03, 0.03, d, 7000, null, 2);
