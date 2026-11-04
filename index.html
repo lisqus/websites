@@ -3410,6 +3410,13 @@
             bell(n, (d0 || 0) + i * step, vol);
           });
          }
+              function mel(notes, step, vol, d0) {
+          notes.forEach(function (n, i) {
+            bell(n, (d0 || 0) + i * step, vol);
+          });
+        }
+
+        // --- SAFE MP3 PLAYER (Runs completely in the background) ---
         var lobbyAudio = null;
         var playlist = [
           "music/lobby-track-1.mp3",
@@ -3418,40 +3425,50 @@
         ];
 
         function playRandomLobbyTrack() {
-          if (!lobbyMusicOn || muted) return;
-
+          if (muted) return;
           var randomTrack = playlist[Math.floor(Math.random() * playlist.length)];
-          
-          if (!lobbyAudio) {
-            lobbyAudio = new Audio();
-          }
-          
+          if (!lobbyAudio) { lobbyAudio = new Audio(); }
           lobbyAudio.src = randomTrack;
-          
-          lobbyAudio.onended = function() {
-            playRandomLobbyTrack();
-          };
+          lobbyAudio.onended = function() { playRandomLobbyTrack(); };
+          lobbyAudio.play().catch(function(e) { console.log("MP3 blocked: ", e); });
+        }
 
-          lobbyAudio.play().catch(function(e) {
-            console.log("Audio playback blocked by browser until user interacts:", e);
-          });
+        // --- ORIGINAL GAME TRACK TIMERS (Restored so your casino functions don't crash) ---
+        function lobbyMusicTick() {
+          if (muted || !lobbyMusicOn || !AC || AC.state !== "running") return;
+          if (document.querySelector("#home.view.active")) {
+            var beat = lobbyMusicStep % 16;
+            var bar = Math.floor(lobbyMusicStep / 16) % jazzChords.length;
+            var chord = jazzChords[bar];
+            if (beat === 0 || beat === 8) jazzPianoChord(chord, 0);
+            if (beat % 2 === 0) {
+              var bassIndex = (beat / 2) % 4;
+              tone(jazzBass[bar][bassIndex], 0.52, "triangle", 0.045, 0, null, 0.12);
+            }
+            if (beat % 2 === 0) {
+              var note = jazzMelody[(lobbyMusicStep / 2 | 0) % jazzMelody.length];
+              tone(note, 0.28, "sine", 0.018, 0.025, note * 0.995, 0.18);
+            }
+            if (beat % 2 === 1) jazzRide(0);
+            lobbyMusicStep++;
+          }
+          lobbyMusicTimer = setTimeout(lobbyMusicTick, lobbyMusicStep % 2 ? 390 : 210);
         }
 
         function startLobbyMusic() {
-          if (!lobbyMusicOn || muted) return;
+          // Play your custom MP3s alongside the logic
+          if (!lobbyAudio || lobbyAudio.paused) { playRandomLobbyTrack(); }
           
-          if (!lobbyAudio || lobbyAudio.paused) {
-            playRandomLobbyTrack();
-          }
+          if (!lobbyMusicOn || muted || lobbyMusicTimer) return;
+          var a = ac();
+          if (a) lobbyMusicTick();
         }
 
         function stopLobbyMusic() {
-          if (lobbyAudio) {
-            lobbyAudio.pause();
-          }
+          if (lobbyAudio) { lobbyAudio.pause(); }
+          if (lobbyMusicTimer) clearTimeout(lobbyMusicTimer);
+          lobbyMusicTimer = null;
         }
-
-        function lobbyMusicTick() {}
 
         function coin(d) {
           fm(2400 + Math.random() * 700, 1.41, 0.9, 0.3, 0.07, d, 0.35);
