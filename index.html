@@ -10670,63 +10670,142 @@
 
 
 
-  <audio id="lobbyMusic" preload="auto"></audio>
+  <audio id="lobbyMusic" preload="none" playsinline></audio>
   <script id="lp-embedded-music">
   (function () {
     "use strict";
+
     var player = document.getElementById("lobbyMusic");
     if (!player) return;
+
+    /*
+      The MP3 files shown in the GitHub repository are in the SAME folder
+      as index.html. "./" is important: "music/..." would only work if
+      there were a music folder in the repository.
+      URL() also keeps this working on GitHub Pages project URLs such as
+      https://username.github.io/repository-name/.
+    */
     var tracks = [
-      "music/lobby-track-1.mp3",
-      "music/lobby-track-2.mp3",
-      "music/lobby-track-3.mp3"
+      new URL("./lobby-track-1.mp3", document.baseURI).href,
+      new URL("./lobby-track-2.mp3", document.baseURI).href,
+      new URL("./lobby-track-3.mp3", document.baseURI).href
     ];
-    var index = 0, unlocked = false, muted = false;
+
+    var index = 0;
+    var unlocked = false;
+    var lastErrorTrack = "";
+
     player.volume = 0.32;
-    player.src = tracks[index];
+    player.preload = "none";
+
     function viewAllowsMusic() {
       return !!document.querySelector("#home.view.active, #vip.view.active");
     }
+
     function readMute() {
-      try { return localStorage.getItem("luckyplay-mute") === "1"; }
-      catch (e) { return false; }
-    }
-    function sync() {
-      muted = readMute();
-      player.muted = muted;
-      if (unlocked && viewAllowsMusic() && !muted) {
-        var p = player.play();
-        if (p && p.catch) p.catch(function () {});
-      } else {
-        player.pause();
+      try {
+        return localStorage.getItem("luckyplay-mute") === "1";
+      } catch (e) {
+        return false;
       }
     }
+
+    function playCurrentTrack() {
+      if (!unlocked || !viewAllowsMusic() || readMute() || document.hidden) {
+        player.pause();
+        return;
+      }
+
+      player.muted = false;
+      if (!player.paused) return;
+
+      var playPromise = player.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(function (error) {
+          // Autoplay restrictions are normal until the visitor interacts.
+          if (error && error.name !== "NotAllowedError") {
+            console.warn("Lobby music could not start:", error);
+          }
+        });
+      }
+    }
+
+    function sync() {
+      player.muted = readMute();
+      if (player.muted || !viewAllowsMusic() || document.hidden) {
+        player.pause();
+        return;
+      }
+      playCurrentTrack();
+    }
+
     function unlockFromGesture() {
-      if (!viewAllowsMusic()) return;
+      // Unlock on any real user interaction. This also handles a visitor
+      // clicking the Home button while currently inside another game view.
       unlocked = true;
       sync();
     }
-    player.addEventListener("ended", function () {
-      index = (index + 1) % tracks.length;
+
+    function loadTrack(nextIndex, startAfterLoad) {
+      index = (nextIndex + tracks.length) % tracks.length;
+      player.pause();
       player.src = tracks[index];
-      if (unlocked && viewAllowsMusic() && !readMute()) {
-        var p = player.play();
-        if (p && p.catch) p.catch(function () {});
+      player.load();
+
+      if (startAfterLoad) {
+        // Called from the ended event, after the browser has already
+        // permitted audio playback for this visit.
+        playCurrentTrack();
+      }
+    }
+
+    player.addEventListener("ended", function () {
+      loadTrack(index + 1, true);
+    });
+
+    player.addEventListener("error", function () {
+      var failedUrl = player.currentSrc || tracks[index];
+      if (lastErrorTrack !== failedUrl) {
+        lastErrorTrack = failedUrl;
+        console.error(
+          "Lobby music file could not be loaded:",
+          failedUrl,
+          "Check that the MP3 filename and capitalization exactly match the files in the GitHub repository."
+        );
       }
     });
+
     document.addEventListener("pointerdown", unlockFromGesture, true);
     document.addEventListener("keydown", unlockFromGesture, true);
+
     var muteButton = document.getElementById("muteBtn");
-    if (muteButton) muteButton.addEventListener("click", function () { setTimeout(sync, 0); });
+    if (muteButton) {
+      muteButton.addEventListener("click", function () {
+        // The main sound handler updates localStorage first; read it after.
+        window.setTimeout(sync, 0);
+      });
+    }
+
+    // Start/stop the music when the app switches between Home, VIP and games.
     var observer = new MutationObserver(sync);
     document.querySelectorAll(".view").forEach(function (view) {
-      observer.observe(view, { attributes: true, attributeFilter: ["class"] });
+      observer.observe(view, {
+        attributes: true,
+        attributeFilter: ["class"]
+      });
     });
+
     document.addEventListener("visibilitychange", function () {
       if (document.hidden) player.pause();
       else sync();
     });
-    window.addEventListener("pagehide", function () { player.pause(); });
+
+    window.addEventListener("pagehide", function () {
+      player.pause();
+    });
+
+    // Set the first track now; actual playback waits for a user gesture.
+    loadTrack(0, false);
     sync();
   })();
   </script>
