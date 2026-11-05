@@ -2215,7 +2215,144 @@
         .sb-dice .die{width:54px;height:54px;padding:7px}
         .sb-total{font-size:1.5rem}
       }
-    </style>
+    
+      /* ===== VIP LOUNGE: EDITORIAL PRIVATE-CLUB REDESIGN ===== */
+      #vip.vip-experience{padding-bottom:46px}
+      #vip .vip-hero-new{max-width:1120px;min-height:355px;margin:8px auto 22px;padding:42px 5.2%;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;text-align:left;border:1px solid rgba(218,183,111,.28);border-radius:26px;background:radial-gradient(ellipse at 78% 42%,rgba(111,91,51,.23),transparent 36%),linear-gradient(115deg,#111a17 0%,#101512 48%,#17170f 100%);box-shadow:0 24px 65px rgba(0,0,0,.34);isolation:isolate}
+      #vip .vip-hero-new:before{background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.035) 48%,transparent 70%);background-size:220% 100%;animation:vipShine 12s linear infinite}
+      #vip .vip-hero-copy{position:relative;z-index:2}
+      #vip .vip-kicker{margin:0 0 13px;color:#bca66e;font-size:.66rem;letter-spacing:.23em;font-weight:900}
+      #vip .vip-kicker span{display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:50%;background:#e5c77e;box-shadow:0 0 12px #d5b56b}
+      #vip .vip-title{margin:0 0 12px;font:500 clamp(2.55rem,5.5vw,4.7rem)/.98 Georgia,serif;letter-spacing:-.045em;background:none;color:#f4f0e6;-webkit-text-fill-color:initial}
+      #vip .vip-title em{font-weight:400;color:#d7bd7c}
+      #vip .vip-hero-sub{max-width:430px;margin:0;color:#a9afa7;font-size:.9rem;line-height:1.8}
+      #vip .lp-vip-gate{margin-top:17px;color:#d8c18a;font-size:.7rem;letter-spacing:.12em;font-weight:800}
+      #vip .vip-member{justify-content:flex-start;margin-top:12px;padding:8px 13px;border:1px solid rgba(215,189,124,.18);border-radius:12px;background:rgba(255,255,255,.035);color:#d5d0c1;font-size:.75rem}
+      #vip .vip-member b{color:#f2ead7}
+      #vip .vip-member .vip-av{font-size:1.25rem}
+      #vip .vip-hero-actions{display:flex;align-items:center;gap:15px;flex-wrap:wrap;margin-top:23px}
+      #vip .vip-primary-action{padding:12px 17px;border:0;border-radius:9px;background:#d6bd82;color:#171810;font-size:.76rem;font-weight:900;cursor:pointer;transition:transform .2s,background .2s}
+      #vip .vip-primary-action:hover{transform:translateY(-2px);background:#f0d99f}
+      #vip .vip-primary-action span{margin-left:14px;font-size:1rem}
+      #vip .vip-member-caption{color:#7d877d;font-size:.58rem;letter-spacing:.17em;font-weight:800}
+      #vip .vip-hero-art{position:relative;height:280px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+      #vip .vip-art-glow{position:absolute;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(208,177,111,.19),rgba(208,177,111,.035) 48%,transparent 72%);filter:blur(5px)}
+      #vip .vip-orbit{position:absolute;width:260px;height:260px;border:1px solid rgba(213,189,130,.16);border-radius:50%;transform:rotate(-24deg) scaleY(.42)}
+      #vip .orbit-two{width:310px;height:310px;transform:rotate(30deg) scaleY(.42);border-color:rgba(213,189,130,.1)}
+      #vip .vip-art-crown{position:absolute;top:18px;right:18%;color:rgba(225,201,145,.28);font-size:2rem}
+      #vip .vip-art-card{position:absolute;width:130px;height:184px;border:1px solid rgba(239,220,174,.5);border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 24px 45px rgba(0,0,0,.45)}
+      #vip .art-card-back{transform:translate(-44px,7px) rotate(-13deg);background:repeating-linear-gradient(45deg,#26352c 0 5px,#1b2921 5px 10px);color:#d7bd7c;outline:4px solid #17221b;outline-offset:-9px}
+      #vip .art-card-back span{font:italic 2.4rem Georgia,serif;border:1px solid rgba(215,189,124,.5);border-radius:50%;width:64px;height:64px;display:grid;place-items:center}
+      #vip .art-card-back i{margin-top:10px;font-style:normal}
+      #vip .art-card-front{transform:translate(48px,-2px) rotate(10deg);background:linear-gradient(145deg,#e7dcc0,#b9a77f);color:#243128}
+      #vip .art-card-front span{font-size:2.7rem;color:#9b7840}
+      #vip .art-card-front b{text-align:center;font:700 .78rem/1.45 Georgia,serif;letter-spacing:.13em;margin-top:12px}
+      #vip .art-card-front small{position:absolute;bottom:14px;font-size:.46rem;letter-spacing:.2em}
+      #vip .vip-art-caption{position:absolute;bottom:0;color:#8f896f;font-size:.52rem;letter-spacing:.32em}
+      #vip .vip-membership-strip{max-width:1120px;margin:0 auto 43px;padding:16px 20px;display:grid;grid-template-columns:1fr minmax(220px,1.4fr) auto;align-items:center;gap:22px;border:1px solid rgba(213,189,130,.16);border-radius:14px;background:linear-gradient(100deg,rgba(28,37,30,.8),rgba(18,23,19,.8))}
+      #vip .vip-strip-label{display:flex;align-items:center;gap:12px}
+      #vip .vip-strip-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:rgba(213,189,130,.1);color:#d7bd7c}
+      #vip .vip-strip-label b{display:block;color:#ded8c7;font-size:.65rem;letter-spacing:.13em}
+      #vip .vip-strip-label small{display:block;color:#879087;font-size:.67rem;margin-top:4px}
+      #vip .vip-strip-progress .vip-progress-track{height:5px;margin:0 0 8px;background:#090e0b;border:0}
+      #vip .vip-strip-progress .vip-progress-fill{background:linear-gradient(90deg,#927544,#e3cc91);box-shadow:0 0 10px rgba(227,204,145,.2)}
+      #vip .vip-progress-caption{font-size:.61rem;color:#8c9388}
+      #vip .vip-strip-seal{display:flex;align-items:center;gap:7px;color:#d7bd7c;font:1.5rem Georgia,serif}
+      #vip .vip-strip-seal span{font:800 .55rem Arial,sans-serif;letter-spacing:.2em}
+      #vip .vip-section-heading{max-width:1120px;margin:0 auto 18px;display:flex;justify-content:space-between;align-items:end;gap:16px}
+      #vip .vip-section-heading .vip-kicker{margin-bottom:7px}
+      #vip .vip-section-heading h3,#vip .vip-boutique-heading h3{margin:0;color:#eee9dc;font:500 clamp(1.65rem,3vw,2.25rem) Georgia,serif;letter-spacing:-.025em}
+      #vip .vip-heading-note{color:#727d72;font-size:.58rem;letter-spacing:.16em;font-weight:800;padding-bottom:5px}
+      #vip .vip-game-tools{max-width:1120px;margin:0 auto 14px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+      #vip .vip-search-wrap{display:flex;align-items:center;gap:8px;flex:0 1 270px;padding:0 12px;border:1px solid rgba(213,189,130,.17);border-radius:9px;background:#121915;color:#9a9d8f}
+      #vip .vip-search-wrap>span{font-size:1.25rem}
+      #vip .vip-game-search{width:100%;min-width:0;padding:10px 0;border:0;background:transparent;color:#e8e2d3;outline:0;font-size:.76rem}
+      #vip .vip-filter-group{display:flex;gap:5px;padding:4px;border-radius:10px;background:#111713;border:1px solid rgba(213,189,130,.12)}
+      #vip .vip-filter{padding:7px 13px;border:0;border-radius:7px;background:transparent;color:#92998e;font-size:.67rem;font-weight:800;cursor:pointer}
+      #vip .vip-filter.on{background:#d2b979;color:#1b1d16}
+      #vip .vip-game-grid-new{max-width:1120px;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+      #vip .vip-card{min-width:0;min-height:230px;padding:0;overflow:hidden;border:1px solid rgba(213,189,130,.15);border-radius:15px;background:#141b16;display:flex;flex-direction:column;text-align:left;isolation:isolate;transition:transform .25s,border-color .25s,box-shadow .25s}
+      #vip .vip-card:hover{transform:translateY(-5px);border-color:rgba(220,194,132,.58);box-shadow:0 20px 34px rgba(0,0,0,.28)}
+      #vip .vip-card-index{position:absolute;z-index:2;top:13px;left:14px;color:rgba(237,228,204,.58);font-size:.54rem;letter-spacing:.14em;font-weight:900}
+      #vip .vip-card .vip-tag{top:11px;right:11px;padding:5px 7px;border:1px solid rgba(228,205,151,.28);border-radius:5px;background:rgba(10,16,12,.46);color:#e2ce9c;font-size:.48rem;letter-spacing:.1em;backdrop-filter:blur(8px)}
+      #vip .vip-card-art{height:125px;width:100%;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+      #vip .vip-card-art:before{content:"";position:absolute;width:170px;height:170px;border:1px solid rgba(255,255,255,.12);border-radius:50%;box-shadow:0 0 0 18px rgba(255,255,255,.025),0 0 0 38px rgba(255,255,255,.018)}
+      #vip .vip-card-content{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding:15px 16px 16px;flex:1}
+      #vip .vip-card-eyebrow{color:#b5a77e;font-size:.53rem;letter-spacing:.16em;font-weight:900}
+      #vip .vip-card-content strong{color:#eee9dc;font:500 1.25rem Georgia,serif}
+      #vip .vip-card-content strong em{color:#cdb77e;font-style:italic}
+      #vip .vip-card-content small{color:#929a90;font-size:.7rem;line-height:1.5}
+      #vip .vip-card-cta{display:flex;justify-content:space-between;align-items:center;width:100%;margin-top:auto;padding-top:12px;color:#cbb77f;font-size:.65rem;font-weight:800}
+      #vip .vip-card-cta b{font-size:.95rem;font-weight:400;transition:transform .2s}
+      #vip .vip-card:hover .vip-card-cta b{transform:translate(3px,-2px)}
+      #vip .vip-game-featured{grid-column:span 2;min-height:330px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr}
+      #vip .vip-game-featured .vip-card-art{height:100%;min-height:330px;grid-column:2;grid-row:1}
+      #vip .vip-game-featured .vip-card-content{grid-column:1;grid-row:1;justify-content:center;padding:34px 25px}
+      #vip .vip-game-featured .vip-card-content strong{font-size:clamp(1.7rem,3vw,2.3rem)}
+      #vip .vip-game-featured .vip-card-content small{max-width:210px}
+      #vip .dragon-art{background:radial-gradient(ellipse at 50% 50%,rgba(203,160,81,.26),transparent 65%),linear-gradient(145deg,#28342b,#17221b)}
+      #vip .dragon-art i{font:italic 5rem Georgia,serif;color:#d8bd7b;transform:translate(-8px,-4px);text-shadow:0 12px 22px #111}
+      #vip .dragon-art b{font:4.5rem Georgia,serif;color:#b96d50;transform:translate(6px,12px);text-shadow:0 12px 22px #111}
+      #vip .dragon-art .art-line{position:absolute;width:1px;height:65%;background:linear-gradient(transparent,rgba(238,210,153,.7),transparent);transform:rotate(35deg)}
+      #vip .mines-art{background:radial-gradient(circle at 50% 50%,rgba(83,178,153,.28),transparent 62%),linear-gradient(145deg,#152e2a,#101d1c)}
+      #vip .mines-art i{font-size:3.4rem;color:#80d7c2;text-shadow:0 0 30px rgba(91,218,190,.55);transform:rotate(15deg)}
+      #vip .mines-art b{position:absolute;font-size:1.3rem;color:#d4f4e8;transform:translate(36px,-29px)}
+      #vip .war-art{background:radial-gradient(circle at 50% 50%,rgba(176,90,80,.25),transparent 65%),linear-gradient(145deg,#342020,#1d1718)}
+      #vip .war-art i{font:5rem Georgia,serif;color:#eadfcf;transform:rotate(-13deg) translateX(-10px)}
+      #vip .war-art b{font:4rem Georgia,serif;color:#b86b65;transform:rotate(12deg) translate(9px,9px)}
+      #vip .dice-art{background:radial-gradient(circle at 50% 50%,rgba(188,156,94,.26),transparent 65%),linear-gradient(145deg,#302a1d,#1d1c17)}
+      #vip .dice-art i,#vip .dice-art b,#vip .dice-art span{position:absolute;font-size:2.8rem;color:#e6d6ac;text-shadow:0 9px 18px #111}
+      #vip .dice-art i{transform:translate(-30px,-9px) rotate(-14deg)}
+      #vip .dice-art b{transform:translate(25px,12px) rotate(12deg);color:#c9b27b}
+      #vip .dice-art span{font-size:1.6rem;transform:translate(0,35px);color:#8d9e89}
+      #vip .keno-art{background:radial-gradient(circle at 50% 50%,rgba(112,127,173,.25),transparent 65%),linear-gradient(145deg,#20283b,#171d2a)}
+      #vip .keno-art i,#vip .keno-art b,#vip .keno-art span{position:absolute;display:grid;place-items:center;width:44px;height:44px;border:1px solid rgba(221,211,184,.5);border-radius:50%;background:rgba(20,27,40,.8);color:#e5d8b8;font:1rem Georgia,serif}
+      #vip .keno-art i{transform:translate(-38px,-4px)}
+      #vip .keno-art b{transform:translate(13px,-18px);background:#b79b62;color:#171a19}
+      #vip .keno-art span{transform:translate(42px,28px)}
+      #vip .vip-boutique-new{max-width:1120px;margin:42px auto 0;padding:25px 26px;border:1px solid rgba(213,189,130,.17);border-radius:16px;background:linear-gradient(125deg,#18211b,#111713 70%)}
+      #vip .vip-boutique-heading{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:20px}
+      #vip .vip-boutique-heading .vip-kicker{margin-bottom:7px}
+      #vip .vip-boutique-sub{text-align:left;max-width:540px;margin:8px 0 0;color:#939c90;font-size:.76rem}
+      #vip .vip-boutique-mark{width:52px;height:52px;display:grid;place-items:center;border:1px solid rgba(213,189,130,.25);border-radius:50%;color:#d8c18a;font:2rem Georgia,serif}
+      #vip .vip-shop-tabs{justify-content:flex-start;margin-bottom:14px}
+      #vip .vip-tab{padding:8px 13px;border-radius:7px;background:#1a241d;border:1px solid rgba(213,189,130,.15);color:#aeb3a6;font-size:.7rem}
+      #vip .vip-tab.on{background:#d2b979;color:#1b1d16;border-color:#d2b979}
+      #vip .vip-shop-grid{grid-template-columns:repeat(auto-fill,minmax(145px,1fr))}
+      #vip .vip-item{background:rgba(8,13,10,.35);border:1px solid rgba(213,189,130,.13)}
+      #vip .vip-empty{color:#9ca394}
+      #vip .lp-vip-note{color:#747f73;font-size:.67rem;line-height:1.6}
+      @media(max-width:760px){
+        #vip .vip-hero-new{grid-template-columns:1fr;padding:30px 24px 18px}
+        #vip .vip-hero-art{height:220px;grid-row:1}
+        #vip .vip-hero-copy{grid-row:2}
+        #vip .vip-game-grid-new{grid-template-columns:repeat(2,minmax(0,1fr))}
+        #vip .vip-game-featured{grid-column:span 2}
+        #vip .vip-membership-strip{grid-template-columns:1fr auto;gap:12px}
+        #vip .vip-strip-progress{grid-column:1/-1;grid-row:2}
+      }
+      @media(max-width:480px){
+        #vip .vip-hero-art{height:190px}
+        #vip .vip-game-tools{align-items:stretch;flex-direction:column}
+        #vip .vip-search-wrap{flex-basis:auto}
+        #vip .vip-filter-group{justify-content:space-between}
+        #vip .vip-filter{flex:1}
+        #vip .vip-game-grid-new{gap:8px}
+        #vip .vip-card{min-height:218px}
+        #vip .vip-card-art{height:100px}
+        #vip .vip-card-content{padding:12px}
+        #vip .vip-card-content strong{font-size:1.08rem}
+        #vip .vip-card-content small{font-size:.65rem}
+        #vip .vip-game-featured{min-height:275px}
+        #vip .vip-game-featured .vip-card-art{min-height:275px}
+        #vip .vip-game-featured .vip-card-content{padding:17px}
+        #vip .vip-game-featured .vip-card-content strong{font-size:1.5rem}
+        #vip .vip-heading-note{display:none}
+        #vip .vip-boutique-new{padding:19px 15px}
+      }
+      @media(prefers-reduced-motion:reduce){#vip .vip-card,#vip .vip-primary-action{transition:none}#vip .vip-hero-new:before{animation:none}}
+
+</style>
 
 <meta name="lucky-play-build" content="casino-vip-lounge-v3">
 </head>
@@ -2336,61 +2473,80 @@
       </section>
 
 
-      <section id="vip" class="view">
+      <section id="vip" class="view vip-experience">
         <button class="back" data-go="home">← Casino floor</button>
-        <div class="vip-hero">
-          <div class="vip-crest">♛</div>
-          <p class="lp-eyebrow">LUCKY PLAY · PRIVATE CLUB</p>
-          <h2 class="title vip-title">The VIP Lounge</h2>
-          <p class="vip-hero-sub">A quieter room for serious play. Exclusive tables, private draws and a members-only boutique.</p>
-          <div id="vipGateMessage" class="lp-vip-gate"></div>
-          <div id="vipMember" class="vip-member"></div>
-        </div>
 
-        <section class="vip-dashboard" aria-label="VIP member dashboard">
-          <div class="vip-progress-panel">
-            <div class="vip-progress-top">
-              <strong>♛ Your VIP progression</strong>
-              <span id="vipProgressText">Loading membership progress…</span>
+        <div class="vip-hero vip-hero-new">
+          <div class="vip-hero-copy">
+            <p class="vip-kicker"><span></span> LUCKY PLAY / PRIVATE MEMBERS CLUB</p>
+            <h2 class="vip-title">The <em>Inner Circle.</em></h2>
+            <p class="vip-hero-sub">A different side of Lucky Play. Private tables, considered details, and a space that feels distinctly yours.</p>
+            <div id="vipGateMessage" class="lp-vip-gate"></div>
+            <div id="vipMember" class="vip-member"></div>
+            <div class="vip-hero-actions">
+              <button class="vip-primary-action" type="button" data-vip-scroll="vipGameGrid">Explore the tables <span>↗</span></button>
+              <span class="vip-member-caption">YOUR CLUB. YOUR COLLECTION.</span>
             </div>
-            <div class="vip-progress-track"><div class="vip-progress-fill" id="vipProgressFill"></div></div>
-            <div class="vip-progress-caption"><span id="vipProgressCurrent">Current level</span><span id="vipProgressNext">Next level</span></div>
           </div>
-          <div class="vip-stat-grid" id="vipStatGrid"></div>
-          <div class="vip-lower-grid">
-            <section class="vip-panel">
-              <h3>🏅 Member milestones</h3>
-              <p class="vip-panel-sub">A showcase of your profile and collection progress.</p>
-              <div class="vip-achievements" id="vipAchievements"></div>
-            </section>
-            <section class="vip-panel">
-              <h3>💎 Your collection</h3>
-              <p class="vip-panel-sub">Your currently equipped VIP cosmetics.</p>
-              <div class="vip-collection-list" id="vipCollection"></div>
-            </section>
+          <div class="vip-hero-art" aria-hidden="true">
+            <div class="vip-orbit orbit-one"></div>
+            <div class="vip-orbit orbit-two"></div>
+            <div class="vip-art-glow"></div>
+            <div class="vip-art-crown">♛</div>
+            <div class="vip-art-card art-card-back"><span>LP</span><i>✦</i></div>
+            <div class="vip-art-card art-card-front"><span>♛</span><b>PRIVATE<br>MEMBER</b><small>LUCKY PLAY</small></div>
+            <div class="vip-art-caption">EST. LUCKY PLAY</div>
           </div>
-        </section>
+        </div>
 
-        <h3 class="vip-section-title">🎲 The Private Tables</h3>
+        <div class="vip-membership-strip">
+          <div class="vip-strip-label"><span class="vip-strip-icon">✦</span><span><b>MEMBERSHIP STATUS</b><small id="vipProgressCurrent">Your current standing</small></span></div>
+          <div class="vip-strip-progress"><div class="vip-progress-track"><div class="vip-progress-fill" id="vipProgressFill"></div></div><div class="vip-progress-caption"><span id="vipProgressText">Your progress</span><span id="vipProgressNext">Next level</span></div></div>
+          <div class="vip-strip-seal">♛ <span>VIP</span></div>
+        </div>
+
+        <div class="vip-section-heading">
+          <div><p class="vip-kicker">THE PRIVATE COLLECTION</p><h3>Choose your table.</h3></div>
+          <span class="vip-heading-note">FIVE ROOMS · ONE CLUB</span>
+        </div>
+
         <div class="vip-game-tools">
-          <input class="vip-game-search" id="vipGameSearch" type="search" placeholder="Search VIP games…" aria-label="Search VIP games">
-          <button class="vip-filter on" data-vip-filter="all">All games</button>
-          <button class="vip-filter" data-vip-filter="cards">Cards</button>
-          <button class="vip-filter" data-vip-filter="dice">Dice</button>
-          <button class="vip-filter" data-vip-filter="other">Other</button>
+          <label class="vip-search-wrap"><span>⌕</span><input class="vip-game-search" id="vipGameSearch" type="search" placeholder="Find a game…" aria-label="Search VIP games"></label>
+          <div class="vip-filter-group">
+            <button class="vip-filter on" data-vip-filter="all">All</button>
+            <button class="vip-filter" data-vip-filter="cards">Cards</button>
+            <button class="vip-filter" data-vip-filter="dice">Dice</button>
+            <button class="vip-filter" data-vip-filter="other">Other</button>
+          </div>
         </div>
-        <div class="vip-grid" id="vipGameGrid">
-          <button class="vip-card" data-vip-type="cards" data-go="dragontiger"><span class="vip-tag">VIP TABLE</span><div class="vip-emoji">🐉</div><h3>Dragon Tiger</h3><p>Two-card showdown in a clean, fast private-table layout.</p></button>
-          <button class="vip-card" data-vip-type="other" data-go="mines"><span class="vip-tag">VIP TABLE</span><div class="vip-emoji">💎</div><h3>Mines</h3><p>A 5×5 puzzle-style reveal game with a gem-themed interface.</p></button>
-          <button class="vip-card" data-vip-type="cards" data-go="war"><span class="vip-tag">PRIVATE TABLE</span><div class="vip-emoji">⚔️</div><h3>Casino War</h3><p>A head-to-head card comparison game.</p></button>
-          <button class="vip-card" data-vip-type="dice" data-go="sicbo"><span class="vip-tag">DICE ROOM</span><div class="vip-emoji">🎲</div><h3>Sic Bo</h3><p>A three-dice game with a dedicated private-table design.</p></button>
-          <button class="vip-card" data-vip-type="other" data-go="keno"><span class="vip-tag">PRIVATE DRAW</span><div class="vip-emoji">🔢</div><h3>Keno</h3><p>A number-selection game with a clean draw display.</p></button>
-        </div>
-        <p class="vip-empty" id="vipGameEmpty">No VIP games match your search.</p>
 
-        <div class="vip-boutique">
-          <h3 class="vip-section-title" style="margin-top:0">💎 The Boutique</h3>
-          <p class="vip-boutique-sub">Exclusive cosmetics reserved for members. None of these items appear in the casino floor shop.</p>
+        <div class="vip-grid vip-game-grid-new" id="vipGameGrid">
+          <button class="vip-card vip-game-featured" data-vip-type="cards" data-go="dragontiger">
+            <span class="vip-card-index">01 / FEATURED TABLE</span><span class="vip-tag">MEMBERS' FAVOURITE</span>
+            <span class="vip-card-art dragon-art" aria-hidden="true"><i>龍</i><b>虎</b><span class="art-line"></span></span>
+            <span class="vip-card-content"><span class="vip-card-eyebrow">THE CLASSIC SHOWDOWN</span><strong>Dragon <em>&amp;</em> Tiger</strong><small>Two sides. One reveal. A timeless head-to-head card game.</small><span class="vip-card-cta">Enter private table <b>↗</b></span></span>
+          </button>
+          <button class="vip-card vip-game-tile mines-tile" data-vip-type="other" data-go="mines">
+            <span class="vip-card-index">02 / THE VAULT</span><span class="vip-card-art mines-art" aria-hidden="true"><i>◆</i><b>✦</b></span>
+            <span class="vip-card-content"><span class="vip-card-eyebrow">PICK YOUR PATH</span><strong>The Vault</strong><small>A gem-filled grid of choices.</small><span class="vip-card-cta">Explore <b>↗</b></span></span>
+          </button>
+          <button class="vip-card vip-game-tile war-tile" data-vip-type="cards" data-go="war">
+            <span class="vip-card-index">03 / THE ARENA</span><span class="vip-card-art war-art" aria-hidden="true"><i>♠</i><b>♥</b></span>
+            <span class="vip-card-content"><span class="vip-card-eyebrow">HEAD TO HEAD</span><strong>Casino War</strong><small>A classic card face-off.</small><span class="vip-card-cta">Enter arena <b>↗</b></span></span>
+          </button>
+          <button class="vip-card vip-game-tile sicbo-tile" data-vip-type="dice" data-go="sicbo">
+            <span class="vip-card-index">04 / THE DICE ROOM</span><span class="vip-card-art dice-art" aria-hidden="true"><i>⚄</i><b>⚂</b><span>⚅</span></span>
+            <span class="vip-card-content"><span class="vip-card-eyebrow">THREE-DICE CLASSIC</span><strong>Sic Bo</strong><small>Three dice. A world of combinations.</small><span class="vip-card-cta">Visit dice room <b>↗</b></span></span>
+          </button>
+          <button class="vip-card vip-game-tile keno-tile" data-vip-type="other" data-go="keno">
+            <span class="vip-card-index">05 / THE DRAW</span><span class="vip-card-art keno-art" aria-hidden="true"><i>07</i><b>21</b><span>34</span></span>
+            <span class="vip-card-content"><span class="vip-card-eyebrow">NUMBER SELECTION</span><strong>Keno</strong><small>Make your picks and follow the draw.</small><span class="vip-card-cta">View the draw <b>↗</b></span></span>
+          </button>
+        </div>
+        <p class="vip-empty" id="vipGameEmpty">No tables match that search. Try another name or category.</p>
+
+        <div class="vip-boutique vip-boutique-new">
+          <div class="vip-boutique-heading"><div><p class="vip-kicker">PERSONAL DETAILS</p><h3>The Members' Boutique</h3><p class="vip-boutique-sub">Make the room your own. Browse the pieces you've unlocked and choose your signature look.</p></div><div class="vip-boutique-mark">✧</div></div>
           <div class="vip-shop-tabs" id="vipShopTabs">
             <button class="vip-tab on" data-vt="felt">Table felt</button>
             <button class="vip-tab" data-vt="back">Card backs</button>
@@ -2400,7 +2556,7 @@
           <div class="vip-shop-grid" id="vipShopGrid"></div>
           <p id="vipShopMsg" class="msg"></p>
         </div>
-        <p class="lp-vip-note" style="text-align:center;max-width:700px;margin:20px auto 0">VIP access is earned through normal play XP. Play coins have no cash value and cannot be exchanged for money or prizes.</p>
+        <p class="lp-vip-note" style="text-align:center;max-width:700px;margin:22px auto 0">VIP access is earned through normal play XP. Play coins have no cash value and cannot be exchanged for money or prizes.</p>
       </section>
 
       <section id="roulette" class="view">
@@ -8031,6 +8187,12 @@
         }
         var vipSearch = $("#vipGameSearch");
         if (vipSearch) vipSearch.addEventListener("input", filterVipGames);
+        $$("[data-vip-scroll]").forEach(function (button) {
+          button.addEventListener("click", function () {
+            var target = document.getElementById(button.getAttribute("data-vip-scroll"));
+            if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+          });
+        });
         $$("[data-vip-filter]").forEach(function (button) {
           button.addEventListener("click", function () {
             vipFilter = button.getAttribute("data-vip-filter");
