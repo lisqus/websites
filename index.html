@@ -2156,6 +2156,44 @@
       .vip-buy:disabled{filter:grayscale(.6) brightness(.7)}
       .vip-owned{color:#5ee28a;font-weight:800;font-size:.76rem}
 
+      /* ---------- VIP lounge dashboard upgrade ---------- */
+      .vip-dashboard{max-width:1000px;margin:22px auto 0;display:grid;gap:16px}
+      .vip-progress-panel{padding:20px 22px;border-radius:20px;background:linear-gradient(135deg,#1c211d,#101613 70%);border:1px solid rgba(217,174,75,.38);box-shadow:0 12px 32px rgba(0,0,0,.22)}
+      .vip-progress-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+      .vip-progress-top strong{color:#ffe6a0;font-size:1rem}
+      .vip-progress-top span{color:#bdb6a4;font-size:.8rem}
+      .vip-progress-track{height:10px;margin:13px 0 8px;border-radius:99px;background:#080d0a;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+      .vip-progress-fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#9c7226,#f7dc8e,#fff0b7);box-shadow:0 0 14px rgba(245,217,139,.35);transition:width .6s ease}
+      .vip-progress-caption{display:flex;justify-content:space-between;gap:10px;color:#a9a391;font-size:.72rem}
+      .vip-stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+      .vip-stat{padding:15px 12px;border-radius:16px;background:linear-gradient(150deg,#19231c,#0d130f);border:1px solid rgba(217,174,75,.24);min-width:0}
+      .vip-stat span{display:block;color:#aaa590;font-size:.7rem;text-transform:uppercase;letter-spacing:.09em}
+      .vip-stat b{display:block;color:#ffe8ac;font-size:1.25rem;margin-top:5px;overflow-wrap:anywhere}
+      .vip-lower-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px}
+      .vip-panel{padding:19px;border-radius:19px;background:linear-gradient(150deg,#18221b,#0b110d);border:1px solid rgba(217,174,75,.28);min-width:0}
+      .vip-panel h3{margin:0 0 5px;color:#f5d98b;font-size:.95rem}
+      .vip-panel-sub{margin:0 0 14px;color:#aaa590;font-size:.76rem;line-height:1.5}
+      .vip-achievements{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+      .vip-achievement{padding:11px;border-radius:13px;background:rgba(0,0,0,.2);border:1px solid rgba(217,174,75,.16);display:flex;gap:9px;align-items:center;min-width:0}
+      .vip-achievement.locked{opacity:.48;filter:saturate(.45)}
+      .vip-achievement-icon{font-size:1.45rem}
+      .vip-achievement b{display:block;color:#f1e4c5;font-size:.75rem}
+      .vip-achievement small{display:block;color:#a9a391;font-size:.66rem;line-height:1.35;margin-top:2px}
+      .vip-collection-list{display:grid;gap:9px}
+      .vip-collection-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:12px;background:rgba(0,0,0,.2);color:#c9c1ad;font-size:.77rem}
+      .vip-collection-row b{color:#ffe8ac}
+      .vip-game-tools{max-width:1000px;margin:0 auto 13px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+      .vip-game-search{flex:1 1 220px;min-width:0;padding:10px 13px;border-radius:12px;background:#101713;border:1px solid rgba(217,174,75,.3);color:#f7e8c5;outline:none}
+      .vip-game-search:focus{border-color:#f5d98b;box-shadow:0 0 0 3px rgba(217,174,75,.12)}
+      .vip-filter{padding:8px 12px;border-radius:999px;background:#142018;border:1px solid rgba(217,174,75,.25);color:#cfc5a9;font-size:.72rem;font-weight:800}
+      .vip-filter.on{background:linear-gradient(#f7dc8e,#c99a2e);color:#2b1d00;border-color:#fff0bd}
+      .vip-empty{display:none;text-align:center;color:#aaa590;padding:18px;font-size:.84rem}
+      .vip-card{min-height:190px;overflow:hidden}
+      .vip-card .vip-emoji{display:inline-flex;align-items:center;justify-content:center;width:54px;height:54px;border-radius:16px;background:radial-gradient(circle at 35% 25%,rgba(255,231,166,.18),rgba(217,174,75,.04));border:1px solid rgba(217,174,75,.22)}
+      .vip-card[hidden]{display:none!important}
+      @media(max-width:650px){.vip-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.vip-lower-grid{grid-template-columns:1fr}.vip-achievements{grid-template-columns:1fr 1fr}}
+      @media(max-width:380px){.vip-achievements{grid-template-columns:1fr}}
+
       /* ---------- VIP-exclusive cosmetics ---------- */
       body[data-felt="obsidian"] .felt{background:radial-gradient(ellipse at top,#2b2b2b,#050505 70%)}
       body[data-felt="obsidian"] .pkoval{background:radial-gradient(ellipse at 50% 35%,#3a3a3a,#0a0a0a 70%)}
@@ -2179,7 +2217,7 @@
       }
     </style>
 
-<meta name="lucky-play-build" content="casino-discovery-v2">
+<meta name="lucky-play-build" content="casino-vip-lounge-v3">
 </head>
   <body>
     <div id="errorBanner"></div>
@@ -2309,14 +2347,46 @@
           <div id="vipMember" class="vip-member"></div>
         </div>
 
+        <section class="vip-dashboard" aria-label="VIP member dashboard">
+          <div class="vip-progress-panel">
+            <div class="vip-progress-top">
+              <strong>♛ Your VIP progression</strong>
+              <span id="vipProgressText">Loading membership progress…</span>
+            </div>
+            <div class="vip-progress-track"><div class="vip-progress-fill" id="vipProgressFill"></div></div>
+            <div class="vip-progress-caption"><span id="vipProgressCurrent">Current level</span><span id="vipProgressNext">Next level</span></div>
+          </div>
+          <div class="vip-stat-grid" id="vipStatGrid"></div>
+          <div class="vip-lower-grid">
+            <section class="vip-panel">
+              <h3>🏅 Member milestones</h3>
+              <p class="vip-panel-sub">A showcase of your profile and collection progress.</p>
+              <div class="vip-achievements" id="vipAchievements"></div>
+            </section>
+            <section class="vip-panel">
+              <h3>💎 Your collection</h3>
+              <p class="vip-panel-sub">Your currently equipped VIP cosmetics.</p>
+              <div class="vip-collection-list" id="vipCollection"></div>
+            </section>
+          </div>
+        </section>
+
         <h3 class="vip-section-title">🎲 The Private Tables</h3>
-        <div class="vip-grid">
-          <button class="vip-card" data-go="dragontiger"><span class="vip-tag">VIP</span><div class="vip-emoji">🐉</div><h3>Dragon Tiger</h3><p>One card each. Dragon or Tiger — the fastest table in the house.</p></button>
-          <button class="vip-card" data-go="mines"><span class="vip-tag">VIP</span><div class="vip-emoji">💎</div><h3>Mines</h3><p>Reveal gems, dodge the mines, cash out before your luck runs out.</p></button>
-          <button class="vip-card" data-go="war"><span class="vip-tag">PRIVATE TABLE</span><div class="vip-emoji">⚔️</div><h3>Casino War</h3><p>Head-to-head card battle. Go to war on ties or protect half your stake.</p></button>
-          <button class="vip-card" data-go="sicbo"><span class="vip-tag">HIGH ROLLER</span><div class="vip-emoji">🎲</div><h3>Sic Bo</h3><p>Three-dice table with Big, Small and triple calls.</p></button>
-          <button class="vip-card" data-go="keno"><span class="vip-tag">PRIVATE DRAW</span><div class="vip-emoji">🔢</div><h3>Keno</h3><p>Choose your numbers and take a shot at the private draw.</p></button>
+        <div class="vip-game-tools">
+          <input class="vip-game-search" id="vipGameSearch" type="search" placeholder="Search VIP games…" aria-label="Search VIP games">
+          <button class="vip-filter on" data-vip-filter="all">All games</button>
+          <button class="vip-filter" data-vip-filter="cards">Cards</button>
+          <button class="vip-filter" data-vip-filter="dice">Dice</button>
+          <button class="vip-filter" data-vip-filter="other">Other</button>
         </div>
+        <div class="vip-grid" id="vipGameGrid">
+          <button class="vip-card" data-vip-type="cards" data-go="dragontiger"><span class="vip-tag">VIP TABLE</span><div class="vip-emoji">🐉</div><h3>Dragon Tiger</h3><p>Two-card showdown in a clean, fast private-table layout.</p></button>
+          <button class="vip-card" data-vip-type="other" data-go="mines"><span class="vip-tag">VIP TABLE</span><div class="vip-emoji">💎</div><h3>Mines</h3><p>A 5×5 puzzle-style reveal game with a gem-themed interface.</p></button>
+          <button class="vip-card" data-vip-type="cards" data-go="war"><span class="vip-tag">PRIVATE TABLE</span><div class="vip-emoji">⚔️</div><h3>Casino War</h3><p>A head-to-head card comparison game.</p></button>
+          <button class="vip-card" data-vip-type="dice" data-go="sicbo"><span class="vip-tag">DICE ROOM</span><div class="vip-emoji">🎲</div><h3>Sic Bo</h3><p>A three-dice game with a dedicated private-table design.</p></button>
+          <button class="vip-card" data-vip-type="other" data-go="keno"><span class="vip-tag">PRIVATE DRAW</span><div class="vip-emoji">🔢</div><h3>Keno</h3><p>A number-selection game with a clean draw display.</p></button>
+        </div>
+        <p class="vip-empty" id="vipGameEmpty">No VIP games match your search.</p>
 
         <div class="vip-boutique">
           <h3 class="vip-section-title" style="margin-top:0">💎 The Boutique</h3>
@@ -7859,6 +7929,65 @@
             "<b>" + esc(db.users[cur].name) + "</b>" +
             "<span>Level " + L + " · " + lvTitle(L) + "</span>" +
             "<span>" + fmt(state.balance) + " 🪙</span>";
+
+          // VIP dashboard uses existing XP, streak and owned-cosmetic data.
+          var xp = Math.max(0, Number(pr.xp) || 0);
+          var currentXP = lvXp(L);
+          var nextXP = lvXp(L + 1);
+          var spanXP = Math.max(1, nextXP - currentXP);
+          var progress = Math.max(0, Math.min(100, ((xp - currentXP) / spanXP) * 100));
+          var ownedCount = ["felt", "back", "dice", "avatar"].reduce(function (n, k) {
+            return n + ((pr.own[k] || []).length);
+          }, 0);
+          var streak = Math.max(0, Number(pr.streak) || 0);
+          var badgeCount = Object.keys(pr.badges || {}).filter(function (k) {
+            return !!pr.badges[k];
+          }).length;
+
+          var progressFill = $("#vipProgressFill");
+          if (progressFill) progressFill.style.width = progress.toFixed(1) + "%";
+          var progressText = $("#vipProgressText");
+          if (progressText) progressText.textContent = fmt(xp) + " XP total";
+          var progressCurrent = $("#vipProgressCurrent");
+          if (progressCurrent) progressCurrent.textContent = "Level " + L + " · " + fmt(Math.max(0, xp - currentXP)) + " XP earned";
+          var progressNext = $("#vipProgressNext");
+          if (progressNext) progressNext.textContent = "Level " + (L + 1) + " at " + fmt(nextXP) + " XP";
+
+          var statGrid = $("#vipStatGrid");
+          if (statGrid) statGrid.innerHTML =
+            '<div class="vip-stat"><span>Membership</span><b>Lv ' + L + '</b></div>' +
+            '<div class="vip-stat"><span>Play XP</span><b>' + fmt(xp) + '</b></div>' +
+            '<div class="vip-stat"><span>Cosmetics owned</span><b>' + ownedCount + '</b></div>' +
+            '<div class="vip-stat"><span>Login streak</span><b>' + streak + ' days</b></div>';
+
+          var achievements = [
+            ["🌟", "First steps", "Earn your first XP", xp > 0],
+            ["🎨", "Style collector", "Own 5 cosmetics", ownedCount >= 5],
+            ["🧳", "Full collection", "Own 10 cosmetics", ownedCount >= 10],
+            ["🔥", "Regular visitor", "Build a 7-day login streak", streak >= 7],
+            ["🏅", "Badge collector", "Unlock 3 profile badges", badgeCount >= 3],
+            ["👑", "VIP veteran", "Reach level 10", L >= 10]
+          ];
+          var achievementBox = $("#vipAchievements");
+          if (achievementBox) achievementBox.innerHTML = achievements.map(function (a) {
+            return '<div class="vip-achievement' + (a[3] ? '' : ' locked') + '">' +
+              '<span class="vip-achievement-icon">' + a[0] + '</span><span><b>' + a[1] +
+              '</b><small>' + a[2] + (a[3] ? ' · Unlocked' : ' · In progress') +
+              '</small></span></div>';
+          }).join("");
+
+          function selectedCosmetic(tab, label) {
+            var list = VIPSHOP[tab] || [];
+            var selected = list.filter(function (item) { return item[0] === pr.sel[tab]; })[0];
+            return selected ? selected[1] : label;
+          }
+          var collection = $("#vipCollection");
+          if (collection) collection.innerHTML =
+            '<div class="vip-collection-row"><span>🪑 Table felt</span><b>' + esc(selectedCosmetic("felt", "Classic")) + '</b></div>' +
+            '<div class="vip-collection-row"><span>🂠 Card back</span><b>' + esc(selectedCosmetic("back", "Classic")) + '</b></div>' +
+            '<div class="vip-collection-row"><span>🎲 Dice</span><b>' + esc(selectedCosmetic("dice", "Ivory")) + '</b></div>' +
+            '<div class="vip-collection-row"><span>🙂 Avatar</span><b>' + esc(selectedCosmetic("avatar", "Default")) + '</b></div>';
+
           $$("#vipShopTabs .vip-tab").forEach(function (b) {
             b.classList.toggle("on", b.getAttribute("data-vt") === vipTab);
           });
@@ -7883,6 +8012,36 @@
             SFX.click();
           });
         });
+
+        // Search and category filters for the private game gallery.
+        var vipFilter = "all";
+        function filterVipGames() {
+          var input = $("#vipGameSearch");
+          var query = input ? input.value.trim().toLowerCase() : "";
+          var shown = 0;
+          $$("#vipGameGrid .vip-card").forEach(function (card) {
+            var type = card.getAttribute("data-vip-type") || "other";
+            var matchesType = vipFilter === "all" || type === vipFilter;
+            var matchesText = !query || card.textContent.toLowerCase().indexOf(query) !== -1;
+            card.hidden = !(matchesType && matchesText);
+            if (!card.hidden) shown++;
+          });
+          var empty = $("#vipGameEmpty");
+          if (empty) empty.style.display = shown ? "none" : "block";
+        }
+        var vipSearch = $("#vipGameSearch");
+        if (vipSearch) vipSearch.addEventListener("input", filterVipGames);
+        $$("[data-vip-filter]").forEach(function (button) {
+          button.addEventListener("click", function () {
+            vipFilter = button.getAttribute("data-vip-filter");
+            $$("[data-vip-filter]").forEach(function (b) {
+              b.classList.toggle("on", b === button);
+            });
+            filterVipGames();
+            SFX.click();
+          });
+        });
+
         $("#vipShopGrid").addEventListener("click", function (e) {
           var b = e.target.closest(".vip-buy");
           if (!b || !cur) return;
