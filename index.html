@@ -332,6 +332,9 @@
       .chip[data-v="1"] {
         background: #868e96;
       }
+      .chip[data-v="5"] {
+        background: #e03131;
+      }
       .chip[data-v="10"] {
         background: #2f9e44;
       }
@@ -340,6 +343,24 @@
       }
       .chip[data-v="100"] {
         background: #343a40;
+      }
+      .chip[data-v="500"] {
+        background: #7048e8;
+      }
+      .chip[data-v="1000"] {
+        background: #e8590c;
+      }
+      .chip[data-v="5000"] {
+        background: #0b7285;
+      }
+      .chip[data-v="10000"] {
+        background: #1971c2;
+      }
+      .chip[data-v="50000"] {
+        background: #9c36b5;
+      }
+      .chip[data-v="500000"] {
+        background: #b8860b;
       }
       .chip.active {
         outline: 3px solid var(--gold);
@@ -2569,10 +2590,17 @@
         <div id="history" class="history"></div>
         <div class="chips">
           <span>Chip:</span>
-          <button class="chip" data-v="500000">500K</button
-          ><button class="chip" data-v="10000">10K</button
-          ><button class="chip" data-v="50000">50K</button
-          ><button class="chip active" data-v="500">500</button>
+          <button class="chip" data-v="1">1</button>
+          <button class="chip" data-v="5">5</button>
+          <button class="chip" data-v="10">10</button>
+          <button class="chip" data-v="25">25</button>
+          <button class="chip" data-v="100">100</button>
+          <button class="chip active" data-v="500">500</button>
+          <button class="chip" data-v="1000">1K</button>
+          <button class="chip" data-v="5000">5K</button>
+          <button class="chip" data-v="10000">10K</button>
+          <button class="chip" data-v="50000">50K</button>
+          <button class="chip" data-v="500000">500K</button>
         </div>
         <div id="board" class="board"></div>
         <div class="controls">
